@@ -48,9 +48,7 @@ board.on("ready", function() {
                 var stream = plotly.stream('3joif1t1q4', function (err, res) {
                     if (err) console.log(err);
                     console.log(res);
-                });
-                console.log('check2');
-                // this gets called each time there is a new sensor reading!!
+                    // this gets called each time there is a new sensor reading!!
                 board.analogRead(board.A0, function(val){
                 console.log(val);
                 console.log('Read');
@@ -63,6 +61,9 @@ board.on("ready", function() {
                 // write the data to the plotly stream
                 stream.write(JSON.stringify(data)+'\n');
                 },5000);   
+                });
+                console.log('check2');
+
                 
                 });
                 
