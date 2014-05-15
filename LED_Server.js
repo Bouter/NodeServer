@@ -49,7 +49,7 @@ board.on("ready", function() {
                     if (err) console.log(err);
                     console.log(res);
                     // this gets called each time there is a new sensor reading!!
-                board.analogRead(board.A0, function(val){
+                //board.analogRead(board.A0, function(val){
                 console.log(val);
                 console.log('Read');
                 setInterval(function(){
@@ -64,7 +64,7 @@ board.on("ready", function() {
                 stream1.write(streamObject+'\n');
                 i++;
                 },5000);   
-                });
+                //});
                 console.log('check2');
 
                 
