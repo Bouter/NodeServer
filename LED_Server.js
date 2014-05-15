@@ -43,8 +43,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                     if (err) console.log(err);
                     console.log(res);
                 });
-                // this gets called each time there is a new sensor reading
-                
+                // this gets called each time there is a new sensor reading!!
                 board.analogRead(board.A0, function(val){
                 console.log(val);
                 });
