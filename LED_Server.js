@@ -35,7 +35,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
 
 }
 });
-board.on("ready", function() {
+//board.on("ready", function() {
 
             console.log('Board Ready plotting');
             // initialize the plotly graph
@@ -73,7 +73,7 @@ board.on("ready", function() {
                 console.log('check2');
 
                 
-                });
+                //});
                 
    // });
 });
