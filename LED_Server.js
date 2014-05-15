@@ -30,7 +30,11 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             response.end();
         }).listen(8080);
         console.log('Listening on port 8080 ...');
-        board.on("ready", function() {
+        
+
+}
+});
+board.on("ready", function() {
 
             console.log('Board Ready plotting');
             // initialize the plotly graph
@@ -57,9 +61,6 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                 stream.write(JSON.stringify(data)+'\n');
                 },50000);
     });
-});
-
-}
 });
 function getDateString () {
 var time = new Date();
