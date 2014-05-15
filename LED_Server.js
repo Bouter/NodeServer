@@ -55,7 +55,7 @@ board.on("ready", function() {
                 setInterval(function(){
                     var data = {
                     x : getDateString(),
-                    y : this.value
+                    y : val
                      };
                 console.log(data);
                 // write the data to the plotly stream
