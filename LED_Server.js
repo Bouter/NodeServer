@@ -17,6 +17,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         //console.log('Firmware: ' + board.firmware.name + '-' + board.firmware.v$
 
         board.pinMode(ledPin, board.MODES.OUTPUT);
+        
         var strings = require('querystring');
         var http = require('http');
         http.createServer(function(request, response){
@@ -31,13 +32,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             response.end();
         }).listen(8080);
         console.log('Listening on port 8080 ...');
-        
-
-}
-});
-//board.on("ready", function() {
-
-            console.log('Board Ready plotting');
+        console.log('Board Ready plotting');
             // initialize the plotly graph
             plotly.plot(data,layout,function (err, res) {
                 if (err) console.log(err);
@@ -77,6 +72,12 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                 
    // });
 });
+
+}
+});
+//board.on("ready", function() {
+
+            
 function getDateString () {
 var time = new Date();
   // 14400000 is (GMT-4 Montreal)
