@@ -45,19 +45,24 @@ board.on("ready", function() {
                 //once it's initialized, create a plotly stream
                 //to pipe your data!
                 console.log('Check1');
+                
+
                 var stream = plotly.stream('3joif1t1q4', function (err, res) {
                     if (err) console.log(err);
                     console.log(res);
                     // this gets called each time there is a new sensor reading!!
                 //board.analogRead(board.A0, function(val){
-                console.log(val);
+                //console.log(val);
                 console.log('Read');
-                setInterval(function(){
-                    var data = {
-                    x : getDateString(),
-                    y : val
-                     };
-                console.log(data);
+                clearInterval(loop);
+            });
+                var i = 0;
+                var loop = setInterval(function(){
+                    //var data = {
+                   // x : getDateString(),
+                    //y : val
+                    // };
+                //console.log(data);
                 // write the data to the plotly stream
                 //stream.write(JSON.stringify(data)+'\n');
                 var streamObject = JSON.stringify({ x : i, y : i });
