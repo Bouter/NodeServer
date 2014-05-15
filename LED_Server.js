@@ -47,7 +47,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                 console.log('Check1');
                 
 
-                var stream = plotly.stream('3joif1t1q4', function (err, res) {
+                var stream1 = plotly.stream('3joif1t1q4', function (err, res) {
                     if (err) console.log(err);
                     console.log(res);
                     // this gets called each time there is a new sensor reading!!
@@ -66,7 +66,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                 // write the data to the plotly stream
                 //stream.write(JSON.stringify(data)+'\n');
                 var streamObject = JSON.stringify({ x : i, y : i });
-                stream.write(streamObject+'\n');
+                stream1.write(streamObject+'\n');
                 i++;
                 },5000);   
                 //});
