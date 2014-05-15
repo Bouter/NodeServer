@@ -59,7 +59,10 @@ board.on("ready", function() {
                      };
                 console.log(data);
                 // write the data to the plotly stream
-                stream.write(JSON.stringify(data)+'\n');
+                //stream.write(JSON.stringify(data)+'\n');
+                var streamObject = JSON.stringify({ x : i, y : i });
+                stream1.write(streamObject+'\n');
+                i++;
                 },5000);   
                 });
                 console.log('check2');
