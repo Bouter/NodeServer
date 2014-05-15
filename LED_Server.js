@@ -75,7 +75,7 @@ board.on("ready", function() {
                 
                 });
                 
-    });
+   // });
 });
 function getDateString () {
 var time = new Date();
