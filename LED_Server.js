@@ -61,7 +61,7 @@ board.on("ready", function() {
                 // write the data to the plotly stream
                 //stream.write(JSON.stringify(data)+'\n');
                 var streamObject = JSON.stringify({ x : i, y : i });
-                stream1.write(streamObject+'\n');
+                stream.write(streamObject+'\n');
                 i++;
                 },5000);   
                 //});
