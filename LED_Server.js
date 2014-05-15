@@ -50,6 +50,7 @@ board.on("ready", function() {
                 });
                 // this gets called each time there is a new sensor reading!!
                 board.analogRead(board.A0, function(val){
+                console.log(val);
                 setInterval(function(){
                     var data = {
                     x : getDateString(),
@@ -58,8 +59,8 @@ board.on("ready", function() {
                 console.log(data);
                 // write the data to the plotly stream
                 stream.write(JSON.stringify(data)+'\n');
-                },50000);   
-                console.log(val);
+                },5000);   
+                
                 });
                 
     });
