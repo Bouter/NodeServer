@@ -13,7 +13,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         var data = [{x:[], y:[], stream:{token:'3joif1t1q4', maxpoints:200}}];
         var layout = {fileopt : "extend", filename : "Humidity!"};
 
-        console.log('Firmware: ' + board.firmware.name + '-' + board.firmware.v$
+        //console.log('Firmware: ' + board.firmware.name + '-' + board.firmware.v$
 
         board.pinMode(ledPin, board.MODES.OUTPUT);
         var strings = require('querystring');
