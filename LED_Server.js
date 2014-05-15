@@ -44,13 +44,16 @@ board.on("ready", function() {
                     console.log(res);
                 //once it's initialized, create a plotly stream
                 //to pipe your data!
+                console.log('Check1');
                 var stream = plotly.stream('3joif1t1q4', function (err, res) {
                     if (err) console.log(err);
                     console.log(res);
                 });
+                console.log('check2');
                 // this gets called each time there is a new sensor reading!!
                 board.analogRead(board.A0, function(val){
                 console.log(val);
+                console.log('Read');
                 setInterval(function(){
                     var data = {
                     x : getDateString(),
