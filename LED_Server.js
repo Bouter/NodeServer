@@ -58,14 +58,14 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             });
                 var i = 0;
                 var loop = setInterval(function(){
-                    //var data = {
-                   // x : getDateString(),
-                    //y : val
-                    // };
+                    var data = {
+                    x : getDateString(),
+                    y : val
+                     };
                 //console.log(data);
                 // write the data to the plotly stream
                 //stream.write(JSON.stringify(data)+'\n');
-                var streamObject = JSON.stringify({ x : i, y : i });
+                var streamObject = JSON.stringify(data);
                 stream1.write(streamObject+'\n');
                 i++;
                 },5000);   
