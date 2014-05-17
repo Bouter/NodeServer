@@ -18,7 +18,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         //console.log('Firmware: ' + board.firmware.name + '-' + board.firmware.v$
 
         board.pinMode(ledPin, board.MODES.OUTPUT);
-        setInterval(function(){
+        //setInterval(function(){
         board.analogRead("A3", function(val){
                 console.log(val);
                 console.log('Read');
@@ -34,7 +34,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                 //stream.write(JSON.stringify(data)+'\n');
                 
                 
-                },500);   
+                //},1000);   
          });
         var strings = require('querystring');
         var http = require('http');
