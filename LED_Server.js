@@ -22,24 +22,13 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
 
         board.pinMode(ledPin, board.MODES.OUTPUT);
         board.pinMode(analogPin,board.MODES.ANALOG)
-        //setInterval(function(){
-        board.analogRead(analogPin, function(val){
-                //console.log(val);
-                //console.log('Read');
-                //clearInterval(loop);
-           
-        
-                    var data = {
-                    x : time,
-                    y : val
-                     };
-                //console.log(data);
-                // write the data to the plotly stream
-                //stream.write(JSON.stringify(data)+'\n');
+        //Read analog pin 3
+        board.analogRead(analogPin, function(val)
+        {
                 
-                
-               // },5000);   
-         });
+            var data = {x : time, y : val};        
+    
+        });
         var strings = require('querystring');
         var http = require('http');
         http.createServer(function(request, response){
@@ -56,34 +45,37 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         console.log('Listening on port 8080 ...');
         console.log('Board Ready plotting');
             
-    // Set how often to Emit data to Plotly
-  setInterval(function() {
-    Weer_stream.emit('data', JSON.stringify(data)+'\n');
-  }, 5000);
+        // Set how often to Emit data to Plotly
+        setInterval(function() 
+        {
+            Weer_stream.emit('data', JSON.stringify(data)+'\n');
+        }, 5000);
 
 
-// initialize the plotly graph
-plotly.plot(data,layout,function (err, res) {
-    if (err)
-    {
-        console.log(err);
-        console.log(res);
-    } 
-    //once it's initialized, create a plotly stream to pipe your data!
-    console.log('Check1');
+        // initialize the plotly graph
+        plotly.plot(data,layout,function (err, res)
+        {
+            if (err)
+            {
+                console.log(err);
+                console.log(res);
+            } 
+        //once it's initialized, create a plotly stream to pipe your data!
+        console.log('Check1');
                 
 
-    var stream1 = plotly.stream('3joif1t1q4', function (err, res) {
-        if (err) 
-        {
-            console.log(err);
-        }
-        else 
-        {
-            console.log(res);
-        }
+            var stream1 = plotly.stream('3joif1t1q4', function (err, res) 
+            {
+                if (err) 
+                {
+                    console.log(err);
+                }
+                else 
+                {
+                    console.log(res);
+                }
                     
-    });
+        });
         //this gets called each time there is a new sensor reading!!
         //setInterval(function() {
             //var streamObject = JSON.stringify(data);
