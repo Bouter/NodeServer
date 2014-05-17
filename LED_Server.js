@@ -45,12 +45,8 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         console.log('Listening on port 8080 ...');
         console.log('Board Ready plotting');
             
-        // Set how often to Emit data to Plotly
-        setInterval(function() 
-        {
-            Weer_stream.emit('data', JSON.stringify(data)+'\n');
-        }, 5000);
-
+        
+        
 
         // initialize the plotly graph
         plotly.plot(data,layout,function (err, res)
