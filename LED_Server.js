@@ -1,5 +1,5 @@
 var plotly = require('plotly')('DavidB', 'z9j0at0kzp');
-var data = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
+var init_data = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity!"};
 var ledPin = 7;
 var analogPin = 3;
@@ -46,7 +46,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         
 
         // initialize the plotly graph
-        plotly.plot(data,layout,function (err, res)
+        plotly.plot(init_data,layout,function (err, res)
         {
             if (err)
             {
