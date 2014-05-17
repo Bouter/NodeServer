@@ -16,8 +16,6 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         
         board.pins[board.analogPins[3]];
 
-        //console.log('Firmware: ' + board.firmware.name + '-' + board.firmware.v$
-
         board.pinMode(ledPin, board.MODES.OUTPUT);
         board.pinMode(analogPin,board.MODES.ANALOG)
         //Read analog pin 3
@@ -43,10 +41,6 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         }).listen(8080);
         console.log('Listening on port 8080 ...');
         console.log('Board Ready plotting');
-            
-        
-        
-
         // initialize the plotly graph
         plotly.plot(initdata,layout,function (err, res)
         {
