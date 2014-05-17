@@ -17,7 +17,11 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         //console.log('Firmware: ' + board.firmware.name + '-' + board.firmware.v$
 
         board.pinMode(ledPin, board.MODES.OUTPUT);
-        
+        board.analogRead(board.A0, function(val){
+                console.log(val);
+                console.log('Read');
+                clearInterval(loop);
+            });
         var strings = require('querystring');
         var http = require('http');
         http.createServer(function(request, response){
@@ -46,12 +50,6 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                     if (err) console.log(err);
                     console.log(res);
                     // this gets called each time there is a new sensor reading!!
-                board.analogRead(board.A0, function(val){
-                //console.log(val);
-                console.log('Read');
-                clearInterval(loop);
-            });
-                var i = 0;
                 var loop = setInterval(function(){
                     var data = {
                     x : getDateString(),
