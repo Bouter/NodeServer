@@ -31,7 +31,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                     x : time,
                     y : val
                      };
-                console.log(data);
+                //console.log(data);
                 // write the data to the plotly stream
                 //stream.write(JSON.stringify(data)+'\n');
                 
