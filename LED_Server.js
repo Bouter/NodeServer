@@ -19,10 +19,10 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
 
         board.pinMode(ledPin, board.MODES.OUTPUT);
         board.pinMode(analogPin,board.MODES.ANALOG)
-        setInterval(function(){
+        //setInterval(function(){
         board.analogRead(analogPin, function(val){
-                console.log(val);
-                console.log('Read');
+                //console.log(val);
+                //console.log('Read');
                 //clearInterval(loop);
            
         
@@ -30,12 +30,12 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                     x : getDateString(),
                     y : val
                      };
-                //console.log(data);
+                console.log(data);
                 // write the data to the plotly stream
                 //stream.write(JSON.stringify(data)+'\n');
                 
                 
-                },5000);   
+               // },5000);   
          });
         var strings = require('querystring');
         var http = require('http');
