@@ -13,13 +13,14 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
     } else {
         console.log('connected');
         
-        
+        board.pins[board.analogPins[3]];
 
         //console.log('Firmware: ' + board.firmware.name + '-' + board.firmware.v$
 
         board.pinMode(ledPin, board.MODES.OUTPUT);
+        board.pinMode(analogPin,board.MODES.ANALOG)
         //setInterval(function(){
-        board.analogRead("A3", function(val){
+        board.analogRead(analogPin, function(val){
                 console.log(val);
                 console.log('Read');
                 //clearInterval(loop);
