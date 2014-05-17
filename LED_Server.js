@@ -73,7 +73,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                // });
                 
    // });
-});
+//});
 
 }
 });
