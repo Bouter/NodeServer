@@ -20,8 +20,21 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.analogRead(board.A0, function(val){
                 console.log(val);
                 console.log('Read');
-                clearInterval(loop);
-            });
+                //clearInterval(loop);
+           
+        var loop = setInterval(function(){
+                    var data = {
+                    x : getDateString(),
+                    y : val
+                     };
+                //console.log(data);
+                // write the data to the plotly stream
+                //stream.write(JSON.stringify(data)+'\n');
+                var streamObject = JSON.stringify(data);
+                stream1.write(streamObject+'\n');
+                i++;
+                },5000);   
+         });
         var strings = require('querystring');
         var http = require('http');
         http.createServer(function(request, response){
@@ -50,18 +63,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                     if (err) console.log(err);
                     console.log(res);
                     // this gets called each time there is a new sensor reading!!
-                var loop = setInterval(function(){
-                    var data = {
-                    x : getDateString(),
-                    y : val
-                     };
-                //console.log(data);
-                // write the data to the plotly stream
-                //stream.write(JSON.stringify(data)+'\n');
-                var streamObject = JSON.stringify(data);
-                stream1.write(streamObject+'\n');
-                i++;
-                },5000);   
+                
                 //});
                 console.log('check2');
 
