@@ -66,8 +66,11 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                   if (err) console.log(err);
                     console.log(res);
                     //this gets called each time there is a new sensor reading!!
-               var streamObject = JSON.stringify(data);
-               streamObject.pipe(stream1)
+               setInterval(function() {
+                    var streamObject = JSON.stringify(data);
+                    streamObject.pipe(stream1)
+               },1000);
+               
                 //stream1.write(streamObject+'\n');
                 });
                 console.log('check2');
