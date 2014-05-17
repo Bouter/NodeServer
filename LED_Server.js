@@ -3,6 +3,7 @@ var init_data = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity!"};
 var ledPin = 7;
 var analogPin = 3;
+var data;
 var time = new Date();
 var firmata = require('firmata');
 var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
@@ -23,7 +24,8 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.analogRead(analogPin, function(val)
         {
                 
-            var data = {x : time, y : val};        
+            data = {x : time, y : val};
+
     
         });
         var strings = require('querystring');
