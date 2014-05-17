@@ -65,7 +65,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
 
 // Set how often to Emit data to Plotly
   setInterval(function() {
-    flow_stream.emit('data', JSON.stringify(data)+'\n');
+    Weer_stream.emit('data', JSON.stringify(data)+'\n');
   }, 5000);
 
 
