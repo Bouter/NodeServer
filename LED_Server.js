@@ -19,7 +19,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
 
         board.pinMode(ledPin, board.MODES.OUTPUT);
         setInterval(function(){
-        board.analogRead(analogPin, function(val){
+        board.analogRead("A3", function(val){
                 console.log(val);
                 console.log('Read');
                 //clearInterval(loop);
