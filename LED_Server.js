@@ -4,6 +4,7 @@ var data = [{x:[], y:[], stream:{token:'3joif1t1q4', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity!"};
 var ledPin = 7;
 var analogPin = 3;
+var time = new Date();
 var firmata = require('firmata');
 var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
     if (err) {
@@ -27,7 +28,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
            
         
                     var data = {
-                    x : getDateString(),
+                    x : time,
                     y : val
                      };
                 console.log(data);
@@ -81,10 +82,4 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
 //board.on("ready", function() {
 
             
-function getDateString () {
-var time = new Date();
-  // 14400000 is (GMT-4 Montreal)
-  // for your timezone just multiply +/-GMT by 3600000
-  var datestr = new Date(time - 14400000).toISOString().replace(/T/, ' ').repla$
-  return datestr;
-}
+
