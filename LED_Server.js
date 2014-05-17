@@ -63,8 +63,13 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                 
 
                var stream1 = plotly.stream('3joif1t1q4', function (err, res) {
-                  if (err) console.log(err);
+                  if (err) {
+                    console.log(err);
+                  }else {
                     console.log(res);
+                  }
+                    
+
                     //this gets called each time there is a new sensor reading!!
                setInterval(function() {
                     var streamObject = data;
