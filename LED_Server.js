@@ -3,6 +3,7 @@ var plotly = require('plotly')('DavidB', 'z9j0at0kzp');
 var data = [{x:[], y:[], stream:{token:'3joif1t1q4', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity!"};
 var ledPin = 7;
+var analogPin = 3;
 var firmata = require('firmata');
 var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
     if (err) {
@@ -18,7 +19,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
 
         board.pinMode(ledPin, board.MODES.OUTPUT);
         setInterval(function(){
-        board.analogRead(board.A0, function(val){
+        board.analogRead(analogPin, function(val){
                 console.log(val);
                 console.log('Read');
                 //clearInterval(loop);
@@ -33,7 +34,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                 //stream.write(JSON.stringify(data)+'\n');
                 
                 
-                },5000);   
+                },500);   
          });
         var strings = require('querystring');
         var http = require('http');
@@ -51,25 +52,25 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         console.log('Listening on port 8080 ...');
         console.log('Board Ready plotting');
             // initialize the plotly graph
-            plotly.plot(data,layout,function (err, res) {
-                if (err) console.log(err);
-                    console.log(res);
+            //plotly.plot(data,layout,function (err, res) {
+              //  if (err) console.log(err);
+                //    console.log(res);
                 //once it's initialized, create a plotly stream
                 //to pipe your data!
                 console.log('Check1');
                 
 
-                var stream1 = plotly.stream('3joif1t1q4', function (err, res) {
-                    if (err) console.log(err);
-                    console.log(res);
+               // var stream1 = plotly.stream('3joif1t1q4', function (err, res) {
+                 //   if (err) console.log(err);
+                   // console.log(res);
                     // this gets called each time there is a new sensor reading!!
-                var streamObject = JSON.stringify(data);
-                stream1.write(streamObject+'\n');
+               // var streamObject = JSON.stringify(data);
+                //stream1.write(streamObject+'\n');
                 //});
                 console.log('check2');
 
                 
-                });
+               // });
                 
    // });
 });
