@@ -1,12 +1,9 @@
-console.log('blink start ...');
 var plotly = require('plotly')('DavidB', 'z9j0at0kzp');
 var data = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity!"};
 var ledPin = 7;
 var analogPin = 3;
 var time = new Date();
-var Stream = require('stream');
-var Weer_stream = new Stream();
 var firmata = require('firmata');
 var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
     if (err) {
@@ -74,11 +71,11 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         });
         //this gets called each time there is a new sensor reading!!
         //setInterval(function() {
-            //var streamObject = JSON.stringify(data);
-            //console.log(streamObject);
-            //stream1.write(streamObject+'\n');
+            var streamObject = JSON.stringify(data);
+            console.log(streamObject);
+            stream1.write(streamObject+'\n');
         // },1000);
-         Weer_stream.pipe(stream1);      
+        
                 //stream1.write(streamObject+'\n');
     
                 console.log('check2');
