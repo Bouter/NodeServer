@@ -4,7 +4,7 @@ var layout = {fileopt : "extend", filename : "Humidity!"};
 var ledPin = 7;
 var analogPin = 3;
 var data;
-var time = new Date();
+var time = new Date(year,month,day);
 var firmata = require('firmata');
 var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
     if (err) {
