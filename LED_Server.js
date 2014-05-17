@@ -1,6 +1,6 @@
 console.log('blink start ...');
 var plotly = require('plotly')('DavidB', 'z9j0at0kzp');
-var data = [{x:[], y:[], stream:{token:'3joif1t1q4', maxpoints:200}}];
+var data = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity!"};
 var ledPin = 7;
 var analogPin = 3;
@@ -62,7 +62,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                 console.log('Check1');
                 
 
-               var stream1 = plotly.stream('3joif1t1q4', function (err, res) {
+               var stream1 = plotly.stream('9np05kx444', function (err, res) {
                   if (err) {
                     console.log(err);
                   }else {
