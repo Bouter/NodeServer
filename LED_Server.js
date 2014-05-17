@@ -73,6 +73,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                     //this gets called each time there is a new sensor reading!!
                setInterval(function() {
                     var streamObject = data;
+                    console.log(streamObject);
                     stream1.write(streamObject+'\n');
                },1000);
                
