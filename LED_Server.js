@@ -1,10 +1,10 @@
 var plotly = require('plotly')('DavidB', 'z9j0at0kzp');
-var init_data = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
+var init_data = [{x:[], y:[], stream:{token:'3joif1t1q4', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity!"};
 var ledPin = 7;
 var analogPin = 3;
 var data;
-var time = new Date(year,month,day);
+var time = new Date();
 var firmata = require('firmata');
 var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
     if (err) {
@@ -24,7 +24,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.analogRead(analogPin, function(val)
         {
                 
-            data = {x : time, y : val};
+            data = {x : time , y : val};
 
     
         });
@@ -59,7 +59,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         console.log('Check1');
                 
 
-            var stream1 = plotly.stream('9np05kx444', function (err, res) 
+            var stream1 = plotly.stream('3joif1t1q4', function (err, res) 
             {
                 if (err) 
                 {
