@@ -63,7 +63,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                 {
                     console.log(res);
                 }
-                
+                console.log('check2');
                   
             });
             setInterval(function() {
@@ -74,7 +74,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         
                 //stream1.write(streamObject+'\n');
     
-                console.log('check2');
+                
 
                 
         });            
