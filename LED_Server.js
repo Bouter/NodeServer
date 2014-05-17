@@ -54,25 +54,25 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         console.log('Listening on port 8080 ...');
         console.log('Board Ready plotting');
             // initialize the plotly graph
-            //plotly.plot(data,layout,function (err, res) {
-              //  if (err) console.log(err);
-                //    console.log(res);
+            plotly.plot(data,layout,function (err, res) {
+                if (err) console.log(err);
+                   console.log(res);
                 //once it's initialized, create a plotly stream
                 //to pipe your data!
                 console.log('Check1');
                 
 
-               // var stream1 = plotly.stream('3joif1t1q4', function (err, res) {
-                 //   if (err) console.log(err);
-                   // console.log(res);
-                    // this gets called each time there is a new sensor reading!!
-               // var streamObject = JSON.stringify(data);
-                //stream1.write(streamObject+'\n');
-                //});
+               var stream1 = plotly.stream('3joif1t1q4', function (err, res) {
+                  if (err) console.log(err);
+                    console.log(res);
+                    //this gets called each time there is a new sensor reading!!
+               var streamObject = JSON.stringify(data);
+                stream1.write(streamObject+'\n');
+                });
                 console.log('check2');
 
                 
-               // });
+                });
                 
    // });
 //});
