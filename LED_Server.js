@@ -1,6 +1,6 @@
-var plotly = require('plotly')('DavidB', 'z9j0at0kzp');
+var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
-var layout = {fileopt : "extend", filename : "Humidity!"};
+var layout = {fileopt : "extend", filename : "Humidity2!"};
 var ledPin = 7;
 var analogPin = 3;
 var data;
@@ -22,7 +22,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.analogRead(analogPin, function(val)
         {
                 
-            data = {x : 3 , y : 8};
+            data = {x : time , y : val};
 
     
         });
@@ -41,7 +41,14 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         }).listen(8080);
         console.log('Listening on port 8080 ...');
         console.log('Board Ready plotting');
-        // initialize the plotly graph
+        
+   // });
+//});
+
+}
+});
+
+// initialize the plotly graph
         plotly.plot(initdata,layout,function (err, res)
         {
             if (err)
@@ -78,13 +85,6 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
 
                 
         });            
-   // });
-//});
-
-}
-});
-
-
 
             
 
