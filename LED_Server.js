@@ -2,6 +2,7 @@ var qString = require('querystring');
 var http = require('http');
 var firmata = require('firmata');
 var plotly = require('plotly')('DavidB', 'r8j18wgs33');
+var bmp180 = require('./BMP180');
 
 var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity2!"};
@@ -16,14 +17,12 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.reset();
         return;
     } else {
+        bmp180.init(board);
         console.log('connected');
         board.sendI2CConfig(500);
         board.pins[board.analogPins[4]];
-        board.sendI2CWriteRequest(0x77,[0x2E]);
-        board.sendI2CReadRequest(0x77,2,function(press){
-            datapress = {x : new Date(), y : press};
-            console.log(press);
-        });
+        
+        var datapress = bmp180.requestTemperature();
         board.pinMode(ledPin, board.MODES.OUTPUT);
         board.pinMode(analogPin,board.MODES.ANALOG);
         //Read analog pin 3
