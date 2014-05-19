@@ -50,8 +50,9 @@ Bmp180.prototype = {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
 			var that = this;
 			setTimeout(function() {
-				var UT = that.read16(registerAddresses.TEMPDATA);
-				that.currentTemp = getCalculatedTemperature(UT, that.coeffs);
+				var UT = that.read16(registerAddresses.TEMPDATA, function () {
+					that.currentTemp = getCalculatedTemperature(UT, that.coeffs);
+				});
 			}, 5);
 			
 		}
@@ -67,12 +68,13 @@ Bmp180.prototype = {
 			return data;
 	  	});
 	},
-	read16: function (address) {
+	read16: function (address,callback) {
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77,2,function(data){
 			console.log(data);
 			data = (data[0] << 8) | data[1];
 			console.log("read16",data);
+			callback();
 			return data;
 	  	});
 	},
