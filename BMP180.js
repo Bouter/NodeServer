@@ -6,7 +6,7 @@ var app = {
 		var datapress;
 		app.board.sendI2CWriteRequest(0x77,[0x2E]);
 		app.board.sendI2CReadRequest(0x77,2,function(temp){
-			var press = app.getCalculatedTemperature(temp);
+			var press = getCalculatedTemperature(temp);
             datapress = {x : new Date(), y : press};
             console.log(press);
         });
@@ -14,7 +14,7 @@ var app = {
 	}
 }
 
-app.prototype.getCalculatedTemperature = function (temp) {
+var getCalculatedTemperature = function (temp) {
 	return temp;
 };
 
