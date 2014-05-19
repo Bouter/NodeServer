@@ -2,10 +2,10 @@ var app = {
 	currentTemp: "",
 	init: function (board) {
 		app.board = board;
-		app.requestTemperature();
+		requestTemperature();
 	},
 	getCurrentTemp : function () {
-		app.requestTemperature();
+		requestTemperature();
 		return app.currentTemp;
 	},
 	
