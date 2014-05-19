@@ -10,7 +10,7 @@ var getCalculatedTemperature = function (temp) {
     	md: 2868
     };
     
-  	X1 = (UT - coeffs.ac6 * (coeffs.ac5) / Math.pow(2,15);
+  	X1 = (UT - coeffs.ac6) * (coeffs.ac5) / Math.pow(2,15);
 	X2 = (coeffs.mc * Math.pow(2,11)) / (X1+coeffs.md);
 	B5 = X1 + X2;
 	t = (B5+8)/Math.pow(2,4);
