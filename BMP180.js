@@ -20,14 +20,16 @@ var registerAddresses = {
 	READPRESSURECMD : 0x34
 };
 
-var getCalculatedTemperature = function (temp) {
-	var UT, X1, X2, B5, t;
+var getCalculatedTemperature = function (UT) {
+	var X1, X2, B5, t;
  
-  	X1 = (temp - Bmp180.coeffs.ac6) * (Bmp180.coeffs.ac5) / Math.pow(2,15);
+  	X1 = (UT - Bmp180.coeffs.ac6) * (Bmp180.coeffs.ac5) / Math.pow(2,15);
 	X2 = (coeffs.mc * Math.pow(2,11)) / (X1+coeffs.md);
 	B5 = X1 + X2;
 	t = (B5+8)/Math.pow(2,4);
 	t /= 10;
+
+	console.log(X1, X2, B5, t);
 
 	return t;
 };
@@ -46,8 +48,11 @@ Bmp180.prototype = {
 	requestTemperature: function () {
 		if (this.calibrated) {
 			this.write(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
-			setTimeout(function() {}, 5);
-			this.read16(registerAddresses.TEMPDATA);
+			setTimeout(function() {
+				var UT = this.read16(registerAddresses.TEMPDATA);
+				this.currentTemp = getCalculatedTemperature(UT);
+			}, 5);
+			
 		}
 	},
 	getCurrentTemp: function () {
@@ -83,9 +88,9 @@ Bmp180.prototype = {
 		//this.coeffs.b1 = this.read16(registerAddresses.CAL_B1);
 		//this.coeffs.b2 = this.read16(registerAddresses.CAL_B2);
 		this.coeffs.md = 2430; // this.read16(registerAddresses.CAL_MD);
-		this.coeffs.mc = this.read16(registerAddresses.CAL_MC);
+		this.coeffs.mc = 53750; //this.read16(registerAddresses.CAL_MC);
 		//this.coeffs.mb = this.read16(registerAddresses.CAL_MB);
-		//calibrated = true;
+		calibrated = true;
 
 	}
 }
