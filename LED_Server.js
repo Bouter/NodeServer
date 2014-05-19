@@ -20,7 +20,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
     } else {
         pressureBoard = new bmp180(board);
         console.log('connected');
-        board.sendI2CConfig(500);
+        board.sendI2CConfig();
         board.pins[board.analogPins[4]];
         
         board.pinMode(ledPin, board.MODES.OUTPUT);
