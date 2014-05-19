@@ -18,4 +18,4 @@ var getCalculatedTemperature = function (temp) {
 	return temp;
 };
 
-exports.module = app;
+module.exports = app;
