@@ -66,9 +66,11 @@ plotly.plot(initdata,layout,function (err, msg)
     var loop = setInterval(function() {
 
         var streamObject = JSON.stringify(data);
-        var streamObject2 = JSON.stringify({ x : new Date(), y : pressureBoard.getCurrentTemp()});
+        if (pressureBoard !== undefined) {
+            var streamObject2 = JSON.stringify({ x : new Date(), y : pressureBoard.getCurrentTemp()});
+            console.log(streamObject2);
+        }
         console.log(streamObject);
-        console.log(streamObject2);
         stream1.write(streamObject+'\n');
     },5000);  
 });            
