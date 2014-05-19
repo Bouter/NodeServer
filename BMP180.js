@@ -72,11 +72,11 @@ Bmp180.prototype = {
 		this.coeffs.ac4 = this.read16(registerAddresses.CAL_AC4);
 		this.coeffs.ac5 = this.read16(registerAddresses.CAL_AC5);
 		this.coeffs.ac6 = this.read16(registerAddresses.CAL_AC6);
-		this.coeffs.b1 = this.read16(registerAddresses.CAL_B1);
-		this.coeffs.b2 = this.read16(registerAddresses.CAL_B2);
-		this.coeffs.md = this.read16(registerAddresses.CAL_MD);
-		this.coeffs.mc = this.read16(registerAddresses.CAL_MC);
-		this.coeffs.mb = this.read16(registerAddresses.CAL_MB);
+		//this.coeffs.b1 = this.read16(registerAddresses.CAL_B1);
+		//this.coeffs.b2 = this.read16(registerAddresses.CAL_B2);
+		//this.coeffs.md = this.read16(registerAddresses.CAL_MD);
+		//this.coeffs.mc = this.read16(registerAddresses.CAL_MC);
+		//this.coeffs.mb = this.read16(registerAddresses.CAL_MB);
 
 	}
 }
