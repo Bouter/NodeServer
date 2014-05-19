@@ -20,10 +20,10 @@ var registerAddresses = {
 	READPRESSURECMD : 0x34
 };
 
-var getCalculatedTemperature = function (UT) {
+var getCalculatedTemperature = function (UT,coeffs) {
 	var X1, X2, B5, t;
  
-  	X1 = (UT - Bmp180.coeffs.ac6) * (Bmp180.coeffs.ac5) / Math.pow(2,15);
+  	X1 = (UT - coeffs.ac6) * (coeffs.ac5) / Math.pow(2,15);
 	X2 = (coeffs.mc * Math.pow(2,11)) / (X1+coeffs.md);
 	B5 = X1 + X2;
 	t = (B5+8)/Math.pow(2,4);
@@ -51,7 +51,7 @@ Bmp180.prototype = {
 			var that = this;
 			setTimeout(function() {
 				var UT = that.read16(registerAddresses.TEMPDATA);
-				this.currentTemp = getCalculatedTemperature(UT);
+				that.currentTemp = getCalculatedTemperature(UT, that.coeffs);
 			}, 5);
 			
 		}
