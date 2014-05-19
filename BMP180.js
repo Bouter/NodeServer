@@ -10,14 +10,14 @@ function Bmp180(board){
 }
 
 Bmp180.prototype = {
-	requestTemperature = function () {
+	requestTemperature: function () {
 		this.board.sendI2CWriteRequest(0x77,[0xF6]);
 		this.board.sendI2CReadRequest(0x77,2,function(temp){
 			console.log(temp);
 			this.currentTemp = getCalculatedTemperature(temp);
 	  	});
 	},
-	getCurrentTemp : function () {
+	getCurrentTemp: function () {
 		requestTemperature();
 		return this.currentTemp;
 	}
