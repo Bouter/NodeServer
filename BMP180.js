@@ -50,7 +50,7 @@ Bmp180.prototype = {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
 			var that = this;
 			setTimeout(function() {
-				var UT = that.read16(registerAddresses.TEMPDATA, function () {
+				that.read16(registerAddresses.TEMPDATA, function (UT) {
 					that.currentTemp = getCalculatedTemperature(UT, that.coeffs);
 				});
 			}, 5);
@@ -74,7 +74,7 @@ Bmp180.prototype = {
 			console.log(data);
 			data = (data[0] << 8) | data[1];
 			console.log("read16",data);
-			callback();
+			callback(data);
 			return data;
 	  	});
 	},
