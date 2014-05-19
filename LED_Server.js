@@ -19,7 +19,10 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         console.log('connected');
         board.sendI2CConfig(500);
         board.pins[board.analogPins[4]];
-        
+        board.sendI2CReadRequest("0xEF","2",function(press){
+            datapress = {x : new Date(), y : press};
+            console.log(press);
+        });
         board.pinMode(ledPin, board.MODES.OUTPUT);
         board.pinMode(analogPin,board.MODES.ANALOG);
         //Read analog pin 3
@@ -61,10 +64,7 @@ plotly.plot(initdata,layout,function (err, msg)
         clearInterval(loop);  
     });
     var loop = setInterval(function() {
-        board.sendI2CReadRequest("0xEF","2",function(press){
-            datapress = {x : new Date(), y : press};
-            console.log(press);
-        });
+        
         var streamObject = JSON.stringify(data);
         var streamObject2 = JSON.stringify(datapress);
         console.log(streamObject);
