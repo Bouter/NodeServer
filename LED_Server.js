@@ -22,7 +22,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.analogRead(analogPin, function(val)
         {
                 
-            data = {x : time , y : val};
+            data = {x : 3 , y : 8};
 
     
         });
@@ -70,7 +70,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                     var streamObject = JSON.stringify(data);
                     console.log(streamObject);
                     stream1.write(streamObject+'\n');
-                },50000);  
+                },5000);  
         
                 //stream1.write(streamObject+'\n');
     
