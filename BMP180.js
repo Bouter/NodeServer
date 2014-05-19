@@ -41,7 +41,7 @@ function Bmp180(board){
 	this.coeffs = {};
 
 	this.setCoeffs();
-	this.read
+	this.requestTemperature();
 }
 
 Bmp180.prototype = {
