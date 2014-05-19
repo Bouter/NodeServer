@@ -1,5 +1,4 @@
 var app = {
-	board,
 	init: function (board) {
 		app.board = board;
 	},
