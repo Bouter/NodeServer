@@ -70,8 +70,8 @@ Bmp180.prototype = {
 	setCoeffs: function () {
 		this.coeffs.ac1 = 6836; //this.read16(registerAddresses.CAL_AC1);
 		this.coeffs.ac2 = 64406; //this.read16(registerAddresses.CAL_AC2);
-		this.coeffs.ac3 = this.read16(registerAddresses.CAL_AC3);
-		//this.coeffs.ac4 = this.read16(registerAddresses.CAL_AC4);
+		this.coeffs.ac3 = 51060; //this.read16(registerAddresses.CAL_AC3);
+		this.coeffs.ac4 = this.read16(registerAddresses.CAL_AC4);
 		//this.coeffs.ac5 = this.read16(registerAddresses.CAL_AC5);
 		//this.coeffs.ac6 = this.read16(registerAddresses.CAL_AC6);
 		//this.coeffs.b1 = this.read16(registerAddresses.CAL_B1);
