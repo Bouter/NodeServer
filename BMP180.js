@@ -61,6 +61,7 @@ Bmp180.prototype = {
 	read16: function (address) {
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77,2,function(data){
+			console.log(data);
 			data = data[0] << data[1];
 			console.log("read16",data);
 			return data;
@@ -68,11 +69,11 @@ Bmp180.prototype = {
 	},
 	setCoeffs: function () {
 		this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1);
-		this.coeffs.ac2 = this.read16(registerAddresses.CAL_AC2);
-		this.coeffs.ac3 = this.read16(registerAddresses.CAL_AC3);
-		this.coeffs.ac4 = this.read16(registerAddresses.CAL_AC4);
-		this.coeffs.ac5 = this.read16(registerAddresses.CAL_AC5);
-		this.coeffs.ac6 = this.read16(registerAddresses.CAL_AC6);
+		//this.coeffs.ac2 = this.read16(registerAddresses.CAL_AC2);
+		//this.coeffs.ac3 = this.read16(registerAddresses.CAL_AC3);
+		//this.coeffs.ac4 = this.read16(registerAddresses.CAL_AC4);
+		//this.coeffs.ac5 = this.read16(registerAddresses.CAL_AC5);
+		//this.coeffs.ac6 = this.read16(registerAddresses.CAL_AC6);
 		//this.coeffs.b1 = this.read16(registerAddresses.CAL_B1);
 		//this.coeffs.b2 = this.read16(registerAddresses.CAL_B2);
 		//this.coeffs.md = this.read16(registerAddresses.CAL_MD);
