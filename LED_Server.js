@@ -1,10 +1,14 @@
+var qString = require('querystring');
+var http = require('http');
+var firmata = require('firmata');
 var plotly = require('plotly')('DavidB', 'r8j18wgs33');
+
 var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity2!"};
 var ledPin = 7;
 var analogPin = 3;
 var data;
-var firmata = require('firmata');
+
 var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
     if (err) {
         console.log(err);
@@ -21,11 +25,12 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.analogRead(analogPin, function (val) {  
             data = {x : new Date() , y : val};
         });
-        var strings = require('querystring');
-        var http = require('http');
+       
         http.createServer(function (request, response) {
-            var urlObject = strings.parse(request.url)
+            var urlObject = qString.parse(request.url.split("?")[1]);
+
             console.log(urlObject.value);
+
             if ((urlObject.value) == 'HIGH') {
                 board.digitalWrite(ledPin, board.HIGH);
             } else {
