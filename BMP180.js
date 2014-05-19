@@ -9,12 +9,16 @@ var getCalculatedTemperature = function (temp) {
     	mc: -8711,
     	md: 2868
     };
+
+
     
   	X1 = (temp - coeffs.ac6) * (coeffs.ac5) / Math.pow(2,15);
 	X2 = (coeffs.mc * Math.pow(2,11)) / (X1+coeffs.md);
 	B5 = X1 + X2;
 	t = (B5+8)/Math.pow(2,4);
 	t /= 10;
+
+	    console.log(X1, X2, B5, t);
 
 	return t;
 };
@@ -29,9 +33,10 @@ function Bmp180(board){
 Bmp180.prototype = {
 	requestTemperature: function () {
 		this.board.sendI2CWriteRequest(0x77,[0xF6]);
+		var that = this;
 		this.board.sendI2CReadRequest(0x77,2,function(temp){
 			console.log(temp[0]);
-			this.currentTemp = getCalculatedTemperature(temp[0]);
+			that.currentTemp = getCalculatedTemperature(temp[0]);
 	  	});
 	},
 	getCurrentTemp: function () {
