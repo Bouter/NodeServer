@@ -10,6 +10,7 @@ var ledPin = 7;
 var analogPin = 3;
 var data;
 var datapress;
+var pressureBoard;
 
 var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
     if (err) {
