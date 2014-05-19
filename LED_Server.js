@@ -54,8 +54,9 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             if (err)
             {
                 console.log(err);
-                console.log(res);
+                
             } 
+            console.log(res);
         //once it's initialized, create a plotly stream to pipe your data!
         console.log('Check1');
                 
