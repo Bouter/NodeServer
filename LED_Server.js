@@ -65,8 +65,9 @@ plotly.plot(initdata,layout,function (err, msg)
     });
     var loop = setInterval(function() {
         var streamObject = JSON.stringify(data);
+        var streamObject2 = JSON.stringify(datapress);
         console.log(streamObject);
-        console.log(datapress);
+        console.log(streamObject2);
         stream1.write(streamObject+'\n');
     },5000);  
 });            
