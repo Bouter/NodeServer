@@ -16,9 +16,11 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         return;
     } else {
         console.log('connected');
-        
-        board.pins[board.analogPins[3]];
-
+        board.sendI2CConfig(100);
+        board.pins[board.analogPins[4]];
+        board.sendI2CReadRequest("0xF6","2",function(press){
+            datapress = {x : new Date(), y : press};
+        });
         board.pinMode(ledPin, board.MODES.OUTPUT);
         board.pinMode(analogPin,board.MODES.ANALOG);
         //Read analog pin 3
