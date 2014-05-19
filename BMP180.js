@@ -72,7 +72,11 @@ Bmp180.prototype = {
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77,2,function(data){
 			console.log(data);
+			var sign = data[0] & (1 << 7);
 			data = (data[0] << 8) | data[1];
+			if (sign) {
+			    data = -data;
+			}
 			console.log("read16",data);
 			callback(data);
 			return data;
@@ -82,19 +86,30 @@ Bmp180.prototype = {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
 	},
 	setCoeffs: function () {
-		this.coeffs.ac1 = 6836; //this.read16(registerAddresses.CAL_AC1);
-		this.coeffs.ac2 = 64406; //this.read16(registerAddresses.CAL_AC2);
-		this.coeffs.ac3 = 51060; //this.read16(registerAddresses.CAL_AC3);
-		this.coeffs.ac4 = 34018; // this.read16(registerAddresses.CAL_AC4);
-		this.coeffs.ac5 = 25640; // this.read16(registerAddresses.CAL_AC5);
-		this.coeffs.ac6 = 14470; //this.read16(registerAddresses.CAL_AC6);
-		//this.coeffs.b1 = this.read16(registerAddresses.CAL_B1);
-		//this.coeffs.b2 = this.read16(registerAddresses.CAL_B2);
-		this.coeffs.md = 2430; // this.read16(registerAddresses.CAL_MD);
-		this.coeffs.mc = 53750; //this.read16(registerAddresses.CAL_MC);
-		//this.coeffs.mb = this.read16(registerAddresses.CAL_MB);
-		this.calibrated = true;
-
+		var that = this;
+		this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1,function () {
+			that.coeffs.ac2 = that.read16(registerAddresses.CAL_AC2, function () {
+				that.coeffs.ac3 = that.read16(registerAddresses.CAL_AC3,function () {
+					that.coeffs.ac4 = that.read16(registerAddresses.CAL_AC4, function () {
+						that.coeffs.ac5 = that.read16(registerAddresses.CAL_AC5,function () {
+							that.coeffs.ac6 = that.read16(registerAddresses.CAL_AC6, function () {
+								that.coeffs.b1 = that.read16(registerAddresses.CAL_B1,function () {
+									that.coeffs.b2 = that.read16(registerAddresses.CAL_B2, function () {
+										that.coeffs.md = that.read16(registerAddresses.CAL_MD,function () {
+											that.coeffs.mc = that.read16(registerAddresses.CAL_MC, function () {
+												that.coeffs.mb = that.read16(registerAddresses.CAL_MB, function () {
+													that.calibrated = true;
+												});
+											});
+										});
+									});
+								});
+							});
+						});
+					});
+				});
+			});
+		});
 	}
 }
 
