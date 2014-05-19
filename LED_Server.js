@@ -49,43 +49,25 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
 });
 
 // initialize the plotly graph
-        plotly.plot(initdata,layout,function (err, res)
-        {
-            if (err)
-            {
-                console.log(err);
-                
-            } 
-            console.log(res);
-        //once it's initialized, create a plotly stream to pipe your data!
-        console.log('Check1');
-                
-
-            var stream1 = plotly.stream('9np05kx444', function (err, res) 
-            {
-                if (err) 
-                {
-                    console.log(err);
-                }
-                else 
-                {
-                    console.log(res);
-                }
-                console.log('check2');
-                  
-            });
-            setInterval(function() {
-                    var streamObject = JSON.stringify(data);
-                    console.log(streamObject);
-                    stream1.write(streamObject+'\n');
-                },5000);  
+plotly.plot(initdata,layout,function (err, msg)
+{
+    if (err) return console.log(err);
+    console.log(msg);
+    //once it's initialized, create a plotly stream to pipe your data!
+    console.log('Check1');
         
-                //stream1.write(streamObject+'\n');
-    
-                
-
-                
-        });            
+    var stream1 = plotly.stream('9np05kx444', function (err, res) 
+    {
+        console.log(err, res);
+        console.log("stream clossed");
+        clearInterval(loop);  
+    });
+    var loop = setInterval(function() {
+        var streamObject = JSON.stringify(data);
+        console.log(streamObject);
+        stream1.write(streamObject+'\n');
+    },5000);  
+});            
 
             
 
