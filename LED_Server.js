@@ -17,7 +17,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.reset();
         return;
     } else {
-        bmp180.init(board);
+        pressureBoard = new bmp180(board);
         console.log('connected');
         board.sendI2CConfig(500);
         board.pins[board.analogPins[4]];
@@ -65,7 +65,7 @@ plotly.plot(initdata,layout,function (err, msg)
     var loop = setInterval(function() {
 
         var streamObject = JSON.stringify(data);
-        var streamObject2 = JSON.stringify({ x : new Date(), y :bmp180.getCurrentTemp()});
+        var streamObject2 = JSON.stringify({ x : new Date(), y : pressureBoard.getCurrentTemp()});
         console.log(streamObject);
         console.log(streamObject2);
         stream1.write(streamObject+'\n');
