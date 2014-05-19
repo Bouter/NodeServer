@@ -47,7 +47,7 @@ function Bmp180(board){
 Bmp180.prototype = {
 	requestTemperature: function () {
 		if (this.calibrated) {
-			this.write(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
+			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
 			setTimeout(function() {
 				var UT = this.read16(registerAddresses.TEMPDATA);
 				this.currentTemp = getCalculatedTemperature(UT);
@@ -75,7 +75,7 @@ Bmp180.prototype = {
 			return data;
 	  	});
 	},
-	write : function (address, byte) {
+	writeTo : function (address, byte) {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
 	},
 	setCoeffs: function () {
@@ -90,7 +90,7 @@ Bmp180.prototype = {
 		this.coeffs.md = 2430; // this.read16(registerAddresses.CAL_MD);
 		this.coeffs.mc = 53750; //this.read16(registerAddresses.CAL_MC);
 		//this.coeffs.mb = this.read16(registerAddresses.CAL_MB);
-		calibrated = true;
+		this.calibrated = true;
 
 	}
 }
