@@ -43,7 +43,7 @@ function Bmp180(board){
 
 Bmp180.prototype = {
 	requestTemperature: function () {
-		if (calibrated) {
+		if (this.calibrated) {
 			this.read16(registerAddresses.TEMPDATA);
 		}
 	},
