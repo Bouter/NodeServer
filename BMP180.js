@@ -18,7 +18,7 @@ Bmp180.prototype = {
 	  	});
 	},
 	getCurrentTemp: function () {
-		requestTemperature();
+		this.requestTemperature();
 		return this.currentTemp;
 	}
 }
