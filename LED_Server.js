@@ -24,11 +24,11 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.pins[board.analogPins[4]];
         
         board.pinMode(ledPin, board.MODES.OUTPUT);
-        board.pinMode(analogPin,board.MODES.ANALOG);
+        //board.pinMode(analogPin,board.MODES.ANALOG);
         //Read analog pin 3
-        board.analogRead(analogPin, function (val) {  
+        /*board.analogRead(analogPin, function (val) {  
             data = {x : new Date() , y : val};
-        });
+        });*/
        
         http.createServer(function (request, response) {
             var urlObject = qString.parse(request.url.split("?")[1]);
@@ -50,8 +50,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
 });
 
 // initialize the plotly graph
-plotly.plot(initdata,layout,function (err, msg)
-{
+/*{
     if (err) return console.log(err);
     console.log(msg);
     //once it's initialized, create a plotly stream to pipe your data!
@@ -74,6 +73,6 @@ plotly.plot(initdata,layout,function (err, msg)
         stream1.write(streamObject+'\n');
     },5000);  
 });            
-
+*/
             
 
