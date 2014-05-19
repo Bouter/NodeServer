@@ -8,6 +8,7 @@ var layout = {fileopt : "extend", filename : "Humidity2!"};
 var ledPin = 7;
 var analogPin = 3;
 var data;
+var datapress;
 
 var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
     if (err) {
@@ -20,6 +21,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.pins[board.analogPins[4]];
         board.sendI2CReadRequest("0xF6","2",function(press){
             datapress = {x : new Date(), y : press};
+
         });
         board.pinMode(ledPin, board.MODES.OUTPUT);
         board.pinMode(analogPin,board.MODES.ANALOG);
@@ -64,6 +66,7 @@ plotly.plot(initdata,layout,function (err, msg)
     var loop = setInterval(function() {
         var streamObject = JSON.stringify(data);
         console.log(streamObject);
+        console.log(datapress);
         stream1.write(streamObject+'\n');
     },5000);  
 });            
