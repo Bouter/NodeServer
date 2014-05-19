@@ -33,21 +33,19 @@ var getCalculatedTemperature = function (temp) {
 };
 
 function Bmp180(board){
+	this.calibrated = false;
 	this.board = board;
 	this.currentTemp = 0;
-	this.coeffs = {
-    	ac6 : 23153,
-    	ac5 : 32757,
-    	mc: -8711,
-    	md: 2868
-    };
+	this.coeffs = {};
 
-	this.requestTemperature();
+	this.setCoeffs();
 }
 
 Bmp180.prototype = {
 	requestTemperature: function () {
-		this.read16(registerAddresses.TEMPDATA);
+		if (calibrated) {
+			this.read16(registerAddresses.TEMPDATA);
+		}
 	},
 	getCurrentTemp: function () {
 		this.requestTemperature();
@@ -69,6 +67,17 @@ Bmp180.prototype = {
 	},
 	setCoeffs: function () {
 		this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1);
+		this.coeffs.ac2 = this.read16(registerAddresses.CAL_AC2);
+		this.coeffs.ac3 = this.read16(registerAddresses.CAL_AC3);
+		this.coeffs.ac4 = this.read16(registerAddresses.CAL_AC4);
+		this.coeffs.ac5 = this.read16(registerAddresses.CAL_AC5);
+		this.coeffs.ac6 = this.read16(registerAddresses.CAL_AC6);
+		this.coeffs.b1 = this.read16(registerAddresses.CAL_B1);
+		this.coeffs.b2 = this.read16(registerAddresses.CAL_B2);
+		this.coeffs.md = this.read16(registerAddresses.CAL_MD);
+		this.coeffs.mc = this.read16(registerAddresses.CAL_MC);
+		this.coeffs.mb = this.read16(registerAddresses.CAL_MB);
+
 	}
 }
 
