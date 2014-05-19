@@ -22,7 +22,6 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.sendI2CConfig(500);
         board.pins[board.analogPins[4]];
         
-        var datapress = bmp180.requestTemperature();
         board.pinMode(ledPin, board.MODES.OUTPUT);
         board.pinMode(analogPin,board.MODES.ANALOG);
         //Read analog pin 3
@@ -66,7 +65,7 @@ plotly.plot(initdata,layout,function (err, msg)
     var loop = setInterval(function() {
 
         var streamObject = JSON.stringify(data);
-        var streamObject2 = JSON.stringify(datapress);
+        var streamObject2 = JSON.stringify({ x : new Date(), y :bmp180.getCurrentTemp()});
         console.log(streamObject);
         console.log(streamObject2);
         stream1.write(streamObject+'\n');
