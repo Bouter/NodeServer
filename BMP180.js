@@ -76,7 +76,7 @@ Bmp180.prototype = {
 	  	});
 	},
 	write : function (address, byte) {
-		this.board.sendI2CWriteRequest(0x77,[[address,byte]]);
+		this.board.sendI2CWriteRequest(0x77,[address,byte]);
 	},
 	setCoeffs: function () {
 		this.coeffs.ac1 = 6836; //this.read16(registerAddresses.CAL_AC1);
