@@ -80,7 +80,7 @@ Bmp180.prototype = {
 				callback(data);
 			}
 			if (signed) {
-				data = makeS16(data);
+				data = this.makeS16(data);
 			}	
 			variable = data;
 	  	});
