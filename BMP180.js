@@ -52,6 +52,7 @@ Bmp180.prototype = {
 			setTimeout(function() {
 				that.read16(registerAddresses.TEMPDATA, function (UT) {
 					that.currentTemp = getCalculatedTemperature(UT, that.coeffs);
+					console.log(that.currentTemp);
 				});
 			}, 5);
 			
