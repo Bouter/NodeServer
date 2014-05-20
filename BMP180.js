@@ -69,22 +69,24 @@ Bmp180.prototype = {
 			return data;
 	  	});
 	},
-	read16: function (address,callback) {
+	read16: function (address,variable,signed,callback) {
 		console.log("read16::address: ",address);
 		this.board.sendI2CWriteRequest(0x77,[address]);
-		return this.board.sendI2CReadRequest(0x77,2,function(data){
+		this.board.sendI2CReadRequest(0x77,2,function(data){
 			console.log("Test",data);
 			data = (data[0] << 8) | data[1];
 			console.log("read16",data);
 			if (typeof(callback) == "function") {
 				callback(data);
+			}
+			if (signed) {
+				data = makeS16(data);
 			}	
-			return data;
+			variable = data;
 	  	});
 	},
-	readS16: function (address, callback) {
+	makeS16: function (number) {
 		var signed;
-		var number = this.read16(address, callback);
 		console.log(number);
 		if (number > 32767) {
   			signed = ((-65536) + number);
@@ -102,19 +104,19 @@ Bmp180.prototype = {
 	},
 	setCoeffs: function () {
 		var that = this;
-		this.coeffs.ac1 = this.readS16(registerAddresses.CAL_AC1,function () {
-			that.coeffs.ac2 = that.readS16(registerAddresses.CAL_AC2, function () {
-				that.coeffs.ac3 = that.readS16(registerAddresses.CAL_AC3,function () {
-					that.coeffs.ac4 = that.read16(registerAddresses.CAL_AC4, function () {
-						that.coeffs.ac5 = that.read16(registerAddresses.CAL_AC5,function () {
-							that.coeffs.ac6 = that.read16(registerAddresses.CAL_AC6, function () {
-								that.coeffs.b1 = that.readS16(registerAddresses.CAL_B1,function () {
-									that.coeffs.b2 = that.readS16(registerAddresses.CAL_B2, function () {
-										that.coeffs.md = that.readS16(registerAddresses.CAL_MD,function () {
-											that.coeffs.mc = that.readS16(registerAddresses.CAL_MC, function () {
-												that.coeffs.mb = that.readS16(registerAddresses.CAL_MB, function () {
+		this.read16(registerAddresses.CAL_AC1, this.coeffs.ac1, true,function () {
+			 that.readS16(registerAddresses.CAL_AC2, that.coeffs.ac2, true, function () {
+				 that.readS16(registerAddresses.CAL_AC3, that.coeffs.ac3, true,function () {
+					 that.read16(registerAddresses.CAL_AC4, that.coeffs.ac4 , true, function () {
+						 that.read16(registerAddresses.CAL_AC5, that.coeffs.ac5, true,function () {
+							 that.read16(registerAddresses.CAL_AC6, that.coeffs.ac6, true, function () {
+								 that.readS16(registerAddresses.CAL_B1, that.coeffs.b1, true,function () {
+									 that.readS16(registerAddresses.CAL_B2, that.coeffs.b2, true, function () {
+										 that.readS16(registerAddresses.CAL_MD, that.coeffs.md, true,function () {
+											 that.readS16(registerAddresses.CAL_MC, that.coeffs.mc, true, function () {
+												 that.readS16(registerAddresses.CAL_MB, that.coeffs.mb, true, function () {
 													that.calibrated = true;
-													console.log(calibrated);
+													console.log(that.calibrated);
 												});
 											});
 										});
