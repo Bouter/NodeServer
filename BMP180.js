@@ -79,8 +79,9 @@ Bmp180.prototype = {
 			if (typeof(callback) == "function") {
 				callback(data);
 			}
+			var that = this;
 			if (signed) {
-				data = makeS16(data);
+				data = that.makeS16(data);
 			}	
 			variable = data;
 	  	});
