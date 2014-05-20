@@ -83,11 +83,14 @@ Bmp180.prototype = {
 	  	});
 	},
 	readS16: function (address, callback) {
-		var signed = this.read16(address);
-			
-	  	
-	 	signed = (signed >> 0);
-		console.log(signed);
+		if (this.read16(address) > 32767) {
+  			signed = (-65536 + this.read16(address));
+		} else {
+			  signed = this.read16(address);
+		}
+		
+	 	
+		console.log("Signed",signed);
 		data = signed;
 		return data;
 	},
