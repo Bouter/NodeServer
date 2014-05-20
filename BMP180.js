@@ -45,7 +45,7 @@ function Bmp180(board) {
 	this.setCoeffs();
 	// this.requestTemperature();
 	console.log('--------------------------');
-	console.log(this.requestTemperature());
+	// console.log(this.requestTemperature());
 	console.log('--------------------------');
 }
 
