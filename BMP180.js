@@ -1,8 +1,8 @@
 "use strict";
 
 var registerAddresses = {
-    CAL_AC1 : 0xAA, // R Calibration data (16 bits)
-   	CAL_AC2 : 0xAC, // R Calibration data (16 bits)
+  CAL_AC1 : 0xAA, // R Calibration data (16 bits)
+ 	CAL_AC2 : 0xAC, // R Calibration data (16 bits)
 	CAL_AC3 : 0xAE, // R Calibration data (16 bits)
 	CAL_AC4 : 0xB0, // R Calibration data (16 bits)
 	CAL_AC5 : 0xB2, // R Calibration data (16 bits)
@@ -25,7 +25,7 @@ var registerAddresses = {
 var getCalculatedTemperature = function (UT, coeffs) {
 	var X1, X2, B5, t;
  
-  	X1 = (UT - coeffs.ac6) * (coeffs.ac5) / Math.pow(2,15);
+	X1 = (UT - coeffs.ac6) * (coeffs.ac5) / Math.pow(2,15);
 	X2 = (coeffs.mc * Math.pow(2,11)) / (X1+coeffs.md);
 	B5 = X1 + X2;
 	t = (B5+8)/Math.pow(2,4);
@@ -36,14 +36,17 @@ var getCalculatedTemperature = function (UT, coeffs) {
 	return t;
 };
 
-function Bmp180(board){
+function Bmp180(board) {
 	this.calibrated = false;
 	this.board = board;
 	this.currentTemp = 0;
 	this.coeffs = {};
 	this.board.sendI2CConfig();
 	this.setCoeffs();
-	this.requestTemperature();
+	// this.requestTemperature();
+	console.log('--------------------------');
+	console.log(this.requestTemperature());
+	console.log('--------------------------');
 }
 
 Bmp180.prototype = {
