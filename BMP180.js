@@ -74,19 +74,17 @@ Bmp180.prototype = {
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77,2,function(data){
 			console.log(data);
-			var sign = data[0] & (1 << 7);
 			data = (data[0] << 8) | data[1];
-			if (sign) {
-			    data = -data;
-			}
 			console.log("read16",data);
-			callback(data);
+			if (typeof(callback) == "function") {
+				callback(data);
+			}	
 			return data;
 	  	});
 	},
-	readS16: function (address) {
+	readS16: function (address, callback) {
 		var i;
-		i = (this.read16(address) << 31);
+		i = (this.read16(address, callback) << 31);
 		data = i;
 		console.log("readS16::Data ",data);
 		return data;
