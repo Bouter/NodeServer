@@ -21,7 +21,7 @@ var registerAddresses = {
 	READTEMPCMD : 0x2E,
 	READPRESSURECMD : 0x34
 };
-
+var x;
 
 var getCalculatedTemperature = function (UT, coeffs) {
 	var X1, X2, B5, t;
@@ -43,11 +43,10 @@ function Bmp180(board) {
 	this.currentTemp = 0;
 	this.coeffs = {};
 	this.board.sendI2CConfig();
-	(function() { 
-		setInterval(function () {
-			this.requestTemperature();
-		}, 500)
-	})(x);
+	x = function () {
+				this.requestTemperature();
+			};
+	setInterval(x, 500);
 	this.setCoeffs();
 }
 
