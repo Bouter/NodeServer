@@ -86,7 +86,6 @@ Bmp180.prototype = {
 		
 		var signed = (address.TEMPDATA >> 0);
 		console.log(signed);
-		
 		data = signed;
 		return data;
 	},
