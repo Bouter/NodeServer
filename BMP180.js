@@ -84,6 +84,7 @@ Bmp180.prototype = {
 		return signed;
 	},
 	read16: function (address,variable,signed,callback) {
+		var that = this;
 		console.log("read16::address: ",address);
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77,2,function(data){
@@ -95,7 +96,7 @@ Bmp180.prototype = {
 			}
 			
 			if (signed) {
-				data = this.makeS16(data);
+				data = that.makeS16(data);
 			}	
 			variable = data;
 	  	});
