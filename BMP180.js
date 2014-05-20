@@ -37,7 +37,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 };
 
 function Bmp180(board) {
-	this.calibrated = false;
+	// this.calibrated = false;
 	this.board = board;
 	this.currentTemp = 0;
 	this.coeffs = {};
@@ -55,7 +55,7 @@ function Bmp180(board) {
 Bmp180.prototype = {
 	requestTemperature: function () {
 		console.log("checka");
-		if (this.calibrated) {
+		if (this.coeffs.mb) {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
 			var that = this;
 			console.log("check");
@@ -70,7 +70,6 @@ Bmp180.prototype = {
 		}
 	},
 	getCurrentTemp: function () {
-		//this.requestTemperature();
 		return this.currentTemp;
 	},
 	read8: function (address) {
@@ -131,9 +130,7 @@ Bmp180.prototype = {
 									 that.coeffs.md = that.read16(registerAddresses.CAL_MD,  true,function () {
 										 that.coeffs.mc = that.read16(registerAddresses.CAL_MC, true, function () {
 											 that.coeffs.mb = that.read16(registerAddresses.CAL_MB, true, function () {
-												that.calibrated = true;
-												console.log(that.calibrated);
-												that.requestTemperature();
+											 	console.log("check dees es ",that.coeffs.mb);
 												});
 											});
 										});
