@@ -43,7 +43,7 @@ function Bmp180(board) {
 	this.coeffs = {};
 	this.board.sendI2CConfig();
 	var that = this;
-	var x = setInterval(function() {
+	this.x = setInterval(function() {
 		checkFinishedCoeffs();
 	}, 500);
 	function checkFinishedCoeffs() {
@@ -65,7 +65,7 @@ Bmp180.prototype = {
 					console.log("Temp : ",that.currentTemp);
 				});
 			}, 5);
-			clearInterval(x);
+			clearInterval(this.x);
 			console.log('should stop interval');
 		}
 	},
