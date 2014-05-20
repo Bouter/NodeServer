@@ -110,7 +110,7 @@ Bmp180.prototype = {
 	setCoeffs: function () {
 		var that = this;
 		this.read16(registerAddresses.CAL_AC1, this.coeffs.ac1, true,function () {
-			console.log("coeffs",this.coeffs.ac1);
+			console.log("coeffs",that.coeffs.ac1);
 			 that.read16(registerAddresses.CAL_AC2, that.coeffs.ac2, true, function () {
 				 that.read16(registerAddresses.CAL_AC3, that.coeffs.ac3, true,function () {
 					 that.read16(registerAddresses.CAL_AC4, that.coeffs.ac4 , false, function () {
