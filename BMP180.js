@@ -46,6 +46,7 @@ function Bmp180(board){
 
 Bmp180.prototype = {
 	requestTemperature: function () {
+		console.log("checka");
 		if (this.calibrated) {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
 			var that = this;
