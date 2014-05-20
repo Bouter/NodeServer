@@ -83,7 +83,7 @@ Bmp180.prototype = {
 	  	});
 	},
 	readS16: function (address, callback) {
-		var signed = read16(address);
+		var signed = this.read16(address);
 			
 	  	
 	 	signed = (signed >> 0);
