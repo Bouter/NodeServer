@@ -49,6 +49,7 @@ Bmp180.prototype = {
 		if (this.calibrated) {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
 			var that = this;
+			console.log("check");
 			setTimeout(function() {
 				that.read16(registerAddresses.TEMPDATA, function (UT) {
 					that.currentTemp = getCalculatedTemperature(UT, that.coeffs);
