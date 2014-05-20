@@ -80,7 +80,7 @@ Bmp180.prototype = {
 				callback(data);
 			}
 			if (signed) {
-				data = this.makeS16(data);
+				data = makeS16(data);
 			}	
 			variable = data;
 	  	});
@@ -107,9 +107,9 @@ Bmp180.prototype = {
 		this.read16(registerAddresses.CAL_AC1, this.coeffs.ac1, true,function () {
 			 that.read16(registerAddresses.CAL_AC2, that.coeffs.ac2, true, function () {
 				 that.read16(registerAddresses.CAL_AC3, that.coeffs.ac3, true,function () {
-					 that.read16(registerAddresses.CAL_AC4, that.coeffs.ac4 , true, function () {
-						 that.read16(registerAddresses.CAL_AC5, that.coeffs.ac5, true,function () {
-							 that.read16(registerAddresses.CAL_AC6, that.coeffs.ac6, true, function () {
+					 that.read16(registerAddresses.CAL_AC4, that.coeffs.ac4 , false, function () {
+						 that.read16(registerAddresses.CAL_AC5, that.coeffs.ac5, false,function () {
+							 that.read16(registerAddresses.CAL_AC6, that.coeffs.ac6, false, function () {
 								 that.read16(registerAddresses.CAL_B1, that.coeffs.b1, true,function () {
 									 that.read16(registerAddresses.CAL_B2, that.coeffs.b2, true, function () {
 										 that.read16(registerAddresses.CAL_MD, that.coeffs.md, true,function () {
