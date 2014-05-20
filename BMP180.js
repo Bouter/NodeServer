@@ -109,7 +109,9 @@ Bmp180.prototype = {
 			
 			if (signed) {
 				data = that.makeS16(data);
-			}	
+			}
+
+			return data;
 
 	  	});
 	},
@@ -121,16 +123,19 @@ Bmp180.prototype = {
 		this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1, true, function () {
 
 		 that.coeffs.ac2 = that.read16(registerAddresses.CAL_AC2, true, function () {
-			 that.coeffs.ac3 = that.read16(registerAddresses.CAL_AC3, true,function () {
+			 that.coeffs.ac3 = that.read16(registerAddresses.CAL_AC3, true, function () {
 				 that.coeffs.ac4 = that.read16(registerAddresses.CAL_AC4, false, function () {
-					 that.coeffs.ac5 = that.read16(registerAddresses.CAL_AC5,  false,function () {
+					 that.coeffs.ac5 = that.read16(registerAddresses.CAL_AC5,  false, function () {
 						 that.coeffs.ac6 = that.read16(registerAddresses.CAL_AC6,  false, function () {
-							  that.coeffs.b1 = that.read16(registerAddresses.CAL_B1,  true,function () {
+							  that.coeffs.b1 = that.read16(registerAddresses.CAL_B1,  true, function () {
 								 that.coeffs.b2 = that.read16(registerAddresses.CAL_B2,  true, function () {
-									 that.coeffs.md = that.read16(registerAddresses.CAL_MD,  true,function () {
+								 	console.log("check dees es that.coeffs.b2",that.coeffs.b2);
+									 that.coeffs.md = that.read16(registerAddresses.CAL_MD,  true, function () {
+									 	console.log("check dees es that.coeffs.md",that.coeffs.md);
 										 that.coeffs.mc = that.read16(registerAddresses.CAL_MC, true, function () {
+										 	console.log("check dees es that.coeffs.mc",that.coeffs.mc);
 											 that.coeffs.mb = that.read16(registerAddresses.CAL_MB, true, function () {
-											 	console.log("check dees es ",that.coeffs.mb);
+											 	console.log("check dees es that.coeffs.mb",that.coeffs.mb);
 												});
 											});
 										});
