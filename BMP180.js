@@ -21,7 +21,6 @@ var registerAddresses = {
 	READTEMPCMD : 0x2E,
 	READPRESSURECMD : 0x34
 };
-var x;
 
 var getCalculatedTemperature = function (UT, coeffs) {
 	var X1, X2, B5, t;
@@ -44,10 +43,12 @@ function Bmp180(board) {
 	this.coeffs = {};
 	this.board.sendI2CConfig();
 	var that = this;
-	x = function () {
-				that.requestTemperature();
-			};
-	setInterval(x, 500);
+	var x = setInterval(function() {
+		checkFinishedCoeffs();
+	}, 500);
+	function checkFinishedCoeffs() {
+		that.requestTemperature();
+	};
 	this.setCoeffs();
 }
 
@@ -65,7 +66,7 @@ Bmp180.prototype = {
 				});
 			}, 5);
 			clearInterval(x);
-			
+			console.log('should stop interval');
 		}
 	},
 	getCurrentTemp: function () {
