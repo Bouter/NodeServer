@@ -86,7 +86,7 @@ Bmp180.prototype = {
 		
 		return signed;
 	},
-	read16: function (address,variable,signed,callback) {
+	read16: function (address,signed,callback) {
 		var that = this;
 		console.log("read16::address: ",address);
 		console.log("coeffs",variable);
@@ -102,7 +102,7 @@ Bmp180.prototype = {
 			if (signed) {
 				data = that.makeS16(data);
 			}	
-			variable = data;
+			this.coeffs.ac1 = data;
 	  	});
 	},
 	writeTo : function (address, byte) {
@@ -110,18 +110,18 @@ Bmp180.prototype = {
 	},
 	setCoeffs: function () {
 		var that = this;
-		this.read16(registerAddresses.CAL_AC1, this.coeffs.ac1, true,function () {
+		this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1, true,function () {
 
-			 that.read16(registerAddresses.CAL_AC2, that.coeffs.ac2, true, function () {
-				 that.read16(registerAddresses.CAL_AC3, that.coeffs.ac3, true,function () {
-					 that.read16(registerAddresses.CAL_AC4, that.coeffs.ac4 , false, function () {
-						 that.read16(registerAddresses.CAL_AC5, that.coeffs.ac5, false,function () {
-							 that.read16(registerAddresses.CAL_AC6, that.coeffs.ac6, false, function () {
-								 that.read16(registerAddresses.CAL_B1, that.coeffs.b1, true,function () {
-									 that.read16(registerAddresses.CAL_B2, that.coeffs.b2, true, function () {
-										 that.read16(registerAddresses.CAL_MD, that.coeffs.md, true,function () {
-											 that.read16(registerAddresses.CAL_MC, that.coeffs.mc, true, function () {
-												 that.read16(registerAddresses.CAL_MB, that.coeffs.mb, true, function () {
+			 that.coeffs.ac2 = that.read16(registerAddresses.CAL_AC2, true, function () {
+				 that.coeffs.ac3 = that.read16(registerAddresses.CAL_AC3, true,function () {
+					 that.coeffs.ac4 = that.read16(registerAddresses.CAL_AC4, false, function () {
+						 that.coeffs.ac5 = that.read16(registerAddresses.CAL_AC5,  false,function () {
+							 that.coeffs.ac6 = that.read16(registerAddresses.CAL_AC6,  false, function () {
+								  that.coeffs.b1 = that.read16(registerAddresses.CAL_B1,  true,function () {
+									 that.coeffs.b2 = that.read16(registerAddresses.CAL_B2,  true, function () {
+										 that.read16(registerAddresses.CAL_MD,  true,function () {
+											 that.coeffs.md = that.read16(registerAddresses.CAL_MC, that.coeffs.mc, true, function () {
+												 that.coeffs.mb = that.read16(registerAddresses.CAL_MB,  true, function () {
 													that.calibrated = true;
 													console.log(that.calibrated);
 
