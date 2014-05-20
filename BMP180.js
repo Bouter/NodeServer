@@ -123,6 +123,7 @@ Bmp180.prototype = {
 													that.calibrated = true;
 													console.log(that.calibrated);
 													that.requestTemperature();
+													that.getCalculatedTemperature(that.currentTemp, that.coeffs);
 												});
 											});
 										});
