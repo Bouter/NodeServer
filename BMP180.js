@@ -89,7 +89,7 @@ Bmp180.prototype = {
 	read16: function (address,signed,callback) {
 		var that = this;
 		console.log("read16::address: ",address);
-		console.log("coeffs",variable);
+		
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77,2,function(data){
 			console.log("Test",data);
