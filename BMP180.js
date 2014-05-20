@@ -54,7 +54,7 @@ Bmp180.prototype = {
 			setTimeout(function() {
 				that.read16(registerAddresses.TEMPDATA, function (UT) {
 					that.currentTemp = getCalculatedTemperature(UT, that.coeffs);
-					console.log(that.currentTemp);
+					console.log("Temp : ",that.currentTemp);
 				});
 			}, 5);
 			
@@ -119,9 +119,9 @@ Bmp180.prototype = {
 							 that.coeffs.ac6 = that.read16(registerAddresses.CAL_AC6,  false, function () {
 								  that.coeffs.b1 = that.read16(registerAddresses.CAL_B1,  true,function () {
 									 that.coeffs.b2 = that.read16(registerAddresses.CAL_B2,  true, function () {
-										 that.read16(registerAddresses.CAL_MD,  true,function () {
-											 that.coeffs.md = that.read16(registerAddresses.CAL_MC, that.coeffs.mc, true, function () {
-												 that.coeffs.mb = that.read16(registerAddresses.CAL_MB,  true, function () {
+										 that.coeffs.md = that.read16(registerAddresses.CAL_MD,  true,function () {
+											 that.coeffs.mc = that.read16(registerAddresses.CAL_MC, true, function () {
+												 that.coeffs.mb = that.read16(registerAddresses.CAL_MB, true, function () {
 													that.calibrated = true;
 													console.log(that.calibrated);
 
@@ -136,6 +136,7 @@ Bmp180.prototype = {
 				});
 			});
 		});
+	this.requestTemperature();
 	}
 }
 
