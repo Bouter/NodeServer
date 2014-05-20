@@ -105,16 +105,16 @@ Bmp180.prototype = {
 	setCoeffs: function () {
 		var that = this;
 		this.read16(registerAddresses.CAL_AC1, this.coeffs.ac1, true,function () {
-			 that.readS16(registerAddresses.CAL_AC2, that.coeffs.ac2, true, function () {
-				 that.readS16(registerAddresses.CAL_AC3, that.coeffs.ac3, true,function () {
+			 that.read16(registerAddresses.CAL_AC2, that.coeffs.ac2, true, function () {
+				 that.read16(registerAddresses.CAL_AC3, that.coeffs.ac3, true,function () {
 					 that.read16(registerAddresses.CAL_AC4, that.coeffs.ac4 , true, function () {
 						 that.read16(registerAddresses.CAL_AC5, that.coeffs.ac5, true,function () {
 							 that.read16(registerAddresses.CAL_AC6, that.coeffs.ac6, true, function () {
-								 that.readS16(registerAddresses.CAL_B1, that.coeffs.b1, true,function () {
-									 that.readS16(registerAddresses.CAL_B2, that.coeffs.b2, true, function () {
-										 that.readS16(registerAddresses.CAL_MD, that.coeffs.md, true,function () {
-											 that.readS16(registerAddresses.CAL_MC, that.coeffs.mc, true, function () {
-												 that.readS16(registerAddresses.CAL_MB, that.coeffs.mb, true, function () {
+								 that.read16(registerAddresses.CAL_B1, that.coeffs.b1, true,function () {
+									 that.read16(registerAddresses.CAL_B2, that.coeffs.b2, true, function () {
+										 that.read16(registerAddresses.CAL_MD, that.coeffs.md, true,function () {
+											 that.read16(registerAddresses.CAL_MC, that.coeffs.mc, true, function () {
+												 that.read16(registerAddresses.CAL_MB, that.coeffs.mb, true, function () {
 													that.calibrated = true;
 													console.log(that.calibrated);
 												});
