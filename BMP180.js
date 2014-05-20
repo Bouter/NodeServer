@@ -1,3 +1,5 @@
+"use strict";
+
 var registerAddresses = {
     CAL_AC1 : 0xAA, // R Calibration data (16 bits)
    	CAL_AC2 : 0xAC, // R Calibration data (16 bits)
