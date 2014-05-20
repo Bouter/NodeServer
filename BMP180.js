@@ -43,8 +43,9 @@ function Bmp180(board) {
 	this.currentTemp = 0;
 	this.coeffs = {};
 	this.board.sendI2CConfig();
+	var that = this;
 	x = function () {
-				this.requestTemperature();
+				that.requestTemperature();
 			};
 	setInterval(x, 500);
 	this.setCoeffs();
