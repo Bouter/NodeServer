@@ -86,7 +86,7 @@ Bmp180.prototype = {
 	},
 	readS16: function (address) {
 		var i;
-		i = (read16(address) << 31);
+		i = (this.read16(address) << 31);
 		data = i;
 		console.log("readS16::Data ",data);
 		return data;
