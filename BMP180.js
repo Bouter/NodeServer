@@ -122,33 +122,34 @@ Bmp180.prototype = {
 	},
 	setCoeffs: function () {
 		var that = this;
-		this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1, true, function () {
+		this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1, true, function () {});
+		setInterval(function () {
+			console.log("check dees es that.coeffs.mb",that.coeffs.ac1);
+		}, 1000);
+		
+		// this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1, true, function () {
 
-		 that.coeffs.ac2 = that.read16(registerAddresses.CAL_AC2, true, function () {
-			 that.coeffs.ac3 = that.read16(registerAddresses.CAL_AC3, true, function () {
-				 that.coeffs.ac4 = that.read16(registerAddresses.CAL_AC4, false, function () {
-					 that.coeffs.ac5 = that.read16(registerAddresses.CAL_AC5,  false, function () {
-						 that.coeffs.ac6 = that.read16(registerAddresses.CAL_AC6,  false, function () {
-							  that.coeffs.b1 = that.read16(registerAddresses.CAL_B1,  true, function () {
-								 that.coeffs.b2 = that.read16(registerAddresses.CAL_B2,  true, function () {
-								 	console.log("check dees es that.coeffs.b2",that.coeffs.b1);
-									 that.coeffs.md = that.read16(registerAddresses.CAL_MD,  true, function () {
-									 	console.log("check dees es that.coeffs.md",that.coeffs.b2);
-										 that.coeffs.mc = that.read16(registerAddresses.CAL_MC, true, function () {
-										 	console.log("check dees es that.coeffs.mc",that.coeffs.md);
-											 that.coeffs.mb = that.read16(registerAddresses.CAL_MB, true, function () {
-											 	console.log("check dees es that.coeffs.mb",that.coeffs.mc);
-												});
-											});
-										});
-									});
-								});
-							});
-						});
-					});
-				});
-			});
-		});
+		//  that.coeffs.ac2 = that.read16(registerAddresses.CAL_AC2, true, function () {
+		// 	 that.coeffs.ac3 = that.read16(registerAddresses.CAL_AC3, true, function () {
+		// 		 that.coeffs.ac4 = that.read16(registerAddresses.CAL_AC4, false, function () {
+		// 			 that.coeffs.ac5 = that.read16(registerAddresses.CAL_AC5,  false, function () {
+		// 				 that.coeffs.ac6 = that.read16(registerAddresses.CAL_AC6,  false, function () {
+		// 					  that.coeffs.b1 = that.read16(registerAddresses.CAL_B1,  true, function () {
+		// 						 that.coeffs.b2 = that.read16(registerAddresses.CAL_B2,  true, function () {
+		// 							 that.coeffs.md = that.read16(registerAddresses.CAL_MD,  true, function () {
+		// 								 that.coeffs.mc = that.read16(registerAddresses.CAL_MC, true, function () {
+		// 									 that.coeffs.mb = that.read16(registerAddresses.CAL_MB, true, function () {
+		// 										});
+		// 									});
+		// 								});
+		// 							});
+		// 						});
+		// 					});
+		// 				});
+		// 			});
+		// 		});
+		// 	});
+		// });
 	}
 }
 
