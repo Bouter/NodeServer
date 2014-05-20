@@ -83,9 +83,7 @@ Bmp180.prototype = {
 	  	});
 	},
 	readS16: function (address, callback) {
-		//var i;
-		//i = (this.read16(address, callback) << 31);
-		//data = i;
+		
 		var signed;
 		if (address > 32767) {
   			signed = (-65536 + address);
@@ -93,7 +91,7 @@ Bmp180.prototype = {
   			signed = address;
 		}
 		console.log(signed);
-		//console.log("readS16::Data ",data);
+		
 		data = signed;
 		return data;
 	},
