@@ -84,12 +84,7 @@ Bmp180.prototype = {
 	},
 	readS16: function (address, callback) {
 		
-		var signed;
-		if (address > 32767) {
-  			signed = (-65536 + address);
-		} else {
-  			signed = address;
-		}
+		var signed = ((address >> 15) * (-65536)) + address;
 		console.log(signed);
 		
 		data = signed;
