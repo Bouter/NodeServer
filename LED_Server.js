@@ -29,7 +29,6 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         /*board.analogRead(analogPin, function (val) {  
             data = {x : new Date() , y : val};
         });*/
-       
         http.createServer(function (request, response) {
             var urlObject = qString.parse(request.url.split("?")[1]);
 
