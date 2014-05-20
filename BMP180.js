@@ -69,23 +69,6 @@ Bmp180.prototype = {
 			return data;
 	  	});
 	},
-	read16: function (address,variable,signed,callback) {
-		console.log("read16::address: ",address);
-		this.board.sendI2CWriteRequest(0x77,[address]);
-		this.board.sendI2CReadRequest(0x77,2,function(data){
-			console.log("Test",data);
-			data = (data[0] << 8) | data[1];
-			console.log("read16",data);
-			if (typeof(callback) == "function") {
-				callback(data);
-			}
-			var that = this;
-			if (signed) {
-				data = that.makeS16(data);
-			}	
-			variable = data;
-	  	});
-	},
 	makeS16: function (number) {
 		var signed;
 		console.log(number);
@@ -99,6 +82,23 @@ Bmp180.prototype = {
 		console.log("Signed",signed);
 		
 		return signed;
+	},
+	read16: function (address,variable,signed,callback) {
+		console.log("read16::address: ",address);
+		this.board.sendI2CWriteRequest(0x77,[address]);
+		this.board.sendI2CReadRequest(0x77,2,function(data){
+			console.log("Test",data);
+			data = (data[0] << 8) | data[1];
+			console.log("read16",data);
+			if (typeof(callback) == "function") {
+				callback(data);
+			}
+			
+			if (signed) {
+				data = makeS16(data);
+			}	
+			variable = data;
+	  	});
 	},
 	writeTo : function (address, byte) {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
