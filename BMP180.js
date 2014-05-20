@@ -43,10 +43,6 @@ function Bmp180(board) {
 	this.coeffs = {};
 	this.board.sendI2CConfig();
 	this.setCoeffs();
-	// this.requestTemperature();
-	console.log('--------------------------');
-	// console.log(this.requestTemperature());
-	console.log('--------------------------');
 }
 
 Bmp180.prototype = {
@@ -141,9 +137,6 @@ Bmp180.prototype = {
 				});
 			});
 		});
-	// this.requestTemperature();
-	console.log();
-	console.log(this.requestTemperature());
 	}
 }
 
