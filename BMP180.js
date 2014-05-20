@@ -83,8 +83,10 @@ Bmp180.prototype = {
 	  	});
 	},
 	readS16: function (address, callback) {
-		
-		var signed = (address.TEMPDATA >> 0);
+		var signed = read16(address);
+			
+	  	
+	 	signed = (signed >> 0);
 		console.log(signed);
 		data = signed;
 		return data;
