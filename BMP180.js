@@ -96,10 +96,10 @@ Bmp180.prototype = {
 	},
 	read16: function (address,signed,callback) {
 		var that = this;
-		console.log("read16::address: ",address);
+		console.log("read16::address: ", address);
 		
 		this.board.sendI2CWriteRequest(0x77,[address]);
-		var y = this.board.sendI2CReadRequest(0x77,2,function(data){
+		var y = this.board.sendI2CReadRequest(0x77, 2, function(data){
 
 			console.log("Test",data);
 			data = (data[0] << 8) | data[1];
@@ -131,13 +131,13 @@ Bmp180.prototype = {
 						 that.coeffs.ac6 = that.read16(registerAddresses.CAL_AC6,  false, function () {
 							  that.coeffs.b1 = that.read16(registerAddresses.CAL_B1,  true, function () {
 								 that.coeffs.b2 = that.read16(registerAddresses.CAL_B2,  true, function () {
-								 	console.log("check dees es that.coeffs.b2",that.coeffs.b2);
+								 	console.log("check dees es that.coeffs.b2",that.coeffs.b1);
 									 that.coeffs.md = that.read16(registerAddresses.CAL_MD,  true, function () {
-									 	console.log("check dees es that.coeffs.md",that.coeffs.md);
+									 	console.log("check dees es that.coeffs.md",that.coeffs.b2);
 										 that.coeffs.mc = that.read16(registerAddresses.CAL_MC, true, function () {
-										 	console.log("check dees es that.coeffs.mc",that.coeffs.mc);
+										 	console.log("check dees es that.coeffs.mc",that.coeffs.md);
 											 that.coeffs.mb = that.read16(registerAddresses.CAL_MB, true, function () {
-											 	console.log("check dees es that.coeffs.mb",that.coeffs.mb);
+											 	console.log("check dees es that.coeffs.mb",that.coeffs.mc);
 												});
 											});
 										});
