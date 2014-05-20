@@ -85,6 +85,7 @@ Bmp180.prototype = {
 	readS16: function (address, callback) {
 		var signed;
 		var number = this.read16(address, callback);
+		console.log(number);
 		if (number > 32767) {
   			signed = ((-65536) + number);
 		} else {
@@ -93,8 +94,8 @@ Bmp180.prototype = {
 		
 	 	
 		console.log("Signed",signed);
-		data = signed;
-		return data;
+		
+		return signed;
 	},
 	writeTo : function (address, byte) {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
@@ -113,6 +114,7 @@ Bmp180.prototype = {
 											that.coeffs.mc = that.readS16(registerAddresses.CAL_MC, function () {
 												that.coeffs.mb = that.readS16(registerAddresses.CAL_MB, function () {
 													that.calibrated = true;
+													console.log(calibrated);
 												});
 											});
 										});
