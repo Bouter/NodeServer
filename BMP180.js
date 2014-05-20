@@ -89,6 +89,7 @@ Bmp180.prototype = {
 	read16: function (address,variable,signed,callback) {
 		var that = this;
 		console.log("read16::address: ",address);
+		console.log("coeffs",that.coeffs.ac1);
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77,2,function(data){
 			console.log("Test",data);
@@ -110,7 +111,7 @@ Bmp180.prototype = {
 	setCoeffs: function () {
 		var that = this;
 		this.read16(registerAddresses.CAL_AC1, this.coeffs.ac1, true,function () {
-			
+
 			 that.read16(registerAddresses.CAL_AC2, that.coeffs.ac2, true, function () {
 				 that.read16(registerAddresses.CAL_AC3, that.coeffs.ac3, true,function () {
 					 that.read16(registerAddresses.CAL_AC4, that.coeffs.ac4 , false, function () {
@@ -123,7 +124,7 @@ Bmp180.prototype = {
 												 that.read16(registerAddresses.CAL_MB, that.coeffs.mb, true, function () {
 													that.calibrated = true;
 													console.log(that.calibrated);
-													console.log("coeffs",that.coeffs.ac1);
+
 												});
 											});
 										});
