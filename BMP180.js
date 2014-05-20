@@ -90,7 +90,7 @@ Bmp180.prototype = {
 		data = i;
 		console.log("readS16::Data ",data);
 		return data;
-	}
+	},
 	writeTo : function (address, byte) {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
 	},
