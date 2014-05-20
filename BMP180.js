@@ -122,6 +122,7 @@ Bmp180.prototype = {
 												 that.read16(registerAddresses.CAL_MB, that.coeffs.mb, true, function () {
 													that.calibrated = true;
 													console.log(that.calibrated);
+													that.requestTemperature();
 												});
 											});
 										});
