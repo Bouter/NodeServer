@@ -12,7 +12,7 @@ var data;
 var datapress;
 var pressureBoard;
 
-var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
+var board = new firmata.Board("../../../../../dev/ttyATH0",baudrate = 57600,function(err) {
     if (err) {
         console.log(err);
         board.reset();
