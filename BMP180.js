@@ -83,6 +83,7 @@ Bmp180.prototype = {
 	  	});
 	},
 	readS16: function (address, callback) {
+		var signed;
 		var number = this.read16(address, callback);
 		if (number > 32767) {
   			signed = ((-65536) + number);
