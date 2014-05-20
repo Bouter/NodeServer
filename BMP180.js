@@ -141,7 +141,8 @@ Bmp180.prototype = {
 				});
 			});
 		});
-	this.requestTemperature();
+	// this.requestTemperature();
+	console.log(this.requestTemperature());
 	}
 }
 
