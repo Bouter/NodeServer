@@ -84,22 +84,29 @@ Bmp180.prototype = {
 			return data;
 	  	});
 	},
+	readS16: function (address) {
+		var i;
+		read16(address,&i);
+		data = i;
+		console.log("readS16::Data ",data);
+		return data;
+	}
 	writeTo : function (address, byte) {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
 	},
 	setCoeffs: function () {
 		var that = this;
-		this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1,function () {
-			that.coeffs.ac2 = that.read16(registerAddresses.CAL_AC2, function () {
-				that.coeffs.ac3 = that.read16(registerAddresses.CAL_AC3,function () {
+		this.coeffs.ac1 = this.readS16(registerAddresses.CAL_AC1,function () {
+			that.coeffs.ac2 = that.readS16(registerAddresses.CAL_AC2, function () {
+				that.coeffs.ac3 = that.readS16(registerAddresses.CAL_AC3,function () {
 					that.coeffs.ac4 = that.read16(registerAddresses.CAL_AC4, function () {
 						that.coeffs.ac5 = that.read16(registerAddresses.CAL_AC5,function () {
 							that.coeffs.ac6 = that.read16(registerAddresses.CAL_AC6, function () {
-								that.coeffs.b1 = that.read16(registerAddresses.CAL_B1,function () {
-									that.coeffs.b2 = that.read16(registerAddresses.CAL_B2, function () {
-										that.coeffs.md = that.read16(registerAddresses.CAL_MD,function () {
-											that.coeffs.mc = that.read16(registerAddresses.CAL_MC, function () {
-												that.coeffs.mb = that.read16(registerAddresses.CAL_MB, function () {
+								that.coeffs.b1 = that.readS16(registerAddresses.CAL_B1,function () {
+									that.coeffs.b2 = that.readS16(registerAddresses.CAL_B2, function () {
+										that.coeffs.md = that.readS16(registerAddresses.CAL_MD,function () {
+											that.coeffs.mc = that.readS16(registerAddresses.CAL_MC, function () {
+												that.coeffs.mb = that.readS16(registerAddresses.CAL_MB, function () {
 													that.calibrated = true;
 												});
 											});
