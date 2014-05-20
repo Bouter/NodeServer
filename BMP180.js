@@ -102,7 +102,7 @@ Bmp180.prototype = {
 			if (signed) {
 				data = that.makeS16(data);
 			}	
-			this.coeffs.ac1 = data;
+			data = data;
 	  	});
 	},
 	writeTo : function (address, byte) {
