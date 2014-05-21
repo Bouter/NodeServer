@@ -75,7 +75,7 @@ Bmp180.prototype = {
 			var that = this;
 			console.log("check");
 			setTimeout(function() {
-				this.read16(registerAddresses.TEMPDATA, true, function (data) {
+				this.read16(registerAddresses.TEMPDATA, false, function (data) {
 					this.currentTemp = getCalculatedTemperature(data, this.coeffs);
 					console.log(this.currentTemp);
 				}.bind(this));
