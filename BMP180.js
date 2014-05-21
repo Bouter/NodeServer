@@ -3,8 +3,8 @@
 
 
 var registerAddresses = {
-  CAL_AC1 : 0xAA, // R Calibration data (16 bits)
- 	CAL_AC2 : 0xAC, // R Calibration data (16 bits)
+  	CAL_AC1 : 0xAA, // R Calibration data (16 bits)
+	CAL_AC2 : 0xAC, // R Calibration data (16 bits)
 	CAL_AC3 : 0xAE, // R Calibration data (16 bits)
 	CAL_AC4 : 0xB0, // R Calibration data (16 bits)
 	CAL_AC5 : 0xB2, // R Calibration data (16 bits)
@@ -25,6 +25,7 @@ var registerAddresses = {
 };
 
 var checkCoeffs;
+var nameArray;
 
 var getCalculatedTemperature = function (UT, coeffs) {
 	var X1, X2, B5, t;
@@ -108,7 +109,7 @@ Bmp180.prototype = {
 		
 		return signed;
 	},
-	read16: function (address,signed) {
+	read16: function (address,signed,callback) {
 		var that = this;
 		console.log("read16::address: ", address);
 		
@@ -135,24 +136,34 @@ Bmp180.prototype = {
 	},
 	setCoeffs: function () {
 		checkCoeffs = setInterval(function () {
+			var coeffSize = Object.size(this.coeffs)
 			console.log("check coeffs",this.coeffs);
 			if (Object.size(this.coeffs) == 11) {
-				calibrated = true;
+				this.calibrated = true;
 				clearInterval(checkCoeffs);
 			}
+			nameArray = [
+				{get:"CAL_AC1",request:false,got:false, signed: true},
+				{get:"CAL_AC2",request:false,got:false, signed: true},
+				{get:"CAL_AC3",request:false,got:false, signed: true},
+				{get:"CAL_AC4",request:false,got:false, signed: false},
+				{get:"CAL_AC5",request:false,got:false, signed: false},
+				{get:"CAL_AC6",request:false,got:false, signed: false},
+				{get:"CAL_B1",request:false,got:false, signed: true},
+				{get:"CAL_B2",request:false,got:false, signed: true},
+				{get:"CAL_MB",request:false,got:false, signed: true},
+				{get:"CAL_MC",request:false,got:false, signed: true},
+				{get:"CAL_MD",request:false,got:false, signed: true}
+			];
+			if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
+				nameArray[coeffSize-1].got= true;
+			}
+			if (nameArray[coeffSize].request == false) {
+				this.read16(registerAddresses[coeffSize)].get], nameArray[coeffSize].signed);
+				nameArray[coeffSize].request = true
+			}
+
 		}.bind(this), 1000);
-		
-		this.read16(registerAddresses.CAL_AC1, true);
-		this.read16(registerAddresses.CAL_AC2, true);
-		this.read16(registerAddresses.CAL_AC3, true);
-		this.read16(registerAddresses.CAL_AC4, false);
-		this.read16(registerAddresses.CAL_AC5,  false);
-		this.read16(registerAddresses.CAL_AC6,  false);
-		this.read16(registerAddresses.CAL_B1,  true);
-		this.read16(registerAddresses.CAL_B2,  true);
-		this.read16(registerAddresses.CAL_MD,  true);
-		this.read16(registerAddresses.CAL_MC, true);
-		this.read16(registerAddresses.CAL_MB, true);
 	}
 }
 
