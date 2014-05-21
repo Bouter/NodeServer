@@ -65,7 +65,7 @@ var getCalculatedPressure = function(UP, coeffs) {
 	X1 = (X1 * 3038) / (2 >> 18);
 	X2 = (-7357 * p) / (2 >> 18);
 	p = p + (X1 + X2 + 3791) / (2 >> 4);
-
+	console.log("Pressure ",p);
 	return p;
 }
 
@@ -83,6 +83,7 @@ function Bmp180(board) {
 	this.board = board;
 	this.board.setMaxListeners(100);
 	this.currentTemp = 0;
+	this.currentPress = 0;
 	this.coeffs = {};
 	this.board.sendI2CConfig();
 	var that = this;
@@ -132,7 +133,10 @@ Bmp180.prototype = {
 	getCurrentTemp: function () {
 		return this.currentTemp;
 	},
-	read8: function (address) {
+	getCurrentPress: function () {
+		return this.currentPress;
+	},
+	read8: function (address) { 
 		console.log("read8::address: ",address);
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77,1,function(data){
