@@ -109,16 +109,12 @@ Bmp180.prototype = {
 			setTimeout(function() {
 				this.read16(registerAddresses.TEMPDATA, true, function (data) {
 					this.currentTemp = getCalculatedTemperature(data, this.coeffs);
-					
-					
 					if (GoPressure) {
 						this.requestPressure();
 					}
 				}.bind(this));
 			}.bind(this), 5);
-			clearInterval(this.x);
-			
-				
+			clearInterval(this.x);		
 		}
 	},
 	requestPressure: function () {
@@ -151,7 +147,7 @@ Bmp180.prototype = {
 	},
 	makeS16: function (number) {
 		var signed;
-		console.log(number);
+		// console.log(number);
 		if (number > 32767) {
   			signed = ((-65536) + number);
 		} else {
