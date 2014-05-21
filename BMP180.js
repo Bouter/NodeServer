@@ -30,8 +30,8 @@ var nameArray;
 var getCalculatedTemperature = function (UT, coeffs) {
 	var X1, X2, B5, t;
  
-	X1 = (UT - coeffs.ac6) * (coeffs.ac5) / Math.pow(2,15);
-	X2 = (coeffs.mc * Math.pow(2,11)) / (X1+coeffs.md);
+	X1 = (UT - coeffs[registerAddresses.CAL_AC6]) * (coeffs[registerAddresses.CAL_AC5]) / Math.pow(2,15);
+	X2 = (coeffs[registerAddresses.CAL_MC] * Math.pow(2,11)) / (X1+coeffs[registerAddresses.CAL_MD]);
 	B5 = X1 + X2;
 	t = (B5+8)/Math.pow(2,4);
 	t /= 10;
@@ -75,11 +75,11 @@ Bmp180.prototype = {
 			var that = this;
 			console.log("check");
 			setTimeout(function() {
-				that.read16(registerAddresses.TEMPDATA, function (UT) {
-					that.currentTemp = getCalculatedTemperature(UT, that.coeffs);
-					console.log("Temp : ",that.currentTemp);
-				});
-			}, 5);
+				this.read16(registerAddresses.TEMPDATA, true, function (data) {
+					this.currentTemp = getCalculatedTemperature(data, this.coeffs);
+					console.log(this.currentTemp);
+				}.bind(this));
+			}.bind(this), 5);
 			clearInterval(this.x);
 			console.log('should stop interval');
 		}
@@ -119,15 +119,16 @@ Bmp180.prototype = {
 			console.log("Test",data);
 			data = (data[0] << 8) | data[1];
 			console.log("read16",data);
-			if (typeof(callback) == "function") {
-				callback(data);
-			}
-			
+
 			if (signed) {
 				data = that.makeS16(data);
 			}
 
-			this.coeffs[address] = data;
+			if (typeof(callback) == "function") {
+				callback(data);
+			} else {
+				this.coeffs[address] = data;
+			}
 
 	  	}.bind(this));
 	},
