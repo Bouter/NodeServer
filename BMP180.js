@@ -69,15 +69,20 @@ var getCalculatedPressure = function (UP, coeffs) {
 	p = p + ((X1 + X2 + 3791) >> 4);
 	console.log("Pressure ",p/100);
 	GoAltitude = true;
+	if (GoAltitude){
+		altitude = 44330.0 * (1.0 - (Math.pow(((p/100.0) /101325.0),(1903/1000))));
+		console.log("Altitude ", altitude);
+	}
+	
 	return p;
 };
 
-var getCalculatedAltitude = function (p) {
-	this.requestPressure();
+var getCalculatedAltitude = function () {
+
 	var altitude;
-	
+	var pp = this.requestPressure();
 	console.log("pw ", p);
-	altitude = 44330.0 * (1.0 - (Math.pow(((p/100.0) /101325.0),(1903/1000))));
+	altitude = 44330.0 * (1.0 - (Math.pow(((pp/100.0) /101325.0),(1903/1000))));
 	console.log("Altitude ", altitude);
 	return altitude;
 }
