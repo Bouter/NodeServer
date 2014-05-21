@@ -50,7 +50,7 @@ Object.size = function(obj) {
 
 
 function Bmp180(board) {
-	// this.calibrated = false;
+	this.calibrated = false;
 	this.board = board;
 	this.board.setMaxListeners(100);
 	this.currentTemp = 0;
@@ -69,7 +69,7 @@ function Bmp180(board) {
 Bmp180.prototype = {
 	requestTemperature: function () {
 		console.log("checka");
-		if (this.coeffs.mb) {
+		if (this.calibrated) {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
 			var that = this;
 			console.log("check");
@@ -140,7 +140,7 @@ Bmp180.prototype = {
 				calibrated = true;
 				clearInterval(checkCoeffs);
 			}
-		}, 1000);
+		}.bind(this), 1000);
 		
 		this.read16(registerAddresses.CAL_AC1, true);
 		this.read16(registerAddresses.CAL_AC2, true);
