@@ -122,7 +122,7 @@ Bmp180.prototype = {
 	},
 	requestPressure: function () {
 		console.log("Check pressA");
-		if (this.GoPressure) {
+		//if (this.GoPressure) {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
 			var that  = this;
 			setTimeout(function() {
@@ -131,7 +131,7 @@ Bmp180.prototype = {
 				}.bind(this));
 			}.bind(this),5);
 			clearInterval(this.x);
-		}
+		//}
 	},
 	getCurrentTemp: function () {
 		return this.currentTemp;
