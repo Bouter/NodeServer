@@ -40,6 +40,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 
 	console.log(UT ,X1, X2, B5, t);
 	GoPressure = true;
+	this.requestPressure();
 	return t;
 };
 
@@ -116,7 +117,7 @@ Bmp180.prototype = {
 			clearInterval(this.x);
 			console.log('should stop interval');
 			
-			this.requestPressure();
+			
 			
 		}
 	},
