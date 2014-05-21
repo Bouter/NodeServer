@@ -116,6 +116,7 @@ Bmp180.prototype = {
 			}.bind(this), 5);
 			clearInterval(this.x);
 			console.log('should stop interval');
+			console.log("Check GoPressure ", GoPressure);
 			if (GoPressure) {
 				requestPressure();
 			}
@@ -125,7 +126,7 @@ Bmp180.prototype = {
 	},
 	requestPressure: function () {
 		console.log("Check pressA");
-		console.log("Check GoPressure ", GoPressure);
+		
 		if (GoPressure) {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
 			var that  = this;
