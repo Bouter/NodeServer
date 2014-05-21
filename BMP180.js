@@ -135,7 +135,7 @@ Bmp180.prototype = {
 				this.read16(registerAddresses.PRESSUREDATA, false, function (data) {
 					this.curentPress = getCalculatedPressure(data, this.coeffs);
 					if (GoAltitude) {
-						this.getCalculatedAltitude();
+						getCalculatedAltitude();
 					}
 				}.bind(this));
 			}.bind(this),5);
