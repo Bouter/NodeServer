@@ -112,16 +112,15 @@ Bmp180.prototype = {
 				this.read16(registerAddresses.TEMPDATA, true, function (data) {
 					this.currentTemp = getCalculatedTemperature(data, this.coeffs);
 					console.log(this.currentTemp);
+					console.log("Check GoPressure ", GoPressure);
+					if (GoPressure) {
+						requestPressure();
+					}
 				}.bind(this));
 			}.bind(this), 5);
 			clearInterval(this.x);
 			console.log('should stop interval');
-			console.log("Check GoPressure ", GoPressure);
-			if (GoPressure) {
-				requestPressure();
-			}
-			
-			
+				
 		}
 	},
 	requestPressure: function () {
