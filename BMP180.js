@@ -1,7 +1,6 @@
 "use strict";
-var events = require('events');
 
-events.setMaxListeners(100);
+
 
 var registerAddresses = {
   CAL_AC1 : 0xAA, // R Calibration data (16 bits)
@@ -51,6 +50,7 @@ Object.size = function(obj) {
 function Bmp180(board) {
 	// this.calibrated = false;
 	this.board = board;
+	this.board.setMaxListeners(100);
 	this.currentTemp = 0;
 	this.coeffs = {};
 	this.board.sendI2CConfig();
