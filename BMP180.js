@@ -28,9 +28,10 @@ var registerAddresses = {
 var checkCoeffs;
 var nameArray;
 var GoPressure = false;
+var B5;
 
 var getCalculatedTemperature = function (UT, coeffs) {
-	var X1, X2, B5, t;
+	var X1, X2, t;
  
 	X1 = (UT - coeffs[registerAddresses.CAL_AC6]) * (coeffs[registerAddresses.CAL_AC5]) / Math.pow(2,15);
 	X2 = (coeffs[registerAddresses.CAL_MC] * Math.pow(2,11)) / (X1+coeffs[registerAddresses.CAL_MD]);
@@ -47,7 +48,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 var getCalculatedPressure = function(UP, coeffs) {
 	var X1, X2, X3, B3, B4, B6, B7, p;
 
-	B6 = this.B5 - 4000;
+	B6 = B5 - 4000;
 	X1 = (coeffs[registerAdresses.CAL_B2] * ((B6 * B6) >> 12)) >> 11;
 	X2 = (coeffs[registerAdresses.CAL_AC2] * B6) >> 11;
 	X3 = X1 + X2;
