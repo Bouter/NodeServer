@@ -73,7 +73,7 @@ var getCalculatedPressure = function (UP, coeffs) {
 };
 
 var getCalculatedAltitude = function (p) {
-	altitude = 44330 * (1.0 - pow(p /101325,0.1903));
+	altitude = 44330 * (1.0 - Math.pow((p /101325),0.1903));
 	console.log("Altitude ", altitude);
 	return altitude;
 }
