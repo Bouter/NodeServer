@@ -58,7 +58,7 @@ var getCalculatedPressure = function (UP, coeffs) {
 	X2 = (coeffs[registerAddresses.CAL_B1] * ((B6 * B6) >> 12)) >> 16;
 	X3 = ((X1 + X2) + 2) >> 2;
 	B4 = (coeffs[registerAddresses.CAL_AC4] * (X3 + 32768)) >> 15;
-	B7 = ((UP - B3) * (50000UL >> 0));
+	B7 = ((UP - B3) * (50000 >> 0));
 	if (B7 < 0X80000000){
 		p = (B7 * 2) / B4;
 	}else{
@@ -69,7 +69,7 @@ var getCalculatedPressure = function (UP, coeffs) {
 	X2 = (-7357 * p)  >> 16;
 	p = p + ((X1 + X2 + 3791) >> 4);
 	console.log(UP ,X1, X2, B5, B4, B7);
-	console.log("Pressure ",p);
+	console.log("Pressure ",p/100);
 	return p;
 }
 
