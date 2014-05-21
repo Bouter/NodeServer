@@ -27,6 +27,7 @@ var registerAddresses = {
 
 var checkCoeffs;
 var nameArray;
+var GoPressure = false;
 
 var getCalculatedTemperature = function (UT, coeffs) {
 	var X1, X2, B5, t;
@@ -38,7 +39,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 	t /= 10;
 
 	console.log(UT ,X1, X2, B5, t);
-	this.GoPressure = true;
+	GoPressure = true;
 	return t;
 };
 
@@ -79,7 +80,6 @@ Object.size = function(obj) {
 
 function Bmp180(board) {
 	this.calibrated = false;
-	this.GoPressure = false;
 	this.board = board;
 	this.board.setMaxListeners(100);
 	this.currentTemp = 0;
