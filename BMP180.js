@@ -19,6 +19,7 @@ var registerAddresses = {
 	SOFTRESET : 0xE0,
 	CONTROL : 0xF4,
 	TEMPDATA : 0xF6,
+	TEMPDATAL : 0XF7;
 	PRESSUREDATA : 0xF6,
 	READTEMPCMD : 0x2E,
 	READPRESSURECMD : 0x34
@@ -118,6 +119,7 @@ Bmp180.prototype = {
 
 			console.log("Test",data[0]);
 			console.log("Test2",data[1]);
+			console.log("Test3",data[2]);
 			data = (data[0] << 8) | data[1];
 			console.log("read16",data);
 
