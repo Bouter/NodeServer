@@ -108,7 +108,7 @@ function Bmp180(board) {
 	var that = this;
 	this.x = setInterval(function() {
 		checkFinishedCoeffs();
-	}, 500);
+	}, 5000);
 	function checkFinishedCoeffs() {
 		that.requestTemperature();
 		if (GoPressure) {
@@ -132,7 +132,7 @@ Bmp180.prototype = {
 					}
 				}.bind(this));
 			}.bind(this), 5);
-			clearInterval(this.x);		
+			//clearInterval(this.x);		
 		}
 	},
 	requestPressure: function () {
@@ -146,7 +146,7 @@ Bmp180.prototype = {
 					
 				}.bind(this));
 			}.bind(this),5);
-			clearInterval(this.x);
+			//clearInterval(this.x);
 		}
 	},
 	getCurrentTemp: function () {
