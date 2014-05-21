@@ -49,6 +49,7 @@ var getCalculatedPressure = function (UP, coeffs) {
 	var X1, X2, X3, B3, B4, B6, B7, p;
 
 	B6 = B5 - 4000;
+	console.log("b6 ",B6);
 	X1 = (coeffs[registerAddresses.CAL_B2] * ((B6 * B6) >> 12)) >> 11;
 	X2 = (coeffs[registerAddresses.CAL_AC2] * B6) >> 11;
 	X3 = X1 + X2;
