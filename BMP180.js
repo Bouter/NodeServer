@@ -114,7 +114,7 @@ Bmp180.prototype = {
 					console.log(this.currentTemp);
 					console.log("Check GoPressure ", GoPressure);
 					if (GoPressure) {
-						requestPressure();
+						this.requestPressure();
 					}
 				}.bind(this));
 			}.bind(this), 5);
