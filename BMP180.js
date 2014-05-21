@@ -135,7 +135,7 @@ Bmp180.prototype = {
 	},
 	setCoeffs: function () {
 		checkCoeffs = setInterval(function () {
-			console.log("check coeffs",that.coeffs);
+			console.log("check coeffs",this.coeffs);
 			if (Object.size(this.coeffs) == 11) {
 				calibrated = true;
 				clearInterval(checkCoeffs);
