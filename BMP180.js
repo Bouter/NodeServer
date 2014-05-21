@@ -91,6 +91,10 @@ function Bmp180(board) {
 	}, 500);
 	function checkFinishedCoeffs() {
 		that.requestTemperature();
+		if (GoPressure) {
+			that.requestPressure();
+		}
+		
 	};
 	this.setCoeffs();
 }
@@ -207,7 +211,7 @@ Bmp180.prototype = {
 				nameArray[coeffSize].request = true;
 			}
 
-		}.bind(this), 1000);
+		}.bind(this), 2000);
 	}
 }
 
