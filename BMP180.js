@@ -115,9 +115,9 @@ Bmp180.prototype = {
 			}.bind(this), 5);
 			clearInterval(this.x);
 			console.log('should stop interval');
-			if (GoPressure) {
+			
 			this.requestPressure();
-			}
+			
 		}
 	},
 	requestPressure: function () {
