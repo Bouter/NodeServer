@@ -24,7 +24,7 @@ var registerAddresses = {
 	READTEMPCMD : 0x2E,
 	READPRESSURECMD : 0x34
 };
-
+var p;
 var checkCoeffs;
 var nameArray;
 var GoPressure = false;
@@ -46,7 +46,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 };
 
 var getCalculatedPressure = function (UP, coeffs) {
-	var X1, X2, X3, B3, B4, B6, B7, p;
+	var X1, X2, X3, B3, B4, B6, B7;
 
 	B6 = B5 - 4000;
 	X1 = (coeffs[registerAddresses.CAL_B2] * ((B6 * B6) >> 12)) >> 11;
@@ -74,7 +74,7 @@ var getCalculatedPressure = function (UP, coeffs) {
 
 var getCalculatedAltitude = function (p) {
 	var altitude;
-	altitude = 44330 * (1.0 - Math.pow(((p/100) /101325),0.1903));
+	altitude = 44330 * (1.0 - (Math.pow(((p/100) /101325),0.1903)));
 	console.log("Altitude ", altitude);
 	return altitude;
 }
