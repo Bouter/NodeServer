@@ -1,3 +1,5 @@
+"use strict";
+
 var qString = require('querystring');
 var http = require('http');
 var firmata = require('firmata');
