@@ -1,4 +1,7 @@
 "use strict";
+var events : require('events');
+
+events.setMaxListeners(100);
 
 var registerAddresses = {
   CAL_AC1 : 0xAA, // R Calibration data (16 bits)
@@ -35,6 +38,15 @@ var getCalculatedTemperature = function (UT, coeffs) {
 
 	return t;
 };
+
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
+
 
 function Bmp180(board) {
 	// this.calibrated = false;
@@ -120,36 +132,25 @@ Bmp180.prototype = {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
 	},
 	setCoeffs: function () {
-		var that = this;
-		/* ONLY A TEST, DELETE THIS AND UNCOMMENT THE CODE BELOW */
-		this.read16(registerAddresses.CAL_AC1, true);
-		setInterval(function () {
-			console.log("check dees es that.coeffs.mb",that.coeffs[registerAddresses.CAL_AC1]);
-		}, 1000);
+		(setInterval(function () {
+			console.log("check coeffs",that.coeffs);
+			if (Object.size(this.coeffs) == 11) {
+				calibrated = true;
+				clearInterval(checkCoeffs);
+			}
+		}, 1000))(checkCoeffs);
 		
-		// this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1, true, function () {
-
-		//  that.coeffs.ac2 = that.read16(registerAddresses.CAL_AC2, true, function () {
-		// 	 that.coeffs.ac3 = that.read16(registerAddresses.CAL_AC3, true, function () {
-		// 		 that.coeffs.ac4 = that.read16(registerAddresses.CAL_AC4, false, function () {
-		// 			 that.coeffs.ac5 = that.read16(registerAddresses.CAL_AC5,  false, function () {
-		// 				 that.coeffs.ac6 = that.read16(registerAddresses.CAL_AC6,  false, function () {
-		// 					  that.coeffs.b1 = that.read16(registerAddresses.CAL_B1,  true, function () {
-		// 						 that.coeffs.b2 = that.read16(registerAddresses.CAL_B2,  true, function () {
-		// 							 that.coeffs.md = that.read16(registerAddresses.CAL_MD,  true, function () {
-		// 								 that.coeffs.mc = that.read16(registerAddresses.CAL_MC, true, function () {
-		// 									 that.coeffs.mb = that.read16(registerAddresses.CAL_MB, true, function () {
-		// 										});
-		// 									});
-		// 								});
-		// 							});
-		// 						});
-		// 					});
-		// 				});
-		// 			});
-		// 		});
-		// 	});
-		// });
+		this.read16(registerAddresses.CAL_AC1, true};
+		this.read16(registerAddresses.CAL_AC2, true};
+		this.read16(registerAddresses.CAL_AC3, true};
+		this.read16(registerAddresses.CAL_AC4, false};
+		this.read16(registerAddresses.CAL_AC5,  false};
+		this.read16(registerAddresses.CAL_AC6,  false};
+		this.read16(registerAddresses.CAL_B1,  true};
+		this.read16(registerAddresses.CAL_B2,  true};
+		this.read16(registerAddresses.CAL_MD,  true};
+		this.read16(registerAddresses.CAL_MC, true};
+		this.read16(registerAddresses.CAL_MB, true};
 	}
 }
 
