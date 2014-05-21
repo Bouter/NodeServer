@@ -159,7 +159,7 @@ Bmp180.prototype = {
 				nameArray[coeffSize-1].got= true;
 			}
 			if (nameArray[coeffSize].request == false) {
-				this.read16(registerAddresses[coeffSize].get], nameArray[coeffSize].signed);
+				this.read16(registerAddresses[nameArray[coeffSize].get], nameArray[coeffSize].signed);
 				nameArray[coeffSize].request = true
 			}
 
