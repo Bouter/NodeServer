@@ -158,7 +158,7 @@ Bmp180.prototype = {
 			if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
 				nameArray[coeffSize-1].got= true;
 			}
-			if (nameArray[coeffSize].request == false) {
+			if (nameArray[coeffSize] != undefined && nameArray[coeffSize].request == false) {
 				this.read16(registerAddresses[nameArray[coeffSize].get], nameArray[coeffSize].signed);
 				nameArray[coeffSize].request = true
 			}
