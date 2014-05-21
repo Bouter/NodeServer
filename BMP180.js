@@ -40,7 +40,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 
 	console.log(UT ,X1, X2, B5, t);
 	GoPressure = true;
-	this.requestPressure();
+
 	return t;
 };
 
@@ -123,7 +123,8 @@ Bmp180.prototype = {
 	},
 	requestPressure: function () {
 		console.log("Check pressA");
-		//if (this.GoPressure) {
+		console.log("Check GoPressure ", GoPressure);
+		if (GoPressure) {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
 			var that  = this;
 			setTimeout(function() {
@@ -132,7 +133,7 @@ Bmp180.prototype = {
 				}.bind(this));
 			}.bind(this),5);
 			clearInterval(this.x);
-		//}
+		}
 	},
 	getCurrentTemp: function () {
 		return this.currentTemp;
