@@ -73,7 +73,7 @@ var getCalculatedPressure = function (UP, coeffs) {
 };
 
 var getCalculatedAltitude = function (p) {
-	requestPressure();
+	this.requestPressure();
 	var altitude;
 	
 	console.log("pw ", p);
