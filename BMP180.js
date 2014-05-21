@@ -94,12 +94,12 @@ Bmp180.prototype = {
 		
 		return signed;
 	},
-	read16: function (address,signed,callback) {
+	read16: function (address,signed) {
 		var that = this;
 		console.log("read16::address: ", address);
 		
 		this.board.sendI2CWriteRequest(0x77,[address]);
-		var y = this.board.sendI2CReadRequest(0x77, 2, function(data){
+		this.board.sendI2CReadRequest(0x77, 2, function(data){
 
 			console.log("Test",data);
 			data = (data[0] << 8) | data[1];
@@ -112,10 +112,9 @@ Bmp180.prototype = {
 				data = that.makeS16(data);
 			}
 
-			return data;
+			this.coeffs[address] = data;
 
-	  	});
-		return y;
+	  	}.bind(this));
 	},
 	writeTo : function (address, byte) {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
@@ -123,9 +122,9 @@ Bmp180.prototype = {
 	setCoeffs: function () {
 		var that = this;
 		/* ONLY A TEST, DELETE THIS AND UNCOMMENT THE CODE BELOW */
-		this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1, true, function () {});
+		this.read16(registerAddresses.CAL_AC1, true);
 		setInterval(function () {
-			console.log("check dees es that.coeffs.mb",that.coeffs.ac1);
+			console.log("check dees es that.coeffs.mb",that.coeffs[registerAddresses.CAL_AC1]);
 		}, 1000);
 		
 		// this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1, true, function () {
