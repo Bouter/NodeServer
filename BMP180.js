@@ -1,5 +1,5 @@
 "use strict";
-var events : require('events');
+var events = require('events');
 
 events.setMaxListeners(100);
 
