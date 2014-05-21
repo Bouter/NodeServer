@@ -28,6 +28,7 @@ var registerAddresses = {
 var checkCoeffs;
 var nameArray;
 var GoPressure = false;
+var GoAltitude = false;
 var B5;
 
 var getCalculatedTemperature = function (UT, coeffs) {
@@ -67,8 +68,16 @@ var getCalculatedPressure = function (UP, coeffs) {
 	X2 = (-7357 * p)  >> 16;
 	p = p + ((X1 + X2 + 3791) >> 4);
 	console.log("Pressure ",p/100);
+	GoAltitude = true;
 	return p;
+};
+
+var getCalculatedAltitude = function (p) {
+	altitude = 44330 * (1.0 - pow(p /101325,0.1903));
+	console.log("Altitude ", altitude);
+	return altitude;
 }
+
 
 Object.size = function(obj) {
     var size = 0, key;
@@ -125,7 +134,9 @@ Bmp180.prototype = {
 			setTimeout(function() {
 				this.read16(registerAddresses.PRESSUREDATA, false, function (data) {
 					this.curentPress = getCalculatedPressure(data, this.coeffs);
-					
+					if (GoAltitude) {
+						this.getCalculatedAltitude();
+					}
 				}.bind(this));
 			}.bind(this),5);
 			clearInterval(this.x);
