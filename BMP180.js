@@ -116,7 +116,7 @@ Bmp180.prototype = {
 			clearInterval(this.x);
 			console.log('should stop interval');
 			if (GoPressure) {
-			that.requestPressure();
+			this.requestPressure();
 			}
 		}
 	},
