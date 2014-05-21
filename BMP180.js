@@ -38,8 +38,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 	B5 = X1 + X2;
 	t = (B5+8)/Math.pow(2,4);
 	t /= 10;
-
-	console.log(UT ,X1, X2, B5, t);
+	console.log("Temperature ", t);
 	GoPressure = true;
 
 	return t;
@@ -49,7 +48,6 @@ var getCalculatedPressure = function (UP, coeffs) {
 	var X1, X2, X3, B3, B4, B6, B7, p;
 
 	B6 = B5 - 4000;
-	console.log("b6 ",B6);
 	X1 = (coeffs[registerAddresses.CAL_B2] * ((B6 * B6) >> 12)) >> 11;
 	X2 = (coeffs[registerAddresses.CAL_AC2] * B6) >> 11;
 	X3 = X1 + X2;
@@ -68,7 +66,6 @@ var getCalculatedPressure = function (UP, coeffs) {
 	X1 = (X1 * 3038) >> 16;
 	X2 = (-7357 * p)  >> 16;
 	p = p + ((X1 + X2 + 3791) >> 4);
-	console.log(UP ,X1, X2, B5, B4, B7);
 	console.log("Pressure ",p/100);
 	return p;
 }
@@ -106,28 +103,25 @@ function Bmp180(board) {
 
 Bmp180.prototype = {
 	requestTemperature: function () {
-		console.log("checka");
 		if (this.calibrated) {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
 			var that = this;
-			console.log("check");
 			setTimeout(function() {
 				this.read16(registerAddresses.TEMPDATA, true, function (data) {
 					this.currentTemp = getCalculatedTemperature(data, this.coeffs);
-					console.log(this.currentTemp);
-					console.log("Check GoPressure ", GoPressure);
+					
+					
 					if (GoPressure) {
 						this.requestPressure();
 					}
 				}.bind(this));
 			}.bind(this), 5);
 			clearInterval(this.x);
-			console.log('should stop interval');
+			
 				
 		}
 	},
 	requestPressure: function () {
-		console.log("Check pressA");
 		
 		if (GoPressure) {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
@@ -135,7 +129,7 @@ Bmp180.prototype = {
 			setTimeout(function() {
 				this.read16(registerAddresses.PRESSUREDATA, false, function (data) {
 					this.curentPress = getCalculatedPressure(data, this.coeffs);
-					console.log(this.currentPress);
+					
 				}.bind(this));
 			}.bind(this),5);
 			clearInterval(this.x);
@@ -163,25 +157,17 @@ Bmp180.prototype = {
 		} else {
 			signed = number;
 		}
-		
-	 	
-		console.log("Signed",signed);
-		
+	
 		return signed;
 	},
 	read16: function (address,signed,callback) {
 		var that = this;
-		console.log("read16::address: ", address);
 		
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77, 2, function(data){
 
-			console.log("Test",data[0]);
-			console.log("Test2",data[1]);
-			console.log("Test3",data[2]);
 			data = (data[0] << 8) | data[1];
-			console.log("read16",data);
-
+			
 			if (signed) {
 				data = that.makeS16(data);
 			}
@@ -200,7 +186,7 @@ Bmp180.prototype = {
 	setCoeffs: function () {
 		checkCoeffs = setInterval(function () {
 			var coeffSize = Object.size(this.coeffs)
-			console.log("check coeffs",this.coeffs);
+			
 			if (Object.size(this.coeffs) == 11) {
 				this.calibrated = true;
 				clearInterval(checkCoeffs);
