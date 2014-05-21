@@ -122,6 +122,7 @@ Bmp180.prototype = {
 	},
 	setCoeffs: function () {
 		var that = this;
+		/* ONLY A TEST, DELETE THIS AND UNCOMMENT THE CODE BELOW */
 		this.coeffs.ac1 = this.read16(registerAddresses.CAL_AC1, true, function () {});
 		setInterval(function () {
 			console.log("check dees es that.coeffs.mb",that.coeffs.ac1);
