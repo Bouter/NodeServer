@@ -38,9 +38,35 @@ var getCalculatedTemperature = function (UT, coeffs) {
 	t /= 10;
 
 	console.log(UT ,X1, X2, B5, t);
-
+	this.GoPressure = true;
 	return t;
 };
+
+var getCalculatedPressure = function(UP, coeffs) {
+	var X1, X2, X3, B3, B4, B6, B7, p;
+
+	B6 = B5 - 4000;
+	X1 = (coeffs[registerAdresses.CAL_B2 * ((B6 * B6) >> 12)) >> 11;
+	X2 = (coeffs[registerAdresses.CAL_AC2 * B6) >> 11;
+	X3 = X1 + X2;
+	B3 = ((((coeffs[registerAdresses.CAL_AC1 * 4 + X3) << 1) + 2) >> 2;
+	X1 = (coeffs[registerAdresses.CAL_AC3 * B6) >> 13;
+	X2 = (coeffs[registerAdresses.CAL_B1 * ((B6 * B6) >> 12)) >> 16;
+	X3 = ((X1 + X2) + 2) >> 2;
+	B4 = (coeffs[registerAdresses.CAL_AC4 * (X3 + 32768)) >> 15;
+	B7 = ((UP - B3) * (50000 >> 1));
+	if (B7 < 0X80000000){
+		p = (B7 * 2) / B4;
+	}else{
+		p = (B7 / B4) * 2;
+	}
+	X1 = (p / (2 >> 8)) * (p / (2 >> 8));
+	X1 = (X1 * 3038) / (2 >> 18);
+	X2 = (-7357 * p) / (2 >> 18);
+	p = p + (X1 + X2 + 3791) / 2 >> 4);
+
+	return p;
+}
 
 Object.size = function(obj) {
     var size = 0, key;
@@ -53,6 +79,7 @@ Object.size = function(obj) {
 
 function Bmp180(board) {
 	this.calibrated = false;
+	this.GoPressure = false;
 	this.board = board;
 	this.board.setMaxListeners(100);
 	this.currentTemp = 0;
@@ -85,6 +112,19 @@ Bmp180.prototype = {
 			console.log('should stop interval');
 		}
 	},
+	requestPressure: function () {
+		console.log("Check pressA");
+		if (this.GoPressure) {
+			this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
+			var that  = this;
+			setTimeout(function() {
+				this.read16(registerAddresses.PRESSUREDATA, true, function (data) {
+					this.curentPress = getCalculatedPressure(data, this.coeffs);
+				}.bind(this));
+			}.bind(this),5);
+			clearInterval(this.x);
+		}
+	}
 	getCurrentTemp: function () {
 		return this.currentTemp;
 	},
