@@ -140,17 +140,17 @@ Bmp180.prototype = {
 			}
 		}, 1000))(checkCoeffs);
 		
-		this.read16(registerAddresses.CAL_AC1, true};
-		this.read16(registerAddresses.CAL_AC2, true};
-		this.read16(registerAddresses.CAL_AC3, true};
-		this.read16(registerAddresses.CAL_AC4, false};
-		this.read16(registerAddresses.CAL_AC5,  false};
-		this.read16(registerAddresses.CAL_AC6,  false};
-		this.read16(registerAddresses.CAL_B1,  true};
-		this.read16(registerAddresses.CAL_B2,  true};
-		this.read16(registerAddresses.CAL_MD,  true};
-		this.read16(registerAddresses.CAL_MC, true};
-		this.read16(registerAddresses.CAL_MB, true};
+		this.read16(registerAddresses.CAL_AC1, true);
+		this.read16(registerAddresses.CAL_AC2, true);
+		this.read16(registerAddresses.CAL_AC3, true);
+		this.read16(registerAddresses.CAL_AC4, false);
+		this.read16(registerAddresses.CAL_AC5,  false);
+		this.read16(registerAddresses.CAL_AC6,  false);
+		this.read16(registerAddresses.CAL_B1,  true);
+		this.read16(registerAddresses.CAL_B2,  true);
+		this.read16(registerAddresses.CAL_MD,  true);
+		this.read16(registerAddresses.CAL_MC, true);
+		this.read16(registerAddresses.CAL_MB, true);
 	}
 }
 
