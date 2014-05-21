@@ -124,7 +124,7 @@ Bmp180.prototype = {
 			}.bind(this),5);
 			clearInterval(this.x);
 		}
-	}
+	},
 	getCurrentTemp: function () {
 		return this.currentTemp;
 	},
