@@ -46,7 +46,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 var getCalculatedPressure = function(UP, coeffs) {
 	var X1, X2, X3, B3, B4, B6, B7, p;
 
-	B6 = B5 - 4000;
+	B6 = this.B5 - 4000;
 	X1 = (coeffs[registerAdresses.CAL_B2] * ((B6 * B6) >> 12)) >> 11;
 	X2 = (coeffs[registerAdresses.CAL_AC2] * B6) >> 11;
 	X3 = X1 + X2;
