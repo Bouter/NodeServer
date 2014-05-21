@@ -24,6 +24,8 @@ var registerAddresses = {
 	READPRESSURECMD : 0x34
 };
 
+var checkCoeffs;
+
 var getCalculatedTemperature = function (UT, coeffs) {
 	var X1, X2, B5, t;
  
@@ -132,13 +134,13 @@ Bmp180.prototype = {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
 	},
 	setCoeffs: function () {
-		(setInterval(function () {
+		checkCoeffs = setInterval(function () {
 			console.log("check coeffs",that.coeffs);
 			if (Object.size(this.coeffs) == 11) {
 				calibrated = true;
 				clearInterval(checkCoeffs);
 			}
-		}, 1000))(checkCoeffs);
+		}, 1000);
 		
 		this.read16(registerAddresses.CAL_AC1, true);
 		this.read16(registerAddresses.CAL_AC2, true);
