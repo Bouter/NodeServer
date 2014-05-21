@@ -77,15 +77,15 @@ var getCalculatedPressure = function (UP, coeffs) {
 	return p;
 };
 
-var getCalculatedAltitude = function () {
+// var getCalculatedAltitude = function () {
 
-	var altitude;
-	var pp = this.requestPressure();
-	console.log("pw ", p);
-	altitude = 44330.0 * (1.0 - (Math.pow(((pp/100.0) /101325.0),(1903/1000))));
-	console.log("Altitude ", altitude);
-	return altitude;
-}
+// 	var altitude;
+// 	var pp = this.requestPressure();
+// 	console.log("pw ", p);
+// 	altitude = 44330.0 * (1.0 - (Math.pow(((pp/100.0) /101325.0),(1903/1000))));
+// 	console.log("Altitude ", altitude);
+// 	return altitude;
+// }
 
 
 Object.size = function(obj) {
@@ -143,9 +143,7 @@ Bmp180.prototype = {
 			setTimeout(function() {
 				this.read16(registerAddresses.PRESSUREDATA, false, function (data) {
 					this.curentPress = getCalculatedPressure(data, this.coeffs);
-					if (GoAltitude) {
-						getCalculatedAltitude();
-					}
+					
 				}.bind(this));
 			}.bind(this),5);
 			clearInterval(this.x);
