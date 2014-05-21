@@ -68,7 +68,7 @@ var getCalculatedPressure = function (UP, coeffs) {
 	X1 = (X1 * 3038) >> 18;
 	X2 = (-7357 * p)  >> 18;
 	p = p + ((X1 + X2 + 3791) >> 4);
-	console.log(UP ,X1, X2, B5);
+	console.log(UP ,X1, X2, B5, B4, B7);
 	console.log("Pressure ",p);
 	return p;
 }
