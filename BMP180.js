@@ -30,7 +30,7 @@ var nameArray;
 var GoPressure = false;
 var GoAltitude = false;
 var B5;
-
+var altitude;
 var getCalculatedTemperature = function (UT, coeffs) {
 	var X1, X2, t;
  
