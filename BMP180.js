@@ -111,19 +111,21 @@ function Bmp180(board) {
 		checkFinishedCoeffs();
 	}, 5000);
 	function checkFinishedCoeffs() {
-		that.requestTemperature();
-		if (GoPressure) {
+		async.series([
+			function () {
+				that.requestTemperature();
+			},
+			function () {
 			that.requestPressure();
-		}
+			},
 		
 	};
 	this.setCoeffs();
 }
 
 Bmp180.prototype = {
-	Series1: function () {
-	async.series([
-		function () {
+	
+		
 			setCoeffs: function () {
 				checkCoeffs = setInterval(function () {
 					var coeffSize = Object.size(this.coeffs)
@@ -154,9 +156,9 @@ Bmp180.prototype = {
 					}
 
 				}.bind(this), 2000);
-			}
-		},
-		function () {
+			},
+		
+		
 			requestTemperature: function () {
 				if (this.calibrated) {
 					this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
@@ -171,9 +173,8 @@ Bmp180.prototype = {
 					}.bind(this), 5);
 					//clearInterval(this.x);		
 				}
-			}
-		},
-		function () {
+			},
+		
 			requestPressure: function () {
 		
 				if (GoPressure) {
@@ -187,11 +188,7 @@ Bmp180.prototype = {
 					}.bind(this),5);
 					//clearInterval(this.x);
 				}
-			}
-		}
-		}
-		]);
-	
+			},
 	getCurrentTemp: function () {
 		return this.currentTemp;
 	},
@@ -240,7 +237,7 @@ Bmp180.prototype = {
 	writeTo : function (address, byte) {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
 	}
-	}
+	
 
 
 
