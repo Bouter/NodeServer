@@ -77,6 +77,7 @@ var getCalculatedPressure = function (UP, coeffs) {
 	return p;
 };
 
+
 // var getCalculatedAltitude = function () {
 
 // 	var altitude;
@@ -120,7 +121,7 @@ function Bmp180(board) {
 }
 
 Bmp180.prototype = {
-	function () {
+	Series1: function () {
 	async.series([
 		function () {
 			setCoeffs: function () {
@@ -239,8 +240,8 @@ Bmp180.prototype = {
 	writeTo : function (address, byte) {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
 	}
-	
-}
+	}
+
 
 
 module.exports = Bmp180;
