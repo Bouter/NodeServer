@@ -109,7 +109,7 @@ function Bmp180(board) {
 	var that = this;
 	this.x = setInterval(function() {
 		checkFinishedCoeffs();
-	}, 15000);
+	}, 25000);
 	function checkFinishedCoeffs() {
 		async.series([
 			function () {
