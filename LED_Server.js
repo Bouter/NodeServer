@@ -13,14 +13,14 @@ var analogPin = 3;
 var data;
 var datapress;
 var pressureBoard;
-
+var serie = new async.series();
 var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
     if (err) {
         console.log(err);
         board.reset();
         return;
     } else {
-        pressureBoard = new bmp180(board,async);
+        pressureBoard = new bmp180(board,serie);
         console.log('connected');
         //board.sendI2CConfig();
         //board.pins[board.analogPins[4]];
