@@ -238,6 +238,6 @@ Bmp180.prototype = {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
 	}
 	
-}
+};
 
 module.exports = Bmp180;
