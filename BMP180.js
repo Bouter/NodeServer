@@ -120,7 +120,7 @@ function Bmp180(board) {
 }
 
 Bmp180.prototype = {
-	
+	Series1: function () {
 	async.series([
 		function () {
 			setCoeffs: function () {
@@ -187,6 +187,7 @@ Bmp180.prototype = {
 					//clearInterval(this.x);
 				}
 			}
+		}
 		}
 		]);
 	
