@@ -121,7 +121,7 @@ function Bmp180(board, async) {
 }
 
 Bmp180.prototype = {
-	this.async.series([
+	this.async([
 		function () {
 			setCoeffs: function () {
 				checkCoeffs = setInterval(function () {
