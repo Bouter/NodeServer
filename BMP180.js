@@ -195,14 +195,14 @@ Bmp180.prototype = {
 	getCurrentPress: function () {
 		return this.currentPress;
 	},
-	read8: function (address) { 
-		console.log("read8::address: ",address);
-		this.board.sendI2CWriteRequest(0x77,[address]);
-		this.board.sendI2CReadRequest(0x77,1,function(data){
-			console.log("read8",data);
-			return data;
-	  	};
-	},
+	//read8: function (address) { 
+	//	console.log("read8::address: ",address);
+	//	this.board.sendI2CWriteRequest(0x77,[address]);
+	//	this.board.sendI2CReadRequest(0x77,1,function(data){
+	//		console.log("read8",data);
+	//		return data;
+	  //	};
+	//},
 	makeS16: function (number) {
 		var signed;
 		// console.log(number);
