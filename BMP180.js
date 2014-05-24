@@ -113,7 +113,7 @@ function Bmp180(board) {
 	function checkFinishedCoeffs() {
 		async.series([
 			function () {
-				this.setCoeffs();
+				that.setCoeffs();
 			},
 			function () {
 				that.requestTemperature();
