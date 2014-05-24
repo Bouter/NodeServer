@@ -1,6 +1,6 @@
 "use strict";
 
-
+var async = require('async');
 
 var registerAddresses = {
   	CAL_AC1 : 0xAA, // R Calibration data (16 bits)
@@ -120,35 +120,75 @@ function Bmp180(board) {
 }
 
 Bmp180.prototype = {
-	requestTemperature: function () {
-		if (this.calibrated) {
-			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
-			var that = this;
-			setTimeout(function() {
-				this.read16(registerAddresses.TEMPDATA, true, function (data) {
-					this.currentTemp = getCalculatedTemperature(data, this.coeffs);
-					if (GoPressure) {
-						this.requestPressure();
-					}
-				}.bind(this));
-			}.bind(this), 5);
-			//clearInterval(this.x);		
-		}
-	},
-	requestPressure: function () {
-		
-		if (GoPressure) {
-			this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
-			var that  = this;
-			setTimeout(function() {
-				this.read16(registerAddresses.PRESSUREDATA, false, function (data) {
-					this.curentPress = getCalculatedPressure(data, this.coeffs);
+	async.series([
+		function () {
+			setCoeffs: function () {
+				checkCoeffs = setInterval(function () {
+					var coeffSize = Object.size(this.coeffs)
 					
-				}.bind(this));
-			}.bind(this),5);
-			//clearInterval(this.x);
+					if (Object.size(this.coeffs) == 11) {
+						this.calibrated = true;
+						clearInterval(checkCoeffs);
+					}
+					nameArray = [
+						{get:"CAL_AC1",request:false,got:false, signed: true},
+						{get:"CAL_AC2",request:false,got:false, signed: true},
+						{get:"CAL_AC3",request:false,got:false, signed: true},
+						{get:"CAL_AC4",request:false,got:false, signed: false},
+						{get:"CAL_AC5",request:false,got:false, signed: false},
+						{get:"CAL_AC6",request:false,got:false, signed: false},
+						{get:"CAL_B1",request:false,got:false, signed: true},
+						{get:"CAL_B2",request:false,got:false, signed: true},
+						{get:"CAL_MB",request:false,got:false, signed: true},
+						{get:"CAL_MC",request:false,got:false, signed: true},
+						{get:"CAL_MD",request:false,got:false, signed: true}
+					];
+					if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
+						nameArray[coeffSize-1].got= true;
+					}
+					if (nameArray[coeffSize] != undefined && nameArray[coeffSize].request == false) {
+						this.read16(registerAddresses[nameArray[coeffSize].get], nameArray[coeffSize].signed);
+						nameArray[coeffSize].request = true;
+					}
+
+				}.bind(this), 2000);
+			}
+		},
+		function () {
+			requestTemperature: function () {
+				if (this.calibrated) {
+					this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
+					var that = this;
+					setTimeout(function() {
+						this.read16(registerAddresses.TEMPDATA, true, function (data) {
+							this.currentTemp = getCalculatedTemperature(data, this.coeffs);
+							if (GoPressure) {
+								this.requestPressure();
+							}
+						}.bind(this));
+					}.bind(this), 5);
+					//clearInterval(this.x);		
+				}
+			}
+		},
+		function () {
+			requestPressure: function () {
+		
+				if (GoPressure) {
+					this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
+					var that  = this;
+					setTimeout(function() {
+						this.read16(registerAddresses.PRESSUREDATA, false, function (data) {
+							this.curentPress = getCalculatedPressure(data, this.coeffs);
+							
+						}.bind(this));
+					}.bind(this),5);
+					//clearInterval(this.x);
+				}
+			}
 		}
-	},
+		]);
+	
 	getCurrentTemp: function () {
 		return this.currentTemp;
 	},
@@ -196,38 +236,8 @@ Bmp180.prototype = {
 	},
 	writeTo : function (address, byte) {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
-	},
-	setCoeffs: function () {
-		checkCoeffs = setInterval(function () {
-			var coeffSize = Object.size(this.coeffs)
-			
-			if (Object.size(this.coeffs) == 11) {
-				this.calibrated = true;
-				clearInterval(checkCoeffs);
-			}
-			nameArray = [
-				{get:"CAL_AC1",request:false,got:false, signed: true},
-				{get:"CAL_AC2",request:false,got:false, signed: true},
-				{get:"CAL_AC3",request:false,got:false, signed: true},
-				{get:"CAL_AC4",request:false,got:false, signed: false},
-				{get:"CAL_AC5",request:false,got:false, signed: false},
-				{get:"CAL_AC6",request:false,got:false, signed: false},
-				{get:"CAL_B1",request:false,got:false, signed: true},
-				{get:"CAL_B2",request:false,got:false, signed: true},
-				{get:"CAL_MB",request:false,got:false, signed: true},
-				{get:"CAL_MC",request:false,got:false, signed: true},
-				{get:"CAL_MD",request:false,got:false, signed: true}
-			];
-			if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
-				nameArray[coeffSize-1].got= true;
-			}
-			if (nameArray[coeffSize] != undefined && nameArray[coeffSize].request == false) {
-				this.read16(registerAddresses[nameArray[coeffSize].get], nameArray[coeffSize].signed);
-				nameArray[coeffSize].request = true;
-			}
-
-		}.bind(this), 2000);
 	}
+	
 }
 
 
