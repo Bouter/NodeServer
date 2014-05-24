@@ -5,7 +5,7 @@ var http = require('http');
 var firmata = require('firmata');
 var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var bmp180 = require('./BMP180');
-var async = require('../async/lib/async.js');
+var async = require('async');
 var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity2!"};
 var ledPin = 7;
@@ -20,7 +20,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         board.reset();
         return;
     } else {
-        pressureBoard = new bmp180(board);
+        pressureBoard = new bmp180(board,async);
         console.log('connected');
         //board.sendI2CConfig();
         //board.pins[board.analogPins[4]];
