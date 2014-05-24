@@ -119,7 +119,7 @@ function Bmp180(board) {
 			that.requestPressure();
 			},
 		
-	};
+	]);
 	this.setCoeffs();
 }
 
