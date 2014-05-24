@@ -114,12 +114,15 @@ function Bmp180(board) {
 		async.series([
 			function () {
 				that.setCoeffs();
+				console.log("test");
 			},
 			function () {
 				that.requestTemperature();
+				console.log("Test2");
 			},
 			function () {
 			that.requestPressure();
+			console.log("Test3");
 			},
 		
 	]);
