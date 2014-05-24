@@ -201,7 +201,7 @@ Bmp180.prototype = {
 		this.board.sendI2CReadRequest(0x77,1,function(data){
 			console.log("read8",data);
 			return data;
-	  	});
+	  	};
 	},
 	makeS16: function (number) {
 		var signed;
