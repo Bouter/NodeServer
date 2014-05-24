@@ -1,6 +1,6 @@
 "use strict";
 
-var async = require('async');
+
 
 var registerAddresses = {
   	CAL_AC1 : 0xAA, // R Calibration data (16 bits)
