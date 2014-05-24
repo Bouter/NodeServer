@@ -1,7 +1,7 @@
 "use strict";
 
 
-
+var async = require('async');
 var registerAddresses = {
   	CAL_AC1 : 0xAA, // R Calibration data (16 bits)
 	CAL_AC2 : 0xAC, // R Calibration data (16 bits)
@@ -120,7 +120,7 @@ function Bmp180(board) {
 }
 
 Bmp180.prototype = {
-	var async = require('async');
+	
 	async.series([
 		function () {
 			setCoeffs: function () {
