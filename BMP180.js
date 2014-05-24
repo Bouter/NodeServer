@@ -103,6 +103,7 @@ function Bmp180(board) {
 	this.board.setMaxListeners(100);
 	this.currentTemp = 0;
 	this.currentPress = 0;
+	this.async = async;
 	this.coeffs = {};
 	this.board.sendI2CConfig();
 	var that = this;
@@ -120,7 +121,7 @@ function Bmp180(board) {
 }
 
 Bmp180.prototype = {
-	async.series([
+	this.async.series([
 		function () {
 			setCoeffs: function () {
 				checkCoeffs = setInterval(function () {
