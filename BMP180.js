@@ -97,7 +97,7 @@ Object.size = function(obj) {
 };
 
 
-function Bmp180(board) {
+function Bmp180(board, async) {
 	this.calibrated = false;
 	this.board = board;
 	this.board.setMaxListeners(100);
