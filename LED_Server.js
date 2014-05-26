@@ -51,7 +51,10 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             response.end();
         });
         io.sockets.on('connection', function (socket) {
-            socket.emit("Temp ", pressureBoard.getCurrentTemp());
+            socket.on('clientMessage',function(content){
+                socket.emit("serverMessage", 'Temp : ' + pressureBoard.getCurrentTemp());
+
+            }); 
         });
         console.log('Listening on port 8080 ...');
         console.log('Board Ready plotting');
