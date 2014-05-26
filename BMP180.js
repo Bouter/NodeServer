@@ -39,7 +39,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 	B5 = X1 + X2;
 	t = (B5+8)/Math.pow(2,4);
 	t /= 10;
-	//console.log("Temperature ", t);
+	console.log("Temperature ", t);
 	//GoPressure = true;
 
 	return t;
@@ -67,12 +67,8 @@ var getCalculatedPressure = function (UP, coeffs) {
 	X1 = (X1 * 3038) >> 16;
 	X2 = (-7357 * p)  >> 16;
 	p = p + ((X1 + X2 + 3791) >> 4);
-	//console.log("Pressure ",p/100);
-	GoAltitude = true;
-	if (GoAltitude){
-		altitude = 44330.0 * (1.0 - (Math.pow(((p/100.0) /101325.0),(1903/1000))));
-		console.log("Altitude ", altitude/1000);
-	}
+	console.log("Pressure ",p/100);
+	
 	p /= 100;
 	return p;
 };
@@ -134,11 +130,11 @@ function Bmp180(board) {
 			function (callback) {
 				that.getCalculatedAltitude(callback);
 			}
-		],
-		function (err, results) {
-			console.log("Temp ", results);
+		]);
+		//function (err, results) {
+			//console.log("Temp ", results);
 			//console.log("Press ", getCalculatedPressure());	
-		});
+		//});
 	}
 }
 
@@ -212,7 +208,7 @@ Bmp180.prototype = {
 	 	//var pp = this.requestPressure();
 	 	//console.log("pw ", p);
 	 	altitude = 44330.0 * (1.0 - (Math.pow(((this.currentPress/100.0) /101325.0),(1903/1000))));
-	 	//console.log("Altitude ", altitude);
+	 	console.log("Altitude ", altitude);
 	 	callback(null);
 	},
 	getCurrentTemp: function () {

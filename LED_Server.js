@@ -1,5 +1,6 @@
 "use strict";
-
+var express = require('express');
+var app = express();
 var qString = require('querystring');
 var http = require('http');
 var firmata = require('firmata');
