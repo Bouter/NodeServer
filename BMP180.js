@@ -106,18 +106,14 @@ function Bmp180(board) {
 	this.currentPress = 0;
 	this.coeffs = {};
 	this.board.sendI2CConfig();
+	this.setCoeffs();
 	var that = this;
 	this.x = setInterval(function() {
 		checkFinishedCoeffs();
-	}, 50000);
+	}, 5000);
 	function checkFinishedCoeffs() {
 		async.series([
-			function (callback) {
-				that.setCoeffs();
-				callback(null,that.setCoeffs());
-				
-
-			},
+			
 			function (callback) {
 				that.requestTemperature();
 				callback(null,that.getCurrentTemp());
