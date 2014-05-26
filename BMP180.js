@@ -106,21 +106,22 @@ function Bmp180(board) {
 	this.currentPress = 0;
 	this.coeffs = {};
 	this.board.sendI2CConfig();
-	this.setCoeffs();
+	
 	var that = this;
 	this.x = setInterval(function() {
 		checkFinishedCoeffs();
 	}, 5000);
+
 	function checkFinishedCoeffs() {
 		async.series([
-			
+			function (callback) {
+				that.setCoeffs();
+			},
 			function (callback) {
 				that.requestTemperature(callback);			
 			},
 			function (callback) {
-				that.requestPressure(callback);
-				
-				
+				that.requestPressure(callback);	
 			},
 			
 		],
@@ -135,13 +136,15 @@ function Bmp180(board) {
 Bmp180.prototype = {
 	
 		
-			setCoeffs: function () {
+			setCoeffs: function (callback) {
 				checkCoeffs = setInterval(function () {
 					var coeffSize = Object.size(this.coeffs)
 					
 					if (Object.size(this.coeffs) == 11) {
 						this.calibrated = true;
 						clearInterval(checkCoeffs);
+						console.log(this.coeffs);
+						callback();
 					}
 					nameArray = [
 						{get:"CAL_AC1",request:false,got:false, signed: true},
