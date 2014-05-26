@@ -108,15 +108,25 @@ function Bmp180(board) {
 	this.board.sendI2CConfig();
 	
 	var that = this;
-	this.x = setInterval(function() {
-		checkFinishedCoeffs();
-	}, 5000);
+	async.series([
+		function (callback) {
+				that.setCoeffs(callback);
+		},
+		function () {
+			this.x = setInterval(function() {
+
+				checkFinishedCoeffs();
+			}, 5000);
+		},
+
+	])
+	
 
 	function checkFinishedCoeffs() {
 		async.series([
-			function (callback) {
-				that.setCoeffs(callback);
-			},
+			//function (callback) {
+			//	that.setCoeffs(callback);
+			//},
 			function (callback) {
 				that.requestTemperature(callback);		
 				console.log("test");	
