@@ -73,7 +73,7 @@ var getCalculatedPressure = function (UP, coeffs) {
 		altitude = 44330.0 * (1.0 - (Math.pow(((p/100.0) /101325.0),(1903/1000))));
 		console.log("Altitude ", altitude/1000);
 	}
-	
+	p /= 100;
 	return p;
 };
 
@@ -118,8 +118,11 @@ function Bmp180(board) {
 				checkFinishedCoeffs();
 			}, 5000);
 		},
+	function (err) {
+		console.log("Temp ", results);
+		console.log("Press ", that.getCurrentPress());
 
-	])
+	});
 	
 
 	function checkFinishedCoeffs() {
@@ -136,11 +139,11 @@ function Bmp180(board) {
 			},
 			
 		],
-	function (err) {
-			console.log("Temp ", that.getCurrentTemp());
-			console.log("Press ", that.getCurrentPress());
+	//function (err) {
+			//console.log("Temp ", results);
+			//console.log("Press ", that.getCurrentPress());
 
-			});
+			//});
 	}
 }
 
