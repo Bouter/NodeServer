@@ -113,18 +113,22 @@ function Bmp180(board) {
 	function checkFinishedCoeffs() {
 		async.series([
 			function (callback) {
-				callback(that.setCoeffs());
+				callback(null,that.setCoeffs());
 				console.log("test");
 
 			},
 			function (callback) {
-				callback(that.requestTemperature());
+				callback(null,that.requestTemperature());
 				console.log("Test2");
 			},
 			function (callback) {
-				callback(that.requestPressure());
+				callback(null,that.requestPressure());
 				console.log("Test3");
 			},
+			function (err,results) {
+				console.log("Temp ", results[0]);
+				console.log("Press ", results[1]);
+
 		
 	]);
 	}
@@ -134,13 +138,13 @@ Bmp180.prototype = {
 	
 		
 			setCoeffs: function () {
-				checkCoeffs = setInterval(function () {
-					var coeffSize = Object.size(this.coeffs)
+				//checkCoeffs = setInterval(function () {
+					//var coeffSize = Object.size(this.coeffs)
 					
-					if (Object.size(this.coeffs) == 11) {
-						this.calibrated = true;
-						clearInterval(checkCoeffs);
-					}
+					//if (Object.size(this.coeffs) == 11) {
+						//this.calibrated = true;
+						//clearInterval(checkCoeffs);
+					//}
 					nameArray = [
 						{get:"CAL_AC1",request:false,got:false, signed: true},
 						{get:"CAL_AC2",request:false,got:false, signed: true},
@@ -162,7 +166,7 @@ Bmp180.prototype = {
 						nameArray[coeffSize].request = true;
 					}
 
-				}.bind(this), 2000);
+				//}.bind(this), 2000);
 			},
 		
 		
