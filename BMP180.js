@@ -118,7 +118,8 @@ function Bmp180(board) {
 				that.setCoeffs(callback);
 			},
 			function (callback) {
-				that.requestTemperature(callback);			
+				that.requestTemperature(callback);		
+				console.log("test");	
 			},
 			function (callback) {
 				that.requestPressure(callback);	
