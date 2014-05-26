@@ -47,7 +47,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             fs.readFile(__dirname + '/index2.html',
                 function(err,data) {
                     response.writeHead(500);
-                    esponse.end('Error loading');
+                    response.end('Error loading');
                 }
             response.writeHead(200);
             response.sendfile(data);
