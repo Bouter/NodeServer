@@ -109,20 +109,23 @@ function Bmp180(board) {
 	var that = this;
 	this.x = setInterval(function() {
 		checkFinishedCoeffs();
-	}, 10000);
+	}, 50000);
 	function checkFinishedCoeffs() {
 		async.series([
 			function (callback) {
+				that.setCoeffs();
 				callback(null,that.setCoeffs());
 				
 
 			},
 			function (callback) {
-				callback(null,that.requestTemperature());
+				that.requestTemperature();
+				callback(null,that.requestTemperature.getCurrentTemp());
 				
 			},
 			function (callback) {
-				callback(null,that.requestPressure());
+				that.requestPressure();
+				callback(null,that.requestPressure.getCurrentPress());
 				
 			},
 			
