@@ -139,7 +139,7 @@ function Bmp180(board) {
 			console.log("Temp ", results);
 			//console.log("Press ", that.currentPress());
 
-			});
+			
 	});
 }
 
