@@ -42,7 +42,8 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                 board.digitalWrite(ledPin, board.LOW);
             }
             response.writeHead(200);
-            response.write("Hello this is David");
+            response.write("temp: " + pressureBoard.getCurrentTemp() + "C <br>");
+            response.write("pressure: " + pressureBoard.getCurrentPress());
             response.end();
         }).listen(8080);
         console.log('Listening on port 8080 ...');

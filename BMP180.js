@@ -136,8 +136,8 @@ function Bmp180(board) {
 			}
 		],
 		function (err, results) {
-			//console.log("Temp ", results);
-			console.log("Press ", getCalculatedPressure());	
+			console.log("Temp ", results);
+			//console.log("Press ", getCalculatedPressure());	
 		});
 	}
 }
