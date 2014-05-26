@@ -115,18 +115,16 @@ function Bmp180(board) {
 		async.series([
 			
 			function (callback) {
-				that.requestTemperature();
-				callback(null,that.getCurrentTemp());
-				
+				that.requestTemperature(callback);			
 			},
 			function (callback) {
-				that.requestPressure();
-				callback(null,that.getCurrentPress());
+				that.requestPressure(callback);
+				
 				
 			},
 			
 		],
-	function (err,results) {
+	function (err) {
 			console.log("Temp ", that.getCurrentTemp());
 			console.log("Press ", that.getCurrentPress());
 
@@ -170,7 +168,7 @@ Bmp180.prototype = {
 			},
 		
 		
-			requestTemperature: function () {
+			requestTemperature: function (callback) {
 				//if (this.calibrated) {
 					this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
 					var that = this;
@@ -180,6 +178,7 @@ Bmp180.prototype = {
 							if (GoPressure) {
 								this.requestPressure();
 							}
+							callback(null);
 						}.bind(this));
 					}.bind(this), 5);
 					//clearInterval(this.x);		
@@ -187,7 +186,7 @@ Bmp180.prototype = {
 				
 			},
 		
-			requestPressure: function () {
+			requestPressure: function (callback) {
 		
 				//if (GoPressure) {
 					this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
@@ -195,7 +194,7 @@ Bmp180.prototype = {
 					setTimeout(function() {
 						this.read16(registerAddresses.PRESSUREDATA, false, function (data) {
 							this.currentPress = getCalculatedPressure(data, this.coeffs);
-							
+							callback(null);
 						}.bind(this));
 					}.bind(this),5);
 					//clearInterval(this.x);
