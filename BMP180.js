@@ -113,7 +113,7 @@ function Bmp180(board) {
 				that.setCoeffs(callback);
 		},
 		function () {
-			this.x = setInterval(function() {
+			that.x = setInterval(function() {
 
 				checkFinishedCoeffs();
 			}, 5000);
