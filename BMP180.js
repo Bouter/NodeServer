@@ -109,7 +109,7 @@ function Bmp180(board) {
 	var that = this;
 	this.x = setInterval(function() {
 		checkFinishedCoeffs();
-	}, 25000);
+	}, 3000);
 	function checkFinishedCoeffs() {
 		async.series([
 			function (callback) {
@@ -139,7 +139,7 @@ Bmp180.prototype = {
 		
 			setCoeffs: function () {
 				//checkCoeffs = setInterval(function () {
-					//var coeffSize = Object.size(this.coeffs)
+					var coeffSize = Object.size(this.coeffs)
 					
 					//if (Object.size(this.coeffs) == 11) {
 						//this.calibrated = true;
