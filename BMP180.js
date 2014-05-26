@@ -195,7 +195,7 @@ Bmp180.prototype = {
 					var that  = this;
 					setTimeout(function() {
 						this.read16(registerAddresses.PRESSUREDATA, false, function (data) {
-							this.curentPress = getCalculatedPressure(data, this.coeffs);
+							this.currentPress = getCalculatedPressure(data, this.coeffs);
 							
 						}.bind(this));
 					}.bind(this),5);
