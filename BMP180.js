@@ -40,7 +40,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 	t = (B5+8)/Math.pow(2,4);
 	t /= 10;
 	console.log("Temperature ", t);
-	GoPressure = true;
+	//GoPressure = true;
 
 	return t;
 };
@@ -109,21 +109,21 @@ function Bmp180(board) {
 	var that = this;
 	this.x = setInterval(function() {
 		checkFinishedCoeffs();
-	}, 3000);
+	}, 10000);
 	function checkFinishedCoeffs() {
 		async.series([
 			function (callback) {
 				callback(null,that.setCoeffs());
-				console.log("test");
+				
 
 			},
 			function (callback) {
 				callback(null,that.requestTemperature());
-				console.log("Test2");
+				
 			},
 			function (callback) {
 				callback(null,that.requestPressure());
-				console.log("Test3");
+				
 			},
 			
 		],
@@ -185,7 +185,7 @@ Bmp180.prototype = {
 					}.bind(this), 5);
 					//clearInterval(this.x);		
 				//}
-				return this.currentTemp;
+				
 			},
 		
 			requestPressure: function () {
@@ -201,7 +201,7 @@ Bmp180.prototype = {
 					}.bind(this),5);
 					//clearInterval(this.x);
 				//}
-				return this.currentPress;
+				
 			},
 	getCurrentTemp: function () {
 		return this.currentTemp;
