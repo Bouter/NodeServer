@@ -144,7 +144,7 @@ Bmp180.prototype = {
 						this.calibrated = true;
 						clearInterval(checkCoeffs);
 						console.log(this.coeffs);
-						callback();
+						callback(null);
 					}
 					nameArray = [
 						{get:"CAL_AC1",request:false,got:false, signed: true},
