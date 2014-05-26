@@ -125,12 +125,13 @@ function Bmp180(board) {
 				callback(null,that.requestPressure());
 				console.log("Test3");
 			},
-			function (err,results) {
-				console.log("Temp ", results);
-				//console.log("Press ", results[1]);
+			
+		],
+	function (err,results) {
+			console.log("Temp ", results[0]);
+			console.log("Press ", results[1]);
 
-			}
-	]);
+			});
 	}
 }
 
