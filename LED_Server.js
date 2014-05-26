@@ -44,11 +44,15 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             } else {
                 board.digitalWrite(ledPin, board.LOW);
             }
+
             fs.readFile(__dirname + '/index2.html',
                 function(err,data) {
-                    response.writeHead(500);
-                    response.end('Error loading');
-                }
+                    if (err) {
+                        response.writeHead(500);
+                        response.end('Error loading');
+                    }
+                    
+                
             response.writeHead(200);
             response.sendfile(data);
             //response.write("temp: " + pressureBoard.getCurrentTemp() + "C <br>");
