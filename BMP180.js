@@ -118,11 +118,11 @@ function Bmp180(board) {
 
 			},
 			function (callback) {
-				callback(null,that.requestTemperature().currentTemp);
+				callback(null,that.requestTemperature());
 				console.log("Test2");
 			},
 			function (callback) {
-				callback(null,that.requestPressure().currentPress);
+				callback(null,that.requestPressure());
 				console.log("Test3");
 			},
 			
@@ -185,6 +185,7 @@ Bmp180.prototype = {
 					}.bind(this), 5);
 					//clearInterval(this.x);		
 				//}
+				return currentTemp;
 			},
 		
 			requestPressure: function () {
@@ -200,6 +201,7 @@ Bmp180.prototype = {
 					}.bind(this),5);
 					//clearInterval(this.x);
 				//}
+				return currentPress;
 			},
 	getCurrentTemp: function () {
 		return this.currentTemp;
