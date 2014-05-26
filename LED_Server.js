@@ -2,7 +2,8 @@
 var express = require('express');
 var app = express();
 var qString = require('querystring');
-var http = require('http');
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
 var firmata = require('firmata');
 var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var bmp180 = require('./BMP180');
@@ -32,6 +33,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         /*board.analogRead(analogPin, function (val) {  
             data = {x : new Date() , y : val};
         });*/
+        server.listen(8080);
         app.get('/',function (request, response) {
             var urlObject = qString.parse(request.url.split("?")[1]);
 
@@ -43,11 +45,13 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                 board.digitalWrite(ledPin, board.LOW);
             }
             response.writeHead(200);
+            response.sendfile(__dirname + '/index2.html');
             response.write("temp: " + pressureBoard.getCurrentTemp() + "C <br>");
             response.write("pressure: " + pressureBoard.getCurrentPress());
             response.end();
         });
-        app.listen(8080);
+        io.sockets.on('connection', function (socket) {
+            socket.emit)
         console.log('Listening on port 8080 ...');
         console.log('Board Ready plotting');
     }
