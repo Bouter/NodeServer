@@ -115,7 +115,7 @@ function Bmp180(board) {
 	function checkFinishedCoeffs() {
 		async.series([
 			function (callback) {
-				that.setCoeffs();
+				that.setCoeffs(callback);
 			},
 			function (callback) {
 				that.requestTemperature(callback);			
@@ -135,7 +135,6 @@ function Bmp180(board) {
 
 Bmp180.prototype = {
 	setCoeffs: function (callback) {
-		this.coeffsCallback = callback;
 		checkCoeffs = setInterval(function () {
 			var coeffSize = Object.size(this.coeffs)
 			
@@ -143,8 +142,7 @@ Bmp180.prototype = {
 				this.calibrated = true;
 				clearInterval(checkCoeffs);
 				console.log(this.coeffs);
-				this.coeffsCallback(null);
-				this.coeffsCallback = undefined; 
+				callback(null);
 			}
 			nameArray = [
 				{get:"CAL_AC1",request:false,got:false, signed: true},
