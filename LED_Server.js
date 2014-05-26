@@ -46,13 +46,13 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             }
             response.writeHead(200);
             response.sendfile(__dirname + '/index2.html');
-            response.write("temp: " + pressureBoard.getCurrentTemp() + "C <br>");
-            response.write("pressure: " + pressureBoard.getCurrentPress());
+            //response.write("temp: " + pressureBoard.getCurrentTemp() + "C <br>");
+            //response.write("pressure: " + pressureBoard.getCurrentPress());
             response.end();
         });
         io.sockets.on('connection', function (socket) {
             socket.on('clientMessage',function(content){
-                socket.emit("serverMessage", 'Temp : ' + pressureBoard.getCurrentTemp());
+                socket.broadcast.emit("serverMessage", 'Temp : ' + pressureBoard.getCurrentTemp());
 
             }); 
         });
