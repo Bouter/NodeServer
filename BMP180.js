@@ -135,7 +135,7 @@ function Bmp180(board) {
 				that.getCalculatedAltitude(callback);
 			}
 		],
-		function (err) {
+		function (err, results) {
 			console.log("Temp ", results);
 			//console.log("Press ", that.currentPress());	
 		});
