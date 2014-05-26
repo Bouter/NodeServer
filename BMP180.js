@@ -139,13 +139,13 @@ function Bmp180(board) {
 				that.requestPressure(callback);	
 			},
 			
-		];
+		]
 	//function (err) {
 			//console.log("Temp ", results);
 			//console.log("Press ", that.getCurrentPress());
 
 			//});
-	}
+	};
 }
 
 Bmp180.prototype = {
