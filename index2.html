@@ -120,7 +120,7 @@ function addMessage(message) {
 	messageElement.insertBefore(newmessageElement, lastMessageElement);
 lastMessageElement = newMessageElement;
 }
-var socket = io.connect('http://192.168.75.159:8080/index2.html');
+var socket = io.connect('file:///Users/appsaloon/Sites/NodeServer/index2.html');
 socket.on('serverMessage',function(content) {
 	addMessage(content);
 });					
