@@ -44,6 +44,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             } else {
                 board.digitalWrite(ledPin, board.LOW);
             }
+            
             response.writeHead(200);
             response.sendfile(__dirname + '/index2.html');
             //response.write("temp: " + pressureBoard.getCurrentTemp() + "C <br>");
