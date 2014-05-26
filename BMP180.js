@@ -185,7 +185,7 @@ Bmp180.prototype = {
 					}.bind(this), 5);
 					//clearInterval(this.x);		
 				//}
-				return currentTemp;
+				return this.currentTemp;
 			},
 		
 			requestPressure: function () {
@@ -201,7 +201,7 @@ Bmp180.prototype = {
 					}.bind(this),5);
 					//clearInterval(this.x);
 				//}
-				return currentPress;
+				return this.currentPress;
 			},
 	getCurrentTemp: function () {
 		return this.currentTemp;
