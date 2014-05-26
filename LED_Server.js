@@ -34,7 +34,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             data = {x : new Date() , y : val};
         });*/
         server.listen(8080);
-        app.get('/',function (request, response) {
+        function app(request, response) {
             var urlObject = qString.parse(request.url.split("?")[1]);
 
             console.log(urlObject.value);
