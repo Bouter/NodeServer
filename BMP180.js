@@ -131,8 +131,8 @@ function Bmp180(board) {
 			
 		],
 	function (err,results) {
-			console.log("Temp ", results[0]);
-			console.log("Press ", results[1]);
+			console.log("Temp ", that.getCurrentTemp());
+			console.log("Press ", that.getCurrentPress());
 
 			});
 	}
