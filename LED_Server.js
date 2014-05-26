@@ -54,12 +54,13 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
                     
                 
             response.writeHead(200);
-            response.sendfile(data);
+            response.end(data);
             //response.write("temp: " + pressureBoard.getCurrentTemp() + "C <br>");
             //response.write("pressure: " + pressureBoard.getCurrentPress());
             }
         );
         }
+
         io.sockets.on('connection', function (socket) {
             socket.on('clientMessage',function(content){
                 socket.broadcast.emit("serverMessage", 'Temp : ' + pressureBoard.getCurrentTemp());
