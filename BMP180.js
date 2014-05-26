@@ -136,8 +136,8 @@ function Bmp180(board) {
 			}
 		],
 		function (err, results) {
-			console.log("Temp ", results);
-			//console.log("Press ", that.currentPress());	
+			//console.log("Temp ", results);
+			console.log("Press ", that.currentPress());	
 		});
 	}
 }
