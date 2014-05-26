@@ -120,12 +120,12 @@ function Bmp180(board) {
 			},
 			function (callback) {
 				that.requestTemperature();
-				callback(null,that.requestTemperature.getCurrentTemp());
+				callback(null,that.getCurrentTemp());
 				
 			},
 			function (callback) {
 				that.requestPressure();
-				callback(null,that.requestPressure.getCurrentPress());
+				callback(null,that.getCurrentPress());
 				
 			},
 			
