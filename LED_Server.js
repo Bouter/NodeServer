@@ -7,7 +7,7 @@ var io = require('socket.io').listen(server);
 var firmata = require('firmata');
 var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var bmp180 = require('./BMP180');
-
+var fs = require('fs');
 var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity2!"};
 var ledPin = 7;
@@ -46,7 +46,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             }
             
             response.writeHead(200);
-            response.sendfile(__dirname + '/index2.html');
+            response.sendfile(__dirname + 'index2.html');
             //response.write("temp: " + pressureBoard.getCurrentTemp() + "C <br>");
             //response.write("pressure: " + pressureBoard.getCurrentPress());
             response.end();
