@@ -139,13 +139,13 @@ Bmp180.prototype = {
 	
 		
 			setCoeffs: function () {
-				//checkCoeffs = setInterval(function () {
+				checkCoeffs = setInterval(function () {
 					var coeffSize = Object.size(this.coeffs)
 					
-					//if (Object.size(this.coeffs) == 11) {
-						//this.calibrated = true;
-						//clearInterval(checkCoeffs);
-					//}
+					if (Object.size(this.coeffs) == 11) {
+						this.calibrated = true;
+						clearInterval(checkCoeffs);
+					}
 					nameArray = [
 						{get:"CAL_AC1",request:false,got:false, signed: true},
 						{get:"CAL_AC2",request:false,got:false, signed: true},
@@ -167,7 +167,7 @@ Bmp180.prototype = {
 						nameArray[coeffSize].request = true;
 					}
 
-				//}.bind(this), 2000);
+				}.bind(this), 2000);
 			},
 		
 		
