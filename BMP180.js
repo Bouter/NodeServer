@@ -118,11 +118,11 @@ function Bmp180(board) {
 
 			},
 			function (callback) {
-				callback(null,that.requestTemperature());
+				callback(null,that.requestTemperature().currentTemp);
 				console.log("Test2");
 			},
 			function (callback) {
-				callback(null,that.requestPressure());
+				callback(null,that.requestPressure().currentPress);
 				console.log("Test3");
 			},
 			
@@ -172,7 +172,7 @@ Bmp180.prototype = {
 		
 		
 			requestTemperature: function () {
-				if (this.calibrated) {
+				//if (this.calibrated) {
 					this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
 					var that = this;
 					setTimeout(function() {
@@ -184,12 +184,12 @@ Bmp180.prototype = {
 						}.bind(this));
 					}.bind(this), 5);
 					//clearInterval(this.x);		
-				}
+				//}
 			},
 		
 			requestPressure: function () {
 		
-				if (GoPressure) {
+				//if (GoPressure) {
 					this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
 					var that  = this;
 					setTimeout(function() {
@@ -199,7 +199,7 @@ Bmp180.prototype = {
 						}.bind(this));
 					}.bind(this),5);
 					//clearInterval(this.x);
-				}
+				//}
 			},
 	getCurrentTemp: function () {
 		return this.currentTemp;
