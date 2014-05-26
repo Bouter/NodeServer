@@ -96,6 +96,7 @@ function Bmp180(board) {
 	this.board.setMaxListeners(100);
 	this.currentTemp = 0;
 	this.currentPress = 0;
+	this.currentAltitude = 0;
 	this.coeffs = {};
 	this.board.sendI2CConfig();
 	
@@ -130,7 +131,7 @@ function Bmp180(board) {
 			function (callback) {
 				that.requestPressure(callback);	
 			},
-			function (that.currentPress,callback) {
+			function (callback) {
 				that.getCalculatedAltitude(callback);
 			}
 		],
@@ -207,11 +208,11 @@ Bmp180.prototype = {
 		//}
 		
 	},
-	getCalculatedAltitude: function (p,callback) {
+	getCalculatedAltitude: function (callback) {
 	 	var altitude;
 	 	//var pp = this.requestPressure();
 	 	//console.log("pw ", p);
-	 	altitude = 44330.0 * (1.0 - (Math.pow(((p/100.0) /101325.0),(1903/1000))));
+	 	altitude = 44330.0 * (1.0 - (Math.pow(((this.currentPress/100.0) /101325.0),(1903/1000))));
 	 	//console.log("Altitude ", altitude);
 	 	callback(null);
 	},
