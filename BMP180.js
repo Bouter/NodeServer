@@ -112,17 +112,18 @@ function Bmp180(board) {
 	}, 25000);
 	function checkFinishedCoeffs() {
 		async.series([
-			function () {
-				that.setCoeffs();
+			function (callback) {
+				callback(that.setCoeffs());
 				console.log("test");
+
 			},
-			function () {
-				that.requestTemperature();
+			function (callback) {
+				callback(that.requestTemperature());
 				console.log("Test2");
 			},
-			function () {
-			that.requestPressure();
-			console.log("Test3");
+			function (callback) {
+				callback(that.requestPressure());
+				console.log("Test3");
 			},
 		
 	]);
