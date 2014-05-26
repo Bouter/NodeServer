@@ -105,7 +105,7 @@ function Bmp180(board) {
 			that.x = setInterval(function() {
 
 				checkFinishedCoeffs();
-			}, 5000);
+			}, 50000);
 		}
 	],
 	function (err) {

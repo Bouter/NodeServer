@@ -32,7 +32,7 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         /*board.analogRead(analogPin, function (val) {  
             data = {x : new Date() , y : val};
         });*/
-        http.createServer(function (request, response) {
+        app.get('/',function (request, response) {
             var urlObject = qString.parse(request.url.split("?")[1]);
 
             console.log(urlObject.value);
@@ -46,7 +46,8 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
             response.write("temp: " + pressureBoard.getCurrentTemp() + "C <br>");
             response.write("pressure: " + pressureBoard.getCurrentPress());
             response.end();
-        }).listen(8080);
+        });
+        app.listen(8080);
         console.log('Listening on port 8080 ...');
         console.log('Board Ready plotting');
     }
