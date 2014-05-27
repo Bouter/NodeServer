@@ -182,7 +182,7 @@ Bmp180.prototype = {
 				
 			function iterator(value, callback) {
 			
-			this.read16(registerAddresses[value.get], value.signed);
+			Bmp180.prototype.read16(registerAddresses[value.get], value.signed);
 			
 			callback();
 			};
