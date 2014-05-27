@@ -20,7 +20,7 @@ var datapress;
 var pressureBoard;
 var router = express.Router();
 
-router.use(express.static(__dirname));
+app.use(express.static(__dirname));
 
 
 //var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
@@ -42,7 +42,7 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
             data = {x : new Date() , y : val};
         });*/
         
-        router.get('/light', function (req, res) {
+        app.route('/light').get( function (req, res) {
             var value = req.param('value')
             if ((value) == 'HIGH') {
                 board.digitalWrite(ledPin, board.HIGH);
@@ -57,12 +57,13 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
                 socket.broadcast.emit("temperatuur", 'Temp : ' + pressureBoard.getCurrentTemp() + '°C');
             }, 5000);
         });
-        console.log('Listening on port 8080 ...');
+       
         console.log('Board Ready plotting');
     }
 });
 
 app.listen(8080);
+console.log('Listening on port 8080 ...');
 
 // initialize the plotly graph
 /*{
