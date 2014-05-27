@@ -136,7 +136,27 @@ function Bmp180(board) {
 }
 
 Bmp180.prototype = {
-	x : this,
+	read16: function (address,signed,callback) {
+		var that = this;
+		
+		this.board.sendI2CWriteRequest(0x77,[address]);
+		this.board.sendI2CReadRequest(0x77, 2, function(data){
+
+			data = (data[0] << 8) | data[1];
+			
+			if (signed) {
+				data = that.makeS16(data);
+			}
+
+			if (typeof(callback) == "function") {
+				callback(data);
+			} else {
+				this.coeffs[address] = data;
+			}
+
+	  	}.bind(this));
+	},
+	
 	setCoeffs: function (callback) {
 
 		//checkCoeffs = setInterval(function () {
@@ -181,13 +201,7 @@ Bmp180.prototype = {
 				{get:"CAL_MD", signed: true}
 				];
 				
-			function iterator(value, callback) {
-					console.log(nameArray);
-					console.log(value);
-					console.log(x);
-					x.read16(registerAddresses[value.get], value.signed);
-					callback();
-			};
+			
 			//if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
 			//	nameArray[coeffSize-1].got= true;
 			//}
@@ -195,9 +209,16 @@ Bmp180.prototype = {
 			//	this.read16(registerAddresses[nameArray[coeffSize].get], nameArray[coeffSize].signed);
 			//	nameArray[coeffSize].request = true;
 			//}
-			async.forEachSeries(nameArray, iterator, done);
+			async.forEachSeries(nameArray, this.iterator, done);
 		//}.bind(this), 2000);
 	},
+	iterator: function(value, callback) {
+			console.log(nameArray);
+			console.log(value);
+			
+			read16(registerAddresses[value.get], value.signed);
+			callback();
+			},
 	requestTemperature: function (callback) {
 		//if (this.calibrated) {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
@@ -261,26 +282,7 @@ Bmp180.prototype = {
 	
 		return signed;
 	},
-	read16: function (address,signed,callback) {
-		var that = this;
-		
-		this.board.sendI2CWriteRequest(0x77,[address]);
-		this.board.sendI2CReadRequest(0x77, 2, function(data){
-
-			data = (data[0] << 8) | data[1];
-			
-			if (signed) {
-				data = that.makeS16(data);
-			}
-
-			if (typeof(callback) == "function") {
-				callback(data);
-			} else {
-				this.coeffs[address] = data;
-			}
-
-	  	}.bind(this));
-	},
+	
 	writeTo : function (address, byte) {
 		this.board.sendI2CWriteRequest(0x77,[address,byte]);
 	}
