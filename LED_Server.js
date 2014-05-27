@@ -2,14 +2,9 @@
 var express = require('express');
 var app = express();
 var qString = require('querystring');
-var io = require('socket.io').listen(app.listen(8080));
 var firmata = require('firmata');
 var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var bmp180 = require('./BMP180');
-
-
-
-console.log('Listening on port 8080 ...');
 
 var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity2!"};
@@ -18,12 +13,7 @@ var analogPin = 3;
 var data;
 var datapress;
 var pressureBoard;
-var router = express.Router();
 
-app.use(express.static(__dirname));
-
-
-//var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
 var board = new firmata.Board("/dev/ttyATH0",function(err) {
     if (err) {
         console.log(err);
@@ -31,16 +21,11 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
         return;
     } else {
         pressureBoard = new bmp180(board);
-        console.log('connected');
-        //board.sendI2CConfig();
-        //board.pins[board.analogPins[4]];
-        
-        //board.pinMode(ledPin, board.MODES.OUTPUT);
-        //board.pinMode(analogPin,board.MODES.ANALOG);
-        //Read analog pin 3
-        /*board.analogRead(analogPin, function (val) {  
-            data = {x : new Date() , y : val};
-        });*/
+        console.log('connected to BMP180');
+        var io = require('socket.io').listen(app.listen(8080));
+        console.log('Listening on port 8080 ...');
+
+        app.use(express.static(__dirname));
         
         app.route('/light').get( function (req, res) {
             var value = req.param('value')
