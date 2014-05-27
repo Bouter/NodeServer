@@ -108,7 +108,7 @@
 				var newMessageElement = document.createElement('div');
 				var newMessageText = document.createTextNode(message);
 				newMessageElement.appendChild(newMessageText);
-				messageElement.insertBefore(newmessageElement, lastMessageElement);
+				messageElement.insertBefore(newMessageElement, lastMessageElement);
 				lastMessageElement = newMessageElement;
 			}
 			var socket = io.connect('http://arduino.local:8080');
