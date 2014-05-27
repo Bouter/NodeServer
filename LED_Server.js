@@ -43,16 +43,13 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
         app.listen(8080);
         router.get('/light', function (req, res) {
             var value = req.param('value')
-
             if ((value) == 'HIGH') {
                 board.digitalWrite(ledPin, board.HIGH);
             } else {
                 board.digitalWrite(ledPin, board.LOW);
             }
-            res.status(200)
-            }
-        );
-        }
+            res.status(200);   
+        });
 
         io.sockets.on('connection', function (socket) {
             setInterval(function () {
