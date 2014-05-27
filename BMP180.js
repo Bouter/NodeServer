@@ -180,7 +180,12 @@ Bmp180.prototype = {
 				{get:"CAL_MD", signed: true}
 				];
 				
+			iterator: function(value, callback) {
 			
+			this.read16(registerAddresses[value.get], value.signed);
+			
+			callback();
+			},
 			//if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
 			//	nameArray[coeffSize-1].got= true;
 			//}
@@ -192,33 +197,6 @@ Bmp180.prototype = {
 			console.log("iterator",this.iterator);
 		//}.bind(this), 2000);
 	},
-	iterator: function(value, callback) {
-			
-			console.log(nameArray);
-			console.log(value);
-			console.log("----------------------");
-			//console.log("this: ",Bmp180.prototype);
-			var read1 = function (registerAddresses[value.get], value.signed) {
-				this.board.sendI2CWriteRequest(0x77,[address]);
-			    this.board.sendI2CReadRequest(0x77, 2, function(data){
-
-					data = (data[0] << 8) | data[1];
-					
-					if (signed) {
-						data = that.makeS16(data);
-					}
-
-					if (typeof(callback) == "function") {
-						callback(data);
-					} else {
-						this.coeffs[address] = data;
-					}
-
-	  			}.bind(this));
-			}
-			
-			callback();
-			},
 	read16: function (address,signed,callback) {
 		//var that = this;
 		
