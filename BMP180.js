@@ -185,7 +185,7 @@ Bmp180.prototype = {
 			this.read16(registerAddresses[value.get], value.signed);
 			
 			callback();
-			},
+			};
 			//if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
 			//	nameArray[coeffSize-1].got= true;
 			//}
