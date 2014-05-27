@@ -4,128 +4,130 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LED Controller</title>
- 
-<style type="text/css">
- #messages {
- position: fixed;
- top: 40px;
- bottom:8px;
-left: 8px;
-right: 8px;
-border: 1px solid #EEEEEE;
-padding:8px;
-}
 
- 
-body {
-width: 100%;
-float: left;
-margin: 0;
-padding: 0;
-}
- 
-button.btn-success {
-color: #ffffff;
-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-background-color: #5bb75b;
-background-image: -moz-linear-gradient(top, #62c462, #51a351);
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
-background-image: -webkit-linear-gradient(top, #62c462, #51a351);
-background-image: -o-linear-gradient(top, #62c462, #51a351);
-background-image: linear-gradient(to bottom, #62c462, #51a351);
-background-repeat: repeat-x;
-border-color: #51a351 #51a351 #387038;
-border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
-filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
- 
-button.btn-danger {
-color: #ffffff;
-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-background-color: #da4f49;
-background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
-background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
-background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
-background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
-background-repeat: repeat-x;
-border-color: #bd362f #bd362f #802420;
-border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0);
-filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
- 
-.btn {
-display: inline-block;
-padding: 0.5em 0.7em;
-width: 46%;
-float: left;
-margin: 1em 2%;
-font-size: 20px;
-line-height: 30px;
-color: #333333;
-text-align: center;
-text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-vertical-align: middle;
-cursor: pointer;
-background-color: #f5f5f5;
-background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-background-repeat: repeat-x;
-border: 1px solid #bbbbbb;
-border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-border-bottom-color: #a2a2a2;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
-border-radius: 4px;
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
-filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
--webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
--moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-box-sizing: border-box;
-}
- 
+<style type="text/css">
+	 #messages {
+		 position: fixed;
+		 top: 40px;
+		 bottom:8px;
+		left: 8px;
+		right: 8px;
+		border: 1px solid #EEEEEE;
+		padding:8px;
+	}
+
+	 
+	body {
+		width: 100%;
+		float: left;
+		margin: 0;
+		padding: 0;
+	}
+	 
+	button.btn-success {
+		color: #ffffff;
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+		background-color: #5bb75b;
+		background-image: -moz-linear-gradient(top, #62c462, #51a351);
+		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+		background-image: -webkit-linear-gradient(top, #62c462, #51a351);
+		background-image: -o-linear-gradient(top, #62c462, #51a351);
+		background-image: linear-gradient(to bottom, #62c462, #51a351);
+		background-repeat: repeat-x;
+		border-color: #51a351 #51a351 #387038;
+		border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
+		filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	}
+	 
+	button.btn-danger {
+		color: #ffffff;
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+		background-color: #da4f49;
+		background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+		background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+		background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+		background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+		background-repeat: repeat-x;
+		border-color: #bd362f #bd362f #802420;
+		border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0);
+		filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	}
+	 
+	.btn {
+		display: inline-block;
+		padding: 0.5em 0.7em;
+		width: 46%;
+		float: left;
+		margin: 1em 2%;
+		font-size: 20px;
+		line-height: 30px;
+		color: #333333;
+		text-align: center;
+		text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+		vertical-align: middle;
+		cursor: pointer;
+		background-color: #f5f5f5;
+		background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+		background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+		background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+		background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+		background-repeat: repeat-x;
+		border: 1px solid #bbbbbb;
+		border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+		border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+		border-bottom-color: #a2a2a2;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+		filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+		-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+		-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+		box-sizing: border-box;
+	}
+	 
 </style>
+<script src="/socket.io/socket.io.js"></script>
 <script>
- 
-function httpGet( theUrl ){
-	var xmlHttp = null;
-	xmlHttp = new XMLHttpRequest();
-	xmlHttp.open( 'GET', theUrl, false );
-	xmlHttp.send( null );
- 
-	return xmlHttp.responseText;
-}
+	function httpGet( theUrl ){
+		var xmlHttp = null;
+		xmlHttp = new XMLHttpRequest();
+		xmlHttp.open( 'GET', theUrl, false );
+		xmlHttp.send( null );
+	 
+		return xmlHttp.responseText;
+	}
 </script>
  
  
 </head>
 <body>		
 <div id="messages"></div>
-<script scr="http://localhost:8080/socket.io/socket.io.js"></script>
-<script type="text/javascript">
- var messageElement = document.getElementById('messages');
-var lastMessageElement = null;
 
-function addMessage(message) {
-	var newMessageElement = document.createElement('div');
-	var newMessageText = document.createTextNode(message);
-	newMessageElement.appandChild(newMessageText);
-	messageElement.insertBefore(newmessageElement, lastMessageElement);
-lastMessageElement = newMessageElement;
-}
-var socket = io.connect('file:///Users/appsaloon/Sites/NodeServer/index2.html');
-socket.on('serverMessage',function(content) {
-	addMessage(content);
-});					
 <button class="btn btn-success" onclick="httpGet('http://192.168.75.159:8080/?serverfunction=ledSwitch&value=HIGH')" >On</button>
 <button class="btn btn-danger" onclick="httpGet('http://192.168.75.159:8080/?serverfunction=ledSwitch&value=LOW')" >Off</button>
+
+<script type="text/javascript">
+	var messageElement = document.getElementById('messages');
+	var lastMessageElement = null;
+
+	function addMessage(message) {
+		var newMessageElement = document.createElement('div');
+		var newMessageText = document.createTextNode(message);
+		newMessageElement.appandChild(newMessageText);
+		messageElement.insertBefore(newmessageElement, lastMessageElement);
+		lastMessageElement = newMessageElement;
+	}
+	var socket = io.connect('http://arduino.local');
+
+	socket.on('temperatuur',function(content) {
+		addMessage(content);
+	});					
 </script>
 </body>
 </html>
