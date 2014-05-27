@@ -198,7 +198,7 @@ Bmp180.prototype = {
 			console.log(value);
 			console.log("----------------------");
 			//console.log("this: ",Bmp180.prototype);
-			Bmp180.prototype.read16(registerAddresses[value.get], value.signed);
+			prototype.read16(registerAddresses[value.get], value.signed);
 			callback();
 			},
 	read16: function (address,signed,callback) {
