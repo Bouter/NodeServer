@@ -224,6 +224,7 @@ Bmp180.prototype = {
 			
 			if (signed) {
 				data = that.makeS16(data);
+				console.log("signed",data);
 			}
 
 			if (typeof(callback) == "function") {
