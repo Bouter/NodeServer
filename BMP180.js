@@ -102,7 +102,7 @@ function Bmp180(board) {
 		},
 		function () {
 			that.x = setInterval(function() {
-
+				console.log("Test")
 				checkFinishedCoeffs();
 			}, 50000);
 		}
@@ -215,7 +215,7 @@ Bmp180.prototype = {
 		//}.bind(this), 2000);
 	},
 	read16: function (address,signed,callback) {
-		//var that = this;
+		var that = this;
 		
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77, 2, function(data){
