@@ -193,12 +193,12 @@ Bmp180.prototype = {
 		//}.bind(this), 2000);
 	},
 	iterator: function(value, callback) {
-			var that = this;
+			
 			console.log(nameArray);
 			console.log(value);
 			console.log("----------------------");
 			//console.log("this: ",Bmp180.prototype);
-			that.read16(registerAddresses[value.get], value.signed);
+			Bmp180.prototype.read16(registerAddresses[value.get], value.signed);
 			callback();
 			},
 	read16: function (address,signed,callback) {
