@@ -41,7 +41,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 	
 	console.log("Temperature ", t);
 	//GoPressure = true;
-
+	t /= 10;
 	return t;
 };
 
@@ -221,7 +221,7 @@ Bmp180.prototype = {
 		this.board.sendI2CReadRequest(0x77, 2, function(data){
 
 			data = (data[0] << 8) | data[1];
-			
+			console.log("RawData",data);
 			if (signed) {
 				data = that.makeS16(data);
 				console.log("signed",data);
@@ -270,7 +270,7 @@ Bmp180.prototype = {
 	getCalculatedAltitude: function (callback) {
 	 	var altitude;
 	 	altitude = 44330.0 * (1.0 - (Math.pow(((this.currentPress/100.0) /101325.0),(1903/1000))));
-	 	console.log("Altitude ", altitude);
+	 	console.log("Altitude ", altitude/1000);
 	 	callback(null);
 	},
 	getCurrentTemp: function () {
@@ -292,6 +292,7 @@ Bmp180.prototype = {
 		// console.log(number);
 		if (number > 32767) {
   			signed = ((-65536) + number);
+  			console.log("Number bigger thann 32767",signed);
 		} else {
 			signed = number;
 		}
