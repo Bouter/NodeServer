@@ -182,9 +182,8 @@ Bmp180.prototype = {
 				
 			function iterator(value, callback) {
 			
-			readInit(registerAddresses[value.get], value.signed);
+			readInit(registerAddresses[value.get], value.signed,callback);
 			console.log(value.get);
-			callback();
 			};
 
 			function readInit(address,signed,callback) {
@@ -197,11 +196,9 @@ Bmp180.prototype = {
 						data = that.makeS16(data);
 					}
 
-					if (typeof(callback) == "function") {
-						callback(data);
-					} else {
-						that.coeffs[address] = data;
-					}
+					that.coeffs[address] = data;
+					callback();
+					
 					console.log(data);
 		  		}.bind(this));
 			};
