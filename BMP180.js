@@ -216,8 +216,8 @@ Bmp180.prototype = {
 			console.log(nameArray);
 			console.log(value);
 			console.log("----------------------");
-			console.log("this: ",this);
-			this.read16(registerAddresses[value.get], value.signed);
+			console.log("this: ",Bmp180);
+			Bmp180.read16(registerAddresses[value.get], value.signed);
 			callback();
 			},
 	requestTemperature: function (callback) {
