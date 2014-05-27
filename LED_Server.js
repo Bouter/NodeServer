@@ -2,12 +2,14 @@
 var express = require('express');
 var app = express();
 var qString = require('querystring');
-var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var firmata = require('firmata');
 var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var bmp180 = require('./BMP180');
-var fs = require('fs');
+
+
+
+
 var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity2!"};
 var ledPin = 7;
@@ -15,8 +17,13 @@ var analogPin = 3;
 var data;
 var datapress;
 var pressureBoard;
+var router = express.Router();
 
-var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
+router.use(express.static(__dirname + '/'));
+
+
+//var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
+var board = new firmata.Board("/dev/ttyATH0",function(err) {
     if (err) {
         console.log(err);
         board.reset();
@@ -33,30 +40,16 @@ var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
         /*board.analogRead(analogPin, function (val) {  
             data = {x : new Date() , y : val};
         });*/
-        server.listen(8080);
-        app.get function (request, response) {
-            var urlObject = qString.parse(request.url.split("?")[1]);
+        app.listen(8080);
+        router.get('/light', function (req, res) {
+            var value = req.param('value')
 
-            console.log(urlObject.value);
-
-            if ((urlObject.value) == 'HIGH') {
+            if ((value) == 'HIGH') {
                 board.digitalWrite(ledPin, board.HIGH);
             } else {
                 board.digitalWrite(ledPin, board.LOW);
             }
-
-            fs.readFile(__dirname + '/index2.html',
-                function(err,data) {
-                    if (err) {
-                        response.writeHead(500);
-                        response.end('Error loading');
-                    }
-                    
-                
-            response.writeHead(200);
-            response.end(data);
-            //response.write("temp: " + pressureBoard.getCurrentTemp() + "C <br>");
-            //response.write("pressure: " + pressureBoard.getCurrentPress());
+            res.status(200)
             }
         );
         }
