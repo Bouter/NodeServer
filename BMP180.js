@@ -180,7 +180,7 @@ Bmp180.prototype = {
 				{get:"CAL_MC", signed: true},
 				{get:"CAL_MD", signed: true}
 				];
-				var 
+				
 			function iterator(value, callback) {
 					console.log(nameArray);
 					console.log(value);
