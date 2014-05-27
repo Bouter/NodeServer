@@ -81,7 +81,6 @@ Object.size = function(obj) {
     return size;
 };
 
-
 function Bmp180(board) {
 	this.calibrated = false;
 	this.board = board;
@@ -94,22 +93,20 @@ function Bmp180(board) {
 	var that = this;
 	async.series([
 		function (callback) {
-				that.setCoeffs(callback);
+			that.setCoeffs(callback);
 		},
 		function (callback) {
-			that.x = setInterval(function() {
-				console.log("Interval Test");
-
+			setInterval(function() {
+				console.log("Interval Test", new Date());
 				GetData();
 			}, 10000);
 			callback(null);
 		}
 	],
 	function (err) {
-		console.log(err);
+		console.log("Error :", err);
 	});
 	
-
 	function GetData() {
 		async.series([
 			function (callback) {
@@ -119,117 +116,76 @@ function Bmp180(board) {
 				that.requestPressure(callback);	
 			},
 			function (callback) {
-				that.getCalculatedAltitude(callback);
-				console.log(new Date());
+				that.getCalculatedAltitude();
 				callback(null);
 			}
 		], function (err) {
 			console.log(err)
 		});
 	}
-}
+};
 
 Bmp180.prototype = {
-	
-	setCoeffs: function (callback) {
+	setCoeffs: function (callb) {
 		var that = this;
-		//checkCoeffs = setInterval(function () {
-		//	var coeffSize = Object.size(this.coeffs)
-			
-		//	if (Object.size(this.coeffs) == 11) {
-		//		this.calibrated = true;
-		//		clearInterval(checkCoeffs);
-		//		console.log(this.coeffs);
-		//		callback(null);
-		//	}
-			//nameArray = [
-			//	{get:"CAL_AC1",request:false,got:false, signed: true},
-			//	{get:"CAL_AC2",request:false,got:false, signed: true},
-			//	{get:"CAL_AC3",request:false,got:false, signed: true},
-			//	{get:"CAL_AC4",request:false,got:false, signed: false},
-			//	{get:"CAL_AC5",request:false,got:false, signed: false},
-			//	{get:"CAL_AC6",request:false,got:false, signed: false},
-			//	{get:"CAL_B1",request:false,got:false, signed: true},
-			//	{get:"CAL_B2",request:false,got:false, signed: true},
-			//	{get:"CAL_MB",request:false,got:false, signed: true},
-			//	{get:"CAL_MC",request:false,got:false, signed: true},
-			//	{get:"CAL_MD",request:false,got:false, signed: true}
-			//];
-			function done(err) {
-				if (err) {
-					throw err;
-				}
-				console.log("Done!");
-				callback();
+		function done(err) {
+			if (err) {
+				throw err;
 			}
-			nameArray = [
-				{get:"CAL_AC1", signed: true},
-				{get:"CAL_AC2", signed: true},
-				{get:"CAL_AC3", signed: true},
-				{get:"CAL_AC4", signed: false},
-				{get:"CAL_AC5", signed: false},
-				{get:"CAL_AC6", signed: false},
-				{get:"CAL_B1", signed: true},
-				{get:"CAL_B2", signed: true},
-				{get:"CAL_MB", signed: true},
-				{get:"CAL_MC", signed: true},
-				{get:"CAL_MD", signed: true}
-				];
+			console.log("Done!");
+			callb();
+		};
+		nameArray = [
+			{get:"CAL_AC1", signed: true},
+			{get:"CAL_AC2", signed: true},
+			{get:"CAL_AC3", signed: true},
+			{get:"CAL_AC4", signed: false},
+			{get:"CAL_AC5", signed: false},
+			{get:"CAL_AC6", signed: false},
+			{get:"CAL_B1", signed: true},
+			{get:"CAL_B2", signed: true},
+			{get:"CAL_MB", signed: true},
+			{get:"CAL_MC", signed: true},
+			{get:"CAL_MD", signed: true}
+		];
 				
-			function iterator(value, callback) {
-			
-			readInit(registerAddresses[value.get], value.signed,callback);
+		function iterator(value, callback) {
+			readInit(registerAddresses[value.get], value.signed, callback);
 			console.log(value.get);
-			};
+		};
 
-			function readInit(address,signed,callback) {
-				that.board.sendI2CWriteRequest(0x77,[address]);
-				that.board.sendI2CReadRequest(0x77, 2, function(data){
+		function readInit(address, signed, callback) {
+			that.board.sendI2CWriteRequest(0x77, [address]);
+			that.board.sendI2CReadRequest(0x77, 2, function(data){
 
-				data = (data[0] << 8) | data[1];
-			
-					if (signed) {
-						data = that.makeS16(data);
-					}
+			data = (data[0] << 8) | data[1];
+		
+				if (signed) {
+					data = that.makeS16(data);
+				}
 
-					that.coeffs[address] = data;
-					callback(null);
-					
-					console.log(data);
-		  		}.bind(this));
-			};
-			//if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
-			//	nameArray[coeffSize-1].got= true;
-			//}
-			//if (nameArray[coeffSize] != undefined && nameArray[coeffSize].request == false) {
-			//	this.read16(registerAddresses[nameArray[coeffSize].get], nameArray[coeffSize].signed);
-			//	nameArray[coeffSize].request = true;
-			//}
-			async.forEachSeries(nameArray, iterator, done);
-			//console.log("iterator",iterator);
-		//}.bind(this), 2000);
+				that.coeffs[address] = data;
+				callback(null);
+				
+				console.log(data);
+	  		}.bind(this));
+		};
+
+		async.forEachSeries(nameArray, iterator, done);
+
 	},
 	read16: function (address,signed,callback) {
-		var that = this;
-		
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77, 2, function(data){
 
 			data = (data[0] << 8) | data[1];
 			console.log("RawData",data);
 			if (signed) {
-				data = that.makeS16(data);
+				data = this.makeS16(data);
 				console.log("signed",data);
 			}
-
-			if (typeof(callback) == "function") {
-				callback(data);
-				console.log("function data");
-			} else {
-				this.coeffs[address] = data;
-				console.log("coeffs");
-			}
-
+			callback(data);
+			console.log("function data");
 	  	}.bind(this));
 	},
 	requestTemperature: function (callback) {
