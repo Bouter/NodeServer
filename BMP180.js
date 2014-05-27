@@ -38,10 +38,10 @@ var getCalculatedTemperature = function (UT, coeffs) {
 	X2 = (coeffs[registerAddresses.CAL_MC] * Math.pow(2,11)) / (X1+coeffs[registerAddresses.CAL_MD]);
 	B5 = X1 + X2;
 	t = (B5+8)/Math.pow(2,4);
-	
+	t /= 10;
 	console.log("Temperature ", t);
 	//GoPressure = true;
-	t /= 10;
+	
 	return t;
 };
 
@@ -240,7 +240,7 @@ Bmp180.prototype = {
 			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
 			var that = this;
 			setTimeout(function() {
-				this.read16(registerAddresses.TEMPDATA, true, function (data) {
+				this.read16(registerAddresses.TEMPDATA, false, function (data) {
 					this.currentTemp = getCalculatedTemperature(data, this.coeffs);
 					if (GoPressure) {
 						this.requestPressure();
