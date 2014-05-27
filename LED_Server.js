@@ -20,7 +20,7 @@ var datapress;
 var pressureBoard;
 var router = express.Router();
 
-router.use(express.static(__dirname + '/'));
+router.use(express.static(__dirname));
 
 
 //var board = new firmata.Board("../../../../../dev/ttyATH0",function(err) {
@@ -41,7 +41,7 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
         /*board.analogRead(analogPin, function (val) {  
             data = {x : new Date() , y : val};
         });*/
-        app.listen(8080);
+        
         router.get('/light', function (req, res) {
             var value = req.param('value')
             if ((value) == 'HIGH') {
@@ -61,6 +61,8 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
         console.log('Board Ready plotting');
     }
 });
+
+app.listen(8080);
 
 // initialize the plotly graph
 /*{
