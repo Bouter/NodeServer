@@ -137,7 +137,7 @@ function Bmp180(board) {
 Bmp180.prototype = {
 	
 	setCoeffs: function (callback) {
-
+		var that = this;
 		//checkCoeffs = setInterval(function () {
 		//	var coeffSize = Object.size(this.coeffs)
 			
@@ -188,8 +188,8 @@ Bmp180.prototype = {
 			};
 
 			function readInit(address,signed,callback) {
-				this.board.sendI2CWriteRequest(0x77,[address]);
-				this.board.sendI2CReadRequest(0x77, 2, function(data){
+				that.board.sendI2CWriteRequest(0x77,[address]);
+				that.board.sendI2CReadRequest(0x77, 2, function(data){
 
 				data = (data[0] << 8) | data[1];
 			
