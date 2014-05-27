@@ -95,7 +95,6 @@ function Bmp180(board) {
 	this.currentAltitude = 0;
 	this.coeffs = {};
 	this.board.sendI2CConfig();
-	
 	var that = this;
 	async.series([
 		function (callback) {
@@ -198,7 +197,7 @@ Bmp180.prototype = {
 			console.log(value);
 			console.log("----------------------");
 			//console.log("this: ",Bmp180.prototype);
-			prototype.read16(registerAddresses[value.get], value.signed);
+			BMP180.prototype.read16(registerAddresses[value.get], value.signed);
 			callback();
 			},
 	read16: function (address,signed,callback) {
