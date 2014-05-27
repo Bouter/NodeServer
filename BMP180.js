@@ -182,7 +182,7 @@ Bmp180.prototype = {
 				
 			function iterator(value, callback) {
 			
-			this.readInit(registerAddresses[value.get], value.signed);
+			readInit(registerAddresses[value.get], value.signed);
 			
 			callback();
 			};
@@ -204,7 +204,7 @@ Bmp180.prototype = {
 					}
 
 		  		}.bind(this));
-			}
+			};
 			//if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
 			//	nameArray[coeffSize-1].got= true;
 			//}
