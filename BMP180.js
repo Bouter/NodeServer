@@ -120,7 +120,7 @@ function Bmp180(board) {
 				callback(null);
 			}
 		], function (err) {
-			console.log(err)
+			console.log("Error : ",err);
 		});
 	}
 };
@@ -151,7 +151,7 @@ Bmp180.prototype = {
 				
 		function iterator(value, callback) {
 			readInit(registerAddresses[value.get], value.signed, callback);
-			console.log(value.get);
+			
 		};
 
 		function readInit(address, signed, callback) {
@@ -167,7 +167,7 @@ Bmp180.prototype = {
 				that.coeffs[address] = data;
 				callback(null);
 				
-				console.log(data);
+				console.log("Register address : " + address + " " + "Data : "+ data);
 	  		}.bind(this));
 		};
 
@@ -177,45 +177,35 @@ Bmp180.prototype = {
 	read16: function (address,signed,callback) {
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77, 2, function(data){
-
-			data = (data[0] << 8) | data[1];
 			console.log("RawData",data);
+			data = (data[0] << 8) | data[1];
+			console.log("Shifted Data",data);
 			if (signed) {
 				data = this.makeS16(data);
 				console.log("signed",data);
 			}
 			callback(data);
-			console.log("function data");
 	  	}.bind(this));
 	},
 	requestTemperature: function (callback) {
-		//if (this.calibrated) {
-			this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
-			var that = this;
-			setTimeout(function() {
-				this.read16(registerAddresses.TEMPDATA, false, function (data) {
-					this.currentTemp = getCalculatedTemperature(data, this.coeffs);
-					callback(null);
-				}.bind(this));
-			}.bind(this), 5);
-			//clearInterval(this.x);		
-		//}
-		
+		this.writeTo(registerAddresses.CONTROL, registerAddresses.READTEMPCMD);
+		var that = this;
+		setTimeout(function() {
+			this.read16(registerAddresses.TEMPDATA, false, function (data) {
+				this.currentTemp = getCalculatedTemperature(data, this.coeffs);
+				callback(null);
+			}.bind(this));
+		}.bind(this), 5);
 	},
 	requestPressure: function (callback) {
-
-		//if (GoPressure) {
-			this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
-			var that  = this;
-			setTimeout(function() {
-				this.read16(registerAddresses.PRESSUREDATA, false, function (data) {
-					this.currentPress = getCalculatedPressure(data, this.coeffs);
-					callback(null);
-				}.bind(this));
-			}.bind(this),5);
-			//clearInterval(this.x);
-		//}
-		
+		this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
+		var that  = this;
+		setTimeout(function() {
+			this.read16(registerAddresses.PRESSUREDATA, false, function (data) {
+				this.currentPress = getCalculatedPressure(data, this.coeffs);
+				callback(null);
+			}.bind(this));
+		}.bind(this),5);
 	},
 	getCalculatedAltitude: function () {
 	 	var altitude;
@@ -238,10 +228,8 @@ Bmp180.prototype = {
 	//},
 	makeS16: function (number) {
 		var signed;
-		// console.log(number);
 		if (number > 32767) {
   			signed = ((-65536) + number);
-  			console.log("Number bigger thann 32767",signed);
 		} else {
 			signed = number;
 		}
