@@ -180,7 +180,7 @@ Bmp180.prototype = {
 				{get:"CAL_MD", signed: true}
 				];
 				
-			iterator: function(value, callback) {
+			function iterator(value, callback) {
 			
 			this.read16(registerAddresses[value.get], value.signed);
 			
