@@ -136,6 +136,7 @@ function Bmp180(board) {
 }
 
 Bmp180.prototype = {
+	var x = this;
 	setCoeffs: function (callback) {
 
 		//checkCoeffs = setInterval(function () {
@@ -179,10 +180,12 @@ Bmp180.prototype = {
 				{get:"CAL_MC", signed: true},
 				{get:"CAL_MD", signed: true}
 				];
+				var 
 			function iterator(value, callback) {
 					console.log(nameArray);
 					console.log(value);
-					this.read16(registerAddresses[value.get], value.signed);
+					console.log(x);
+					x.read16(registerAddresses[value.get], value.signed);
 					callback();
 			};
 			//if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
