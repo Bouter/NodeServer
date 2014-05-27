@@ -102,8 +102,8 @@ function Bmp180(board) {
 		},
 		function () {
 			that.x = setInterval(function() {
-				console.log("Test")
-				checkFinishedCoeffs();
+				console.log("Interval Test");
+				GetData();
 			}, 50000);
 		}
 	],
@@ -114,7 +114,7 @@ function Bmp180(board) {
 	});
 	
 
-	function checkFinishedCoeffs() {
+	function GetData() {
 		async.series([
 			function (callback) {
 				that.requestTemperature(callback);		
@@ -229,8 +229,10 @@ Bmp180.prototype = {
 
 			if (typeof(callback) == "function") {
 				callback(data);
+				console.log("function data");
 			} else {
 				this.coeffs[address] = data;
+				console.log("coeffs");
 			}
 
 	  	}.bind(this));
@@ -242,9 +244,6 @@ Bmp180.prototype = {
 			setTimeout(function() {
 				this.read16(registerAddresses.TEMPDATA, false, function (data) {
 					this.currentTemp = getCalculatedTemperature(data, this.coeffs);
-					if (GoPressure) {
-						this.requestPressure();
-					}
 					callback(null);
 				}.bind(this));
 			}.bind(this), 5);
