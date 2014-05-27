@@ -169,7 +169,7 @@ Bmp180.prototype = {
 				this.read16(registerAddresses[nameArray[coeffSize].get], nameArray[coeffSize].signed);
 				nameArray[coeffSize].request = true;
 			}
-		}.bind(this), 5000);
+		}.bind(this), 10000);
 	},
 	requestTemperature: function (callback) {
 		//if (this.calibrated) {
