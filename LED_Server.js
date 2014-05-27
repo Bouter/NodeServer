@@ -2,13 +2,14 @@
 var express = require('express');
 var app = express();
 var qString = require('querystring');
-var io = require('socket.io').listen(app);
+var io = require('socket.io').listen(app.listen(8080));
 var firmata = require('firmata');
 var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var bmp180 = require('./BMP180');
 
 
 
+console.log('Listening on port 8080 ...');
 
 var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity2!"};
@@ -61,8 +62,6 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
     }
 });
 
-app.listen(8080);
-console.log('Listening on port 8080 ...');
 
 // initialize the plotly graph
 /*{
