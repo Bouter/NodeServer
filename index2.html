@@ -107,11 +107,11 @@
 			function addMessage(message) {
 				var newMessageElement = document.createElement('div');
 				var newMessageText = document.createTextNode(message);
-				newMessageElement.appandChild(newMessageText);
+				newMessageElement.appendChild(newMessageText);
 				messageElement.insertBefore(newmessageElement, lastMessageElement);
 				lastMessageElement = newMessageElement;
 			}
-			var socket = io.connect('http://arduino.local');
+			var socket = io.connect('http://arduino.local:8080');
 
 			socket.on('temperatuur',function(content) {
 				addMessage(content);
