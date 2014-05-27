@@ -165,6 +165,7 @@ Bmp180.prototype = {
 					throw err;
 				}
 				console.log("Done!");
+				callback();
 			}
 			nameArray = [
 				{get:"CAL_AC1", signed: true},
@@ -210,7 +211,7 @@ Bmp180.prototype = {
 			//	nameArray[coeffSize].request = true;
 			//}
 			async.forEachSeries(nameArray, iterator, done);
-			console.log("iterator",iterator);
+			//console.log("iterator",iterator);
 		//}.bind(this), 2000);
 	},
 	read16: function (address,signed,callback) {
