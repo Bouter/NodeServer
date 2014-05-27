@@ -202,7 +202,7 @@ Bmp180.prototype = {
 					} else {
 						that.coeffs[address] = data;
 					}
-
+					console.log(data);
 		  		}.bind(this));
 			};
 			//if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
