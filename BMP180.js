@@ -73,10 +73,6 @@ var getCalculatedPressure = function (UP, coeffs) {
 	return p;
 };
 
-
- 
-
-
 Object.size = function(obj) {
     var size = 0, key;
     for (key in obj) {
@@ -100,37 +96,36 @@ function Bmp180(board) {
 		function (callback) {
 				that.setCoeffs(callback);
 		},
-		function () {
+		function (callback) {
 			that.x = setInterval(function() {
 				console.log("Interval Test");
+
 				GetData();
-			}, 50000);
+			}, 10000);
+			callback(null);
 		}
 	],
 	function (err) {
-		console.log("Temp ", results);
-		console.log("Press ", that.currentPress());
-
+		console.log(err);
 	});
 	
 
 	function GetData() {
 		async.series([
 			function (callback) {
-				that.requestTemperature(callback);		
-				//console.log("test");	
+				that.requestTemperature(callback);
 			},
 			function (callback) {
 				that.requestPressure(callback);	
 			},
 			function (callback) {
 				that.getCalculatedAltitude(callback);
+				console.log(new Date());
+				callback(null);
 			}
-		]);
-		//function (err, results) {
-			//console.log("Temp ", results);
-			//console.log("Press ", getCalculatedPressure());	
-		//});
+		], function (err) {
+			console.log(err)
+		});
 	}
 }
 
@@ -198,7 +193,7 @@ Bmp180.prototype = {
 					}
 
 					that.coeffs[address] = data;
-					callback();
+					callback(null);
 					
 					console.log(data);
 		  		}.bind(this));
@@ -266,11 +261,10 @@ Bmp180.prototype = {
 		//}
 		
 	},
-	getCalculatedAltitude: function (callback) {
+	getCalculatedAltitude: function () {
 	 	var altitude;
 	 	altitude = 44330.0 * (1.0 - (Math.pow(((this.currentPress/100.0) /101325.0),(1903/1000))));
 	 	console.log("Altitude ", altitude/1000);
-	 	callback(null);
 	},
 	getCurrentTemp: function () {
 		return this.currentTemp;
