@@ -200,8 +200,8 @@ Bmp180.prototype = {
 	read16: function (address,signed,callback) {
 		//var that = this;
 		
-		board.sendI2CWriteRequest(0x77,[address]);
-		board.sendI2CReadRequest(0x77, 2, function(data){
+		this.board.sendI2CWriteRequest(0x77,[address]);
+		this.board.sendI2CReadRequest(0x77, 2, function(data){
 
 			data = (data[0] << 8) | data[1];
 			
