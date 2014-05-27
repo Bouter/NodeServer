@@ -200,7 +200,7 @@ Bmp180.prototype = {
 					if (typeof(callback) == "function") {
 						callback(data);
 					} else {
-						this.coeffs[address] = data;
+						that.coeffs[address] = data;
 					}
 
 		  		}.bind(this));
