@@ -180,7 +180,7 @@ Bmp180.prototype = {
 				{get:"CAL_MD", signed: true}
 				];
 			function iterator(i, callback) {
-					this.read16(registerAddresses[nameArray[i].this.get], nameArray[i].this.signed);
+					this.read16(registerAddresses[this.nameArray[i].get], this.nameArray[i].signed);
 					callback();
 			};
 			//if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
