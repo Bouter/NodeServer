@@ -193,7 +193,7 @@ Bmp180.prototype = {
 			//	this.read16(registerAddresses[nameArray[coeffSize].get], nameArray[coeffSize].signed);
 			//	nameArray[coeffSize].request = true;
 			//}
-			async.forEachSeries(nameArray, this.iterator, done);
+			async.forEachSeries(nameArray, iterator, done);
 			console.log("iterator",this.iterator);
 		//}.bind(this), 2000);
 	},
