@@ -195,7 +195,7 @@ Bmp180.prototype = {
 				this.currentTemp = getCalculatedTemperature(data, this.coeffs);
 				callback(null);
 			}.bind(this));
-		}.bind(this), 5);
+		}.bind(this), 10);
 	},
 	requestPressure: function (callback) {
 		this.writeTo(registerAddresses.CONTROL, registerAddresses.READPRESSURECMD);
@@ -205,7 +205,7 @@ Bmp180.prototype = {
 				this.currentPress = getCalculatedPressure(data, this.coeffs);
 				callback(null);
 			}.bind(this));
-		}.bind(this),5);
+		}.bind(this),10);
 	},
 	getCalculatedAltitude: function () {
 	 	var altitude;
