@@ -38,7 +38,7 @@ var getCalculatedTemperature = function (UT, coeffs) {
 	X2 = (coeffs[registerAddresses.CAL_MC] * Math.pow(2,11)) / (X1+coeffs[registerAddresses.CAL_MD]);
 	B5 = X1 + X2;
 	t = (B5+8)/Math.pow(2,4);
-	t /= 10;
+	
 	console.log("Temperature ", t);
 	//GoPressure = true;
 
@@ -205,8 +205,6 @@ Bmp180.prototype = {
 	},
 	getCalculatedAltitude: function (callback) {
 	 	var altitude;
-	 	//var pp = this.requestPressure();
-	 	//console.log("pw ", p);
 	 	altitude = 44330.0 * (1.0 - (Math.pow(((this.currentPress/100.0) /101325.0),(1903/1000))));
 	 	console.log("Altitude ", altitude);
 	 	callback(null);
