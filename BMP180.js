@@ -167,20 +167,20 @@ Bmp180.prototype = {
 				console.log("Done!");
 			}
 			nameArray = [
-				{"CAL_AC1", signed: true},
-				{"CAL_AC2", signed: true},
-				{"CAL_AC3", signed: true},
-				{"CAL_AC4", signed: false},
-				{"CAL_AC5", signed: false},
-				{"CAL_AC6", signed: false},
-				{"CAL_B1", signed: true},
-				{"CAL_B2", signed: true},
-				{"CAL_MB", signed: true},
-				{"CAL_MC", signed: true},
-				{"CAL_MD" signed: true}
+				{get:"CAL_AC1", signed: true},
+				{get:"CAL_AC2", signed: true},
+				{get:"CAL_AC3", signed: true},
+				{get:"CAL_AC4", signed: false},
+				{get:"CAL_AC5", signed: false},
+				{get:"CAL_AC6", signed: false},
+				{get:"CAL_B1", signed: true},
+				{get:"CAL_B2", signed: true},
+				{get:"CAL_MB", signed: true},
+				{get:"CAL_MC", signed: true},
+				{get:"CAL_MD", signed: true}
 				];
 			function iterator(i, callback) {
-					this.read16(registerAddresses[nameArray[i]], nameArray[i].signed);
+					this.read16(registerAddresses[nameArray[i].get], nameArray[i].signed);
 					callback();
 			};
 			//if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
