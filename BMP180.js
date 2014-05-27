@@ -215,7 +215,8 @@ Bmp180.prototype = {
 	iterator: function(value, callback) {
 			console.log(nameArray);
 			console.log(value);
-			
+			console.log("----------------------");
+			console.log("this: ",this);
 			this.read16(registerAddresses[value.get], value.signed);
 			callback();
 			},
