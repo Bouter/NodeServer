@@ -1,9 +1,8 @@
 "use strict";
 var express = require('express');
 var app = express();
-var server = require('http').createServer(app);
 var qString = require('querystring');
-var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(app);
 var firmata = require('firmata');
 var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var bmp180 = require('./BMP180');
