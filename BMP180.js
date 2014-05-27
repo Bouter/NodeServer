@@ -190,14 +190,15 @@ Bmp180.prototype = {
 			//	nameArray[coeffSize].request = true;
 			//}
 			async.forEachSeries(nameArray, this.iterator, done);
+			console.log("iterator",this.iterator);
 		//}.bind(this), 2000);
 	},
 	iterator: function(value, callback) {
 			console.log(nameArray);
 			console.log(value);
 			console.log("----------------------");
-			console.log("this: ",Bmp180);
-			Bmp180.read16(registerAddresses[value.get], value.signed);
+			console.log("this: ",Bmp180.prototype);
+			Bmp180.prototype.read16(registerAddresses[value.get], value.signed);
 			callback();
 			},
 	read16: function (address,signed,callback) {
