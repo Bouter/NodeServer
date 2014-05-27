@@ -183,7 +183,7 @@ Bmp180.prototype = {
 			function iterator(value, callback) {
 			
 			readInit(registerAddresses[value.get], value.signed);
-			
+			console.log(value.get);
 			callback();
 			};
 
@@ -213,7 +213,7 @@ Bmp180.prototype = {
 			//	nameArray[coeffSize].request = true;
 			//}
 			async.forEachSeries(nameArray, iterator, done);
-			console.log("iterator",this.iterator);
+			console.log("iterator",iterator);
 		//}.bind(this), 2000);
 	},
 	read16: function (address,signed,callback) {
