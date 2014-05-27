@@ -136,7 +136,7 @@ function Bmp180(board) {
 }
 
 Bmp180.prototype = {
-	x = this,
+	x : this,
 	setCoeffs: function (callback) {
 
 		//checkCoeffs = setInterval(function () {
