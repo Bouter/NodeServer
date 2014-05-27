@@ -182,10 +182,29 @@ Bmp180.prototype = {
 				
 			function iterator(value, callback) {
 			
-			Bmp180.prototype.read16(registerAddresses[value.get], value.signed);
+			this.readInit(registerAddresses[value.get], value.signed);
 			
 			callback();
 			};
+
+			function readInit(address,signed,callback) {
+				this.board.sendI2CWriteRequest(0x77,[address]);
+				this.board.sendI2CReadRequest(0x77, 2, function(data){
+
+				data = (data[0] << 8) | data[1];
+			
+					if (signed) {
+						data = that.makeS16(data);
+					}
+
+					if (typeof(callback) == "function") {
+						callback(data);
+					} else {
+						this.coeffs[address] = data;
+					}
+
+		  		}.bind(this));
+			}
 			//if (nameArray[coeffSize-1] != undefined && nameArray[coeffSize-1].got== false) {
 			//	nameArray[coeffSize-1].got= true;
 			//}
