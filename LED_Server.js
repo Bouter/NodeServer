@@ -81,11 +81,11 @@ board.on('ready', function() {
 
     var loop = setInterval(function() {
         if (pressureBoard !== undefined) {
-            var streamObjectTemp = JSON.stringify({ x : new Date(), y : pressureBoard.getCurrentTemp()});
+            var streamObjectTemp = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentTemp())});
             console.log(streamObjectTemp);
-            var streamObjectPress = JSON.stringify({ x : new Date(), y : pressureBoard.getCurrentPress()});
+            var streamObjectPress = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentPress())});
             console.log(streamObjectPress);
-            var streamObjectAltitude = JSON.stringify({ x : new Date(), y : pressureBoard.getCurrentAltitude()});
+            var streamObjectAltitude = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentAltitude())});
             console.log(streamObjectAltitude);
         };
         streamTemp.write(streamObjectTemp+'\n');
