@@ -31,7 +31,7 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
         app.use(bodyParser());
         
         app.route('/light').post(function (req, res) {
-            var value = req.body('value')
+            var value = req.body('value');
             if ((value) == 'HIGH') {
                 board.digitalWrite(ledPin, board.HIGH);
                 res.status(200);  
