@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var qString = require('querystring');
 var firmata = require('firmata');
-var plotly = require('plotly')('DavidB', 'r8j18wgs33');
+var plotly = require('plotly')('DavidB', 'f0103o7ziw');
 var bmp180 = require('./BMP180');
 var bodyParser = require('body-parser');
 
