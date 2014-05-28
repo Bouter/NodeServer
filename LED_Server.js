@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var initdata = [{name:"Temp",x:[], y:[], stream:{token:'9np05kx444'}},
                 {name:"Airpress",x:[], y:[], stream:{token:'3joif1t1q4'}},
                 {name:"Altitude",x:[], y:[], stream:{token:'97go390uxk'}}];
-var layout = {fileopt : "extend", filename : "Humidity2a!"};
+var layout = {fileopt : "overwrite", filename : "Humidity2a!"};
 var ledPin = 7;
 var analogPin = 3;
 var data;
@@ -77,18 +77,18 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
         });
         var loop = setInterval(function() {
         if (pressureBoard !== undefined) {
-            var streamObjectTemp = JSON.stringify({ x : i, y : Math.round(pressureBoard.getCurrentTemp())});
+            var streamObjectTemp = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentTemp())});
             console.log(streamObjectTemp);
             streamTemp.write(streamObjectTemp+'\n');
-            var streamObjectPress = JSON.stringify({ x : i, y : Math.round(pressureBoard.getCurrentPress())});
+            var streamObjectPress = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentPress())});
             console.log(streamObjectPress);
             streamPress.write(streamObjectPress+'\n');
-            var streamObjectAltitude = JSON.stringify({ x : i, y : Math.round(pressureBoard.getCurrentAltitude())});
+            var streamObjectAltitude = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentAltitude())});
             console.log(streamObjectAltitude);
             streamAltitude.write(streamObjectAltitude+'\n');
             i++;
         };      
-    },6000);             
+    },360000);             
     }); 
 
     
