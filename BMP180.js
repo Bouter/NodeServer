@@ -97,8 +97,7 @@ function Bmp180(board) {
 			that.setCoeffs(callback);
 		},
 		function (callback) {
-			while (i < 100000) {
-				async.series([
+				async.forever([
 					function (callback) {
 							GetData(callback);
 					},
@@ -111,9 +110,8 @@ function Bmp180(board) {
 				],
 				function (err) {
 					console.log("Error :", err);
-					i++;
+					
 				});
-			}
 		}
 	],
 	function (err) {
