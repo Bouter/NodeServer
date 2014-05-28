@@ -88,7 +88,7 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
             streamAltitude.write(streamObjectAltitude+'\n');
             i++;
         };      
-    },360000);             
+    },90000);             
     }); 
 
     
