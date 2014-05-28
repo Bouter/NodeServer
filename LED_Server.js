@@ -16,6 +16,10 @@ var analogPin = 3;
 var data;
 var datapress;
 var pressureBoard;
+var streamTemp;
+var streamPress;
+var streamAltitude;
+
 
 var board = new firmata.Board("/dev/ttyATH0",function(err) {
     if (err) {
@@ -64,17 +68,17 @@ board.on('ready', function() {
         console.log(msg);
         //once it's initialized, create a plotly stream to pipe your data!
             
-        var streamTemp = plotly.stream('9np05kx444', function (err, res) 
+        streamTemp = plotly.stream('9np05kx444', function (err, res) 
         {
             console.log(err, res);
             console.log("stream closed");
             clearInterval(loop);  
         });
-        var streamPress = plotly.stream('3joif1t1q4', function (err, res) {
+        streamPress = plotly.stream('3joif1t1q4', function (err, res) {
             console.log(err, res);
             console.log("stream closed");
         });
-        var streamAltitude = plotly.stream('97go390uxk', function (err, res) {
+        streamAltitude = plotly.stream('97go390uxk', function (err, res) {
             console.log(err, res);
             console.log("stream closed");
         });
