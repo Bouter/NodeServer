@@ -7,15 +7,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<style type="text/css">
-			 #messages {
-				 position: fixed;
-				 top: 250px;
-				 bottom:8px;
-				left: 8px;
-				right: 8px;
-				border: 1px solid #EEEEEE;
-				padding:8px;
-			}
+			
 
 			 
 			body {
@@ -96,7 +88,7 @@
 		
 	</head>
 	<body>		
-		<div id="messages"></div>
+		
 		<button class="btn btn-success ledSwitch" value="HIGH" data-led="7" >On</button>
 		<button class="btn btn-danger ledSwitch" value="LOW" data-led="7" >Off</button>
 		<script>
@@ -126,29 +118,6 @@
 			}
 		</script>
 		<iframe src="https://plot.ly/~DavidB/13" width="1177" hight="634" seamless="seamless" scrolling="no"></iframe>
-		<script type="text/javascript">
-
-			/*var messageElement = document.getElementById('messages');
-			var lastMessageElement = null;
-
-			function addMessage(message) {
-				var newMessageElement = document.createElement('div');
-				var newMessageText = document.createTextNode(message);
-				newMessageElement.appendChild(newMessageText);
-				messageElement.insertBefore(newMessageElement, lastMessageElement);
-				lastMessageElement = newMessageElement;
-			}
-			var socket = io.connect('http://arduino.local:8080');
-
-			socket.on('temperatuur',function(content) {
-				addMessage(content);
-			});			
-			socket.on('luchtdruk',function(content) {
-				addMessage(content);
-			});				
-			socket.on('hoogte',function(content) {
-				addMessage(content);
-			});		*/
-		</script>
+		
 	</body>
 </html>
