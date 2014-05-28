@@ -7,9 +7,9 @@ var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var bmp180 = require('./BMP180');
 var bodyParser = require('body-parser');
 
-var initdata = [{name:"soilHjhgnsor",x:[], y:[], stream:{token:'9np05kx444'}},
-                {name:"soojhnsor",x:[], y:[], stream:{token:'3joif1t1q4'}},
-                {name:"soior",x:[], y:[], stream:{token:'97go390uxk'}}];
+var initdata = [{name:"Temp",x:[], y:[], stream:{token:'9np05kx444'}},
+                {name:"Airpress",x:[], y:[], stream:{token:'3joif1t1q4'}},
+                {name:"Altitude",x:[], y:[], stream:{token:'97go390uxk'}}];
 var layout = {fileopt : "extend", filename : "Humidity2a!"};
 var ledPin = 7;
 var analogPin = 3;
@@ -75,9 +75,7 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
             console.log(err, res);
             console.log("stream closed");
         });
-    }); 
-
-    var loop = setInterval(function() {
+        var loop = setInterval(function() {
         if (pressureBoard !== undefined) {
             var streamObjectTemp = JSON.stringify({ x : i, y : Math.round(pressureBoard.getCurrentTemp())});
             console.log(streamObjectTemp);
@@ -91,6 +89,9 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
             i++;
         };      
     },6000);             
+    }); 
+
+    
 
         console.log('Board Ready plotting');
     }
