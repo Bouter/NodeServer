@@ -7,9 +7,9 @@ var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var bmp180 = require('./BMP180');
 var bodyParser = require('body-parser');
 
-var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}},
-                {x:[], y:[], stream:{token:'3joif1t1q4', maxpoints:200}},
-                {x:[], y:[], stream:{token:'97go390uxk', maxpoints:200}}];
+var initdata = [{name:"soilHjhgnsor",x:[], y:[], stream:{token:'9np05kx444'}},
+                {name:"soojhnsor",x:[], y:[], stream:{token:'3joif1t1q4'}},
+                {name:"soior",x:[], y:[], stream:{token:'97go390uxk'}}];
 var layout = {fileopt : "extend", filename : "Humidity2a!"};
 var ledPin = 7;
 var analogPin = 3;
@@ -60,24 +60,25 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
 // initialize the plotly graph
 board.on('ready', function() {
     plotly.plot(initdata, layout, function (err, msg) {
-    if (err) return console.log(err);
-    console.log(msg);
-    //once it's initialized, create a plotly stream to pipe your data!
-        
-    var streamTemp = plotly.stream('9np05kx444', function (err, res) 
-    {
-        console.log(err, res);
-        console.log("stream closed");
-        clearInterval(loop);  
-    });
-    var streamPress = plotly.stream('3joif1t1q4', function (err, res) {
-        console.log(err, res);
-        console.log("stream closed");
-    });
-    var streamAltitude = plotly.stream('97go390uxk', function (err, res) {
-        console.log(err, res);
-        console.log("stream closed");
-    });
+        if (err) return console.log(err);
+        console.log(msg);
+        //once it's initialized, create a plotly stream to pipe your data!
+            
+        var streamTemp = plotly.stream('9np05kx444', function (err, res) 
+        {
+            console.log(err, res);
+            console.log("stream closed");
+            clearInterval(loop);  
+        });
+        var streamPress = plotly.stream('3joif1t1q4', function (err, res) {
+            console.log(err, res);
+            console.log("stream closed");
+        });
+        var streamAltitude = plotly.stream('97go390uxk', function (err, res) {
+            console.log(err, res);
+            console.log("stream closed");
+        });
+    }); 
 
     var loop = setInterval(function() {
         if (pressureBoard !== undefined) {
@@ -92,8 +93,7 @@ board.on('ready', function() {
         console.log("streaming");
         streamPress.write(streamObjectPress+'\n');
         streamAltitude.write(streamObjectAltitude+'\n');
-    },60000);  
-});            
+    },6000);             
 });
 
 
