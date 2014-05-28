@@ -96,10 +96,6 @@
 	</head>
 	<body>		
 		<div id="messages"></div>
-
-		<button class="btn btn-success" onclick="httpGet('http://192.168.75.159:8080/light?serverfunction=ledSwitch&value=HIGH')" >On</button>
-		<button class="btn btn-danger" onclick="httpGet('http://192.168.75.159:8080/light?serverfunction=ledSwitch&value=LOW')" >Off</button>
-
 		<script type="text/javascript">
 			var messageElement = document.getElementById('messages');
 			var lastMessageElement = null;
@@ -123,6 +119,8 @@
 				addMessage(content);
 			});		
 		</script>
+		<button class="btn btn-success" onclick="httpGet('http://192.168.75.159:8080/light?serverfunction=ledSwitch&value=HIGH')" >On</button>
+		<button class="btn btn-danger" onclick="httpGet('http://192.168.75.159:8080/light?serverfunction=ledSwitch&value=LOW')" >Off</button>
 		<script>
 			function httpGet( theUrl ){
 				var xmlHttp = null;
