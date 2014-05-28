@@ -225,7 +225,8 @@ Bmp180.prototype = {
 	getCalculatedAltitude: function () {
 	 	var altitude;
 	 	altitude = 44330.0 * (1.0 - (Math.pow(((this.currentPress/100.0) /101325.0),(1903/1000))));
-	 	console.log("Altitude ", altitude/1000);
+	 	//console.log("Altitude ", altitude/1000);
+	 	return altitude;
 	},
 	getCurrentTemp: function () {
 		return this.currentTemp;

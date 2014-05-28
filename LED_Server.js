@@ -40,7 +40,10 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
         io.sockets.on('connection', function (socket) {
             setInterval(function () {
                 socket.broadcast.emit("temperatuur", 'Temp : ' + pressureBoard.getCurrentTemp() + '°C');
-            }, 5000);
+                socket.broadcast.emit("luchtdruk", 'Druk : ' + pressureBoard.getCurrentPress() + 'kPa');
+                socket.broadcast.emit("hoogte", 'Hoogte : ' + pressureBoard.getCalculatedAltitude() + 'm');
+
+            }, 10000);
         });
        
         console.log('Board Ready plotting');
