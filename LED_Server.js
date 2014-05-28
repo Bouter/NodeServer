@@ -31,7 +31,7 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
         app.use(bodyParser());
         
         app.route('/light').post(function (req, res) {
-            var value = req.body('value');
+            var value = req.body.value;
             if ((value) == 'HIGH') {
                 board.digitalWrite(ledPin, board.HIGH);
                 res.status(200);  
@@ -45,7 +45,7 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
             setInterval(function () {
                 socket.broadcast.emit("temperatuur", 'Temp : ' + pressureBoard.getCurrentTemp() + '°C');
                 socket.broadcast.emit("luchtdruk", 'Druk : ' + pressureBoard.getCurrentPress() + 'kPa');
-                socket.broadcast.emit("hoogte", 'Hoogte : ' + pressureBoard.getCalculatedAltitude() + 'm');
+                socket.broadcast.emit("hoogte", 'Hoogte : ' + pressureBoard.getCurrentAltitude() + 'cm');
 
             }, 10000);
         });

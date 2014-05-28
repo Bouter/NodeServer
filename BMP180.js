@@ -124,8 +124,7 @@ function Bmp180(board) {
 				that.requestPressure(callback);	
 			},
 			function (callback) {
-				that.getCalculatedAltitude();
-				callback(null);
+				that.getCalculatedAltitude(callback);
 			},
 			function (callback) {
 				console.log("Waiting started");
@@ -219,11 +218,11 @@ Bmp180.prototype = {
 			}.bind(this));
 		}.bind(this),10);
 	},
-	getCalculatedAltitude: function () {
+	getCalculatedAltitude: function (callback) {
 	 	var altitude;
 	 	altitude = 44330.0 * (1.0 - (Math.pow(((this.currentPress/100.0) /101325.0),(1903/1000))));
-	 	//console.log("Altitude ", altitude/1000);
-	 	return altitude;
+	 	this.currentAltitude = altitude;
+	 	callback(null);
 	},
 	getCurrentTemp: function () {
 		return this.currentTemp;
@@ -231,6 +230,9 @@ Bmp180.prototype = {
 	getCurrentPress: function () {
 		return this.currentPress;
 	},
+	getCurrentAltitude: function () {
+		return this.currentAltitude;
+	}
 	//read8: function (address) { 
 	//	console.log("read8::address: ",address);
 	//	this.board.sendI2CWriteRequest(0x77,[address]);
