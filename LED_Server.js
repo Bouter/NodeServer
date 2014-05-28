@@ -7,7 +7,9 @@ var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var bmp180 = require('./BMP180');
 var bodyParser = require('body-parser');
 
-var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
+var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}
+                {x:[], y:[], stream:{token:'3joif1t1q4', maxpoints:200}}
+                x:[], y:[], stream:{token:'97go390uxk', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity2!"};
 var ledPin = 7;
 var analogPin = 3;
@@ -76,6 +78,7 @@ plotly.plot(initdata, layout, function (err, msg) {
         console.log(err, res);
         console.log("stream closed");
     });
+
     var loop = setInterval(function() {
         if (pressureBoard !== undefined) {
             var streamObjectTemp = JSON.stringify({ x : new Date(), y : pressureBoard.getCurrentTemp()});
