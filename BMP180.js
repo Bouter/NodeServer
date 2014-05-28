@@ -97,21 +97,18 @@ function Bmp180(board) {
 			that.setCoeffs(callback);
 		},
 		function (callback) {
-				async.forever([
-					function (callback) {
-							GetData(callback);
-					},
-					function (callback) {
-						setTimeout(function() {
-							console.log("Waiting......");
-						},10000);
-						callback(null);
-					}
-				],
+			async.forever(
+				function (callback) {
+						GetData(callback);
+				},
 				function (err) {
-					console.log("Error :", err);
+					console.log("Error", err);
+				}
+			);
+				//function (err) {
+					//console.log("Error :", err);
 					
-				});
+				//});
 		}
 	],
 	function (err) {
@@ -128,6 +125,12 @@ function Bmp180(board) {
 			},
 			function (callback) {
 				that.getCalculatedAltitude();
+				callback(null);
+			},
+			function (callback) {
+				setTimeout(function() {
+					console.log("Waiting......");
+				},10000);
 				callback(null);
 			}
 		], function (err) {
