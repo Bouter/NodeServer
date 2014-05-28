@@ -128,10 +128,12 @@ function Bmp180(board) {
 				callback(null);
 			},
 			function (callback) {
+				console.log("Waiting started");
 				setTimeout(function() {
 					console.log("Waiting......");
+					callback(null);
 				},10000);
-				callback(null);
+				
 			}
 		], function (err) {
 			console.log("Error : ",err);
