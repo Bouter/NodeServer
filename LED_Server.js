@@ -5,6 +5,7 @@ var qString = require('querystring');
 var firmata = require('firmata');
 var plotly = require('plotly')('DavidB', 'r8j18wgs33');
 var bmp180 = require('./BMP180');
+var bodyParser = require('body-parser');
 
 var initdata = [{x:[], y:[], stream:{token:'9np05kx444', maxpoints:200}}];
 var layout = {fileopt : "extend", filename : "Humidity2!"};
@@ -27,17 +28,17 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
         console.log('Listening on port 8080 ...');
 
         app.use(express.static(__dirname));
+        app.use(bodyParser());
         
-        app.route('/light').get( function (req, res) {
-            var value = req.param('value')
+        app.route('/light').post(function (req, res) {
+            var value = req.body('value')
             if ((value) == 'HIGH') {
                 board.digitalWrite(ledPin, board.HIGH);
                 res.status(200);  
             } else {
                 board.digitalWrite(ledPin, board.LOW);
                 res.status(200);  
-            }
-            //res.status(200);   
+            } 
         });
 
         io.sockets.on('connection', function (socket) {

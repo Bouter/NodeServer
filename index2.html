@@ -4,7 +4,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>LED Controller</title>
-
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
 		<style type="text/css">
 			 #messages {
 				 position: fixed;
@@ -92,11 +93,40 @@
 			}
 			 
 		</style>
-		<script src="/socket.io/socket.io.js"></script>
+		
 	</head>
 	<body>		
 		<div id="messages"></div>
+		<button class="btn btn-success ledSwitch" value="HIGH" data-led="7" >On</button>
+		<button class="btn btn-danger ledSwitch" value="LOW" data-led="7" >Off</button>
+		<script>
+			$(function () {
+				$('.ledSwitch').click(function (e) {
+					e.preventDefault();
+					var value = $(this).val();
+					var led = $(this).data('led');
+					var data= {
+						serverfunction: "ledSwitch",
+						value: value,
+						ledpin: led
+					};
+					$.post('/light', data).done(function( data ) {
+					    alert( "Data Loaded: " + data );
+					});
+				});
+			});
+
+			function httpGet( theUrl ){
+				var xmlHttp = null;
+				xmlHttp = new XMLHttpRequest();
+				xmlHttp.open( 'GET', theUrl, false );
+				xmlHttp.send( null );
+			 
+				return xmlHttp.responseText;
+			}
+		</script>
 		<script type="text/javascript">
+
 			var messageElement = document.getElementById('messages');
 			var lastMessageElement = null;
 
@@ -118,18 +148,6 @@
 			socket.on('hoogte',function(content) {
 				addMessage(content);
 			});		
-		</script>
-		<button class="btn btn-success" onclick="httpGet('http://192.168.75.159:8080/light?serverfunction=ledSwitch&value=HIGH')" >On</button>
-		<button class="btn btn-danger" onclick="httpGet('http://192.168.75.159:8080/light?serverfunction=ledSwitch&value=LOW')" >Off</button>
-		<script>
-			function httpGet( theUrl ){
-				var xmlHttp = null;
-				xmlHttp = new XMLHttpRequest();
-				xmlHttp.open( 'GET', theUrl, false );
-				xmlHttp.send( null );
-			 
-				return xmlHttp.responseText;
-			}
 		</script>
 	</body>
 </html>

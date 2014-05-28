@@ -180,11 +180,9 @@ Bmp180.prototype = {
 				if (signed) {
 					data = that.makeS16(data);
 				}
-
 				that.coeffs[address] = data;
-				callback(null);
-				
 				console.log("Register address : " + address + " " + "Data : "+ data);
+				callback(null);
 	  		}.bind(this));
 		};
 
@@ -194,12 +192,9 @@ Bmp180.prototype = {
 	read16: function (address,signed,callback) {
 		this.board.sendI2CWriteRequest(0x77,[address]);
 		this.board.sendI2CReadRequest(0x77, 2, function(data){
-			console.log("RawData",data);
 			data = (data[0] << 8) | data[1];
-			console.log("Shifted Data",data);
 			if (signed) {
 				data = this.makeS16(data);
-				console.log("signed",data);
 			}
 			callback(data);
 	  	}.bind(this));
