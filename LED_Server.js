@@ -55,14 +55,7 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
 
             }, 10000);
         });*/
-       
-        console.log('Board Ready plotting');
-    }
-});
-
-
-// initialize the plotly graph
-board.on('ready', function() {
+    board.on('ready', function() {
     plotly.plot(initdata, layout, function (err, msg) {
         if (err) return console.log(err);
         console.log(msg);
@@ -88,17 +81,23 @@ board.on('ready', function() {
         if (pressureBoard !== undefined) {
             var streamObjectTemp = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentTemp())});
             console.log(streamObjectTemp);
+            streamTemp.write(streamObjectTemp+'\n');
             var streamObjectPress = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentPress())});
             console.log(streamObjectPress);
+            streamPress.write(streamObjectPress+'\n');
             var streamObjectAltitude = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentAltitude())});
             console.log(streamObjectAltitude);
-        };
-        streamTemp.write(streamObjectTemp+'\n');
-        console.log("streaming");
-        streamPress.write(streamObjectPress+'\n');
-        streamAltitude.write(streamObjectAltitude+'\n');
+            streamAltitude.write(streamObjectAltitude+'\n');
+        };      
     },6000);             
+});  
+        console.log('Board Ready plotting');
+    }
 });
+
+
+// initialize the plotly graph
+
 
 
             
