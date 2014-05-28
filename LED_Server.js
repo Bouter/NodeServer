@@ -55,7 +55,7 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
 
             }, 10000);
         });*/
-    board.on('ready', function() {
+    
     plotly.plot(initdata, layout, function (err, msg) {
         if (err) return console.log(err);
         console.log(msg);
@@ -90,7 +90,7 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
             streamAltitude.write(streamObjectAltitude+'\n');
         };      
     },6000);             
-});  
+
         console.log('Board Ready plotting');
     }
 });
