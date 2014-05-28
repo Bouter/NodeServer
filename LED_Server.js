@@ -89,6 +89,7 @@ plotly.plot(initdata, layout, function (err, msg) {
             console.log(streamObjectAltitude);
         }
         streamTemp.write(streamObjectTemp+'\n');
+        console.log("streaming");
         streamPress.write(streamObjectPress+'\n');
         streamAltitude.write(streamObjectAltitude+'\n');
     },60000);  
