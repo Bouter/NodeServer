@@ -7,7 +7,15 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<style type="text/css">
-			
+			#graph {
+				position: fixed;
+				top: 40px;
+				bottom: 8px;
+				left: 15px;
+				right: 15px;
+				border: 1px solid #EEEEEE;
+				padding: 8px;
+			}
 
 			 
 			body {
@@ -117,7 +125,6 @@
 				return xmlHttp.responseText;
 			}
 		</script>
-		<iframe src="https://plot.ly/~DavidB/13" width="1177" hight="634" seamless="seamless" scrolling="no"></iframe>
-		
+		<div id="graph"><iframe src="https://plot.ly/~DavidB/13" width="1177" hight="634" seamless="seamless" scrolling="no"></iframe></div>
 	</body>
 </html>
