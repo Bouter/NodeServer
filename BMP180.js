@@ -25,6 +25,7 @@ var registerAddresses = {
 	READPRESSURECMD : 0x34
 };
 var p;
+var i = 0;
 var checkCoeffs;
 var nameArray;
 var GoPressure = false;
@@ -96,7 +97,7 @@ function Bmp180(board) {
 			that.setCoeffs(callback);
 		},
 		function (callback) {
-			while (true) {
+			while (i < 100000) {
 				async.series([
 					function (callback) {
 							GetData(callback);
@@ -110,6 +111,7 @@ function Bmp180(board) {
 				],
 				function (err) {
 					console.log("Error :", err);
+					i++;
 				});
 			}
 		}
