@@ -19,7 +19,7 @@ var pressureBoard;
 var streamTemp;
 var streamPress;
 var streamAltitude;
-
+var i = 0;
 
 var board = new firmata.Board("/dev/ttyATH0",function(err) {
     if (err) {
