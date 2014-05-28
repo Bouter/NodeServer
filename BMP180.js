@@ -96,18 +96,29 @@ function Bmp180(board) {
 			that.setCoeffs(callback);
 		},
 		function (callback) {
-			setInterval(function() {
-				console.log("Interval Test", new Date());
-				GetData();
-			}, 10000);
-			callback(null);
+			while () {
+				async.series([
+					function (callback) {
+							GetData(callback);
+					},
+					function (callback) {
+						setTimeout(function() {
+							console.log("Waiting......");
+						},10000);
+						callback(null);
+					}
+				],
+				function (err) {
+					console.log("Error :", err);
+				});
+			}
 		}
 	],
 	function (err) {
 		console.log("Error :", err);
 	});
 	
-	function GetData() {
+	function GetData(callback) {
 		async.series([
 			function (callback) {
 				that.requestTemperature(callback);
@@ -121,6 +132,7 @@ function Bmp180(board) {
 			}
 		], function (err) {
 			console.log("Error : ",err);
+			callback(null);
 		});
 	}
 };
