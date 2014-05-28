@@ -79,15 +79,16 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
 
     var loop = setInterval(function() {
         if (pressureBoard !== undefined) {
-            var streamObjectTemp = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentTemp())});
+            var streamObjectTemp = JSON.stringify({ x : i, y : Math.round(pressureBoard.getCurrentTemp())});
             console.log(streamObjectTemp);
             streamTemp.write(streamObjectTemp+'\n');
-            var streamObjectPress = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentPress())});
+            var streamObjectPress = JSON.stringify({ x : i, y : Math.round(pressureBoard.getCurrentPress())});
             console.log(streamObjectPress);
             streamPress.write(streamObjectPress+'\n');
-            var streamObjectAltitude = JSON.stringify({ x : new Date(), y : Math.round(pressureBoard.getCurrentAltitude())});
+            var streamObjectAltitude = JSON.stringify({ x : i, y : Math.round(pressureBoard.getCurrentAltitude())});
             console.log(streamObjectAltitude);
             streamAltitude.write(streamObjectAltitude+'\n');
+            i++;
         };      
     },6000);             
 
