@@ -23,6 +23,7 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
         pressureBoard = new bmp180(board);
         console.log('connected to BMP180');
         var io = require('socket.io').listen(app.listen(8080));
+        io.set('log level', 1); // reduce logging
         console.log('Listening on port 8080 ...');
 
         app.use(express.static(__dirname));
@@ -31,10 +32,12 @@ var board = new firmata.Board("/dev/ttyATH0",function(err) {
             var value = req.param('value')
             if ((value) == 'HIGH') {
                 board.digitalWrite(ledPin, board.HIGH);
+                res.status(200);  
             } else {
                 board.digitalWrite(ledPin, board.LOW);
+                res.status(200);  
             }
-            res.status(200);   
+            //res.status(200);   
         });
 
         io.sockets.on('connection', function (socket) {
