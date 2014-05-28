@@ -232,7 +232,7 @@ Bmp180.prototype = {
 	},
 	getCurrentAltitude: function () {
 		return this.currentAltitude;
-	}
+	},
 	//read8: function (address) { 
 	//	console.log("read8::address: ",address);
 	//	this.board.sendI2CWriteRequest(0x77,[address]);
